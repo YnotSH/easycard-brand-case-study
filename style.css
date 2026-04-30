@@ -2421,3 +2421,4552 @@ body.night .reflection-card {
     gap: 8px;
   }
 }
+/* =========================================================
+   Theme Toggle Icon Refinement
+   目標：改成線條太陽 / 月亮 icon，移除文字與邊框圓圈
+========================================================= */
+
+.theme-toggle {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--text);
+  cursor: pointer;
+  overflow: visible;
+}
+
+.theme-toggle::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle, rgba(250, 157, 26, 0.16), rgba(2, 124, 196, 0.08));
+  opacity: 0;
+  transform: scale(0.72);
+  transition:
+    opacity 0.24s ease,
+    transform 0.24s ease;
+}
+
+.theme-toggle:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.theme-toggle:active {
+  transform: scale(0.94);
+}
+
+.theme-icon {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition:
+    opacity 0.26s ease,
+    transform 0.26s ease,
+    stroke 0.26s ease;
+}
+
+/* 白天模式：顯示月亮，代表可切換到夜晚 */
+.sun-icon {
+  opacity: 0;
+  transform: rotate(-24deg) scale(0.72);
+}
+
+.moon-icon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.theme-toggle:hover .moon-icon {
+  color: var(--blue);
+  transform: rotate(-10deg) scale(1.08);
+}
+
+/* 夜晚模式：顯示太陽，代表可切換回白天 */
+body.night .sun-icon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+body.night .moon-icon {
+  opacity: 0;
+  transform: rotate(24deg) scale(0.72);
+}
+
+body.night .theme-toggle:hover .sun-icon {
+  color: var(--yellow);
+  transform: rotate(24deg) scale(1.08);
+}
+
+/* 鍵盤操作可見焦點 */
+.theme-toggle:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--blue) 42%, transparent);
+  outline-offset: 4px;
+  border-radius: 999px;
+}
+/* =========================================================
+   Night Mode Global Patch v1
+   目標：
+   1. 提升夜晚模式文字可讀性
+   2. 統一卡片玻璃亮度
+   3. 強化邊框與層級
+   4. 修正 tags / icons / sources 太暗
+   5. 增加各 section 夜晚微光分層
+========================================================= */
+
+/* ---------- 1. Night color tokens ---------- */
+
+body.night {
+  --bg: #07111f;
+  --surface: rgba(255, 255, 255, 0.085);
+  --surface-solid: #101d31;
+
+  --text: #f8fafc;
+  --muted: rgba(226, 232, 240, 0.82);
+  --muted-soft: rgba(203, 213, 225, 0.68);
+  --border: rgba(255, 255, 255, 0.16);
+
+  --night-card: rgba(255, 255, 255, 0.085);
+  --night-card-strong: rgba(255, 255, 255, 0.115);
+  --night-card-soft: rgba(255, 255, 255, 0.055);
+  --night-border: rgba(255, 255, 255, 0.16);
+  --night-border-strong: rgba(255, 255, 255, 0.24);
+  --night-glow-blue: rgba(2, 124, 196, 0.2);
+  --night-glow-yellow: rgba(250, 157, 26, 0.16);
+  --night-glow-green: rgba(74, 184, 71, 0.14);
+  --night-glow-red: rgba(238, 2, 140, 0.16);
+
+  color: var(--text);
+}
+
+/* 全站夜晚背景：不要死黑，改成深藍灰底＋微弱品牌光 */
+body.night::before {
+  background:
+    radial-gradient(circle at 12% 14%, rgba(250, 157, 26, 0.09), transparent 28%),
+    radial-gradient(circle at 88% 18%, rgba(2, 124, 196, 0.18), transparent 32%),
+    radial-gradient(circle at 75% 55%, rgba(74, 184, 71, 0.09), transparent 30%),
+    radial-gradient(circle at 10% 82%, rgba(238, 2, 140, 0.10), transparent 30%),
+    linear-gradient(180deg, #07111f 0%, #0b1728 42%, #07111f 100%);
+}
+
+/* ---------- 2. Text readability ---------- */
+
+/* 夜晚模式主要文字提高亮度 */
+body.night h1,
+body.night h2,
+body.night h3,
+body.night .display-title,
+body.night .title-line,
+body.night strong {
+  color: var(--text);
+}
+
+/* 段落不要灰到看不清 */
+body.night p,
+body.night .point-list li,
+body.night .mi-step strong,
+body.night .bi-flow-step strong,
+body.night .mrk-logic-list strong,
+body.night .reflection-card-body h3 {
+  color: var(--muted);
+}
+
+/* 主標仍保持最高對比 */
+body.night .display-title,
+body.night .reflection-copy .display-title,
+body.night .mrk-copy .display-title,
+body.night .hero-content h1 {
+  color: #f8fafc;
+}
+
+/* 小標籤提高一點亮度 */
+body.night .section-kicker,
+body.night .eyebrow,
+body.night .vi-card-kicker,
+body.night .mi-card-kicker,
+body.night .bi-card-kicker,
+body.night .mrk-dashboard-header span {
+  color: rgba(203, 213, 225, 0.76);
+}
+
+/* 有主色的小標保留品牌色，但提高亮度 */
+body.night .hero-content .eyebrow,
+body.night .mi-card-kicker,
+body.night .mrk-dashboard-header span,
+body.night .statement-card .section-kicker {
+  color: #ffb74a !important;
+}
+
+body.night .bi-card-kicker {
+  color: #78dd74;
+}
+
+/* 資料來源不應消失 */
+body.night .section-source,
+body.night .vi-source,
+body.night .mrk-source,
+body.night .site-footer p,
+body.night figcaption {
+  color: rgba(203, 213, 225, 0.58);
+}
+
+/* ---------- 3. Card glass system ---------- */
+
+/* 統一夜晚卡片亮度，不要黑卡疊黑底 */
+body.night .info-panel,
+body.night .insight-container,
+body.night .mi-journey-card,
+body.night .vi-showcase-card,
+body.night .bi-service-card,
+body.night .mrk-dashboard-card,
+body.night .reflection-card {
+  border-color: var(--night-border);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.105),
+      rgba(255, 255, 255, 0.055)
+    );
+  box-shadow:
+    0 28px 90px rgba(0, 0, 0, 0.36),
+    0 0 0 1px rgba(255, 255, 255, 0.025),
+    0 0 80px rgba(2, 124, 196, 0.055);
+}
+
+/* 卡片 hover 層次 */
+body.night .info-panel:hover,
+body.night .mi-journey-card:hover,
+body.night .vi-showcase-card:hover,
+body.night .bi-service-card:hover,
+body.night .mrk-dashboard-card:hover,
+body.night .reflection-card:hover {
+  border-color: var(--night-border-strong);
+  box-shadow:
+    0 34px 110px rgba(0, 0, 0, 0.42),
+    0 0 90px rgba(2, 124, 196, 0.085);
+}
+
+/* 內層小卡也要亮一點 */
+body.night .vi-palette-item,
+body.night .bi-flow-step,
+body.night .mrk-metric-card,
+body.night .pr-evidence-card,
+body.night .pr-diagnosis-card,
+body.night .pr-response-board,
+body.night .pr-response-steps article {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.075);
+}
+
+/* Insight 是核心宣言，卡片邊界要更明確 */
+body.night .insight-container {
+  border-color: rgba(255, 255, 255, 0.18);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.12),
+      rgba(255, 255, 255, 0.05)
+    );
+  box-shadow:
+    0 36px 120px rgba(0, 0, 0, 0.35),
+    0 0 90px rgba(2, 124, 196, 0.08);
+}
+
+/* Ending 卡片更像玻璃宣言卡 */
+body.night .statement-card {
+  border-color: rgba(255, 255, 255, 0.3);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.18),
+      rgba(255, 255, 255, 0.08)
+    );
+  box-shadow:
+    0 40px 130px rgba(0, 0, 0, 0.42),
+    0 0 100px rgba(2, 124, 196, 0.1);
+}
+
+/* ---------- 4. Tags / chips / icons readability ---------- */
+
+/* 所有 tag 在夜晚模式不能太灰 */
+body.night .overview-tags span,
+body.night .vi-keywords span,
+body.night .mrk-tags span,
+body.night .mi-card-footer span,
+body.night .statement-tags span {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.09);
+  color: rgba(241, 245, 249, 0.78);
+  box-shadow: none;
+}
+
+/* tag hover 微亮 */
+body.night .overview-tags span:hover,
+body.night .vi-keywords span:hover,
+body.night .mrk-tags span:hover,
+body.night .mi-card-footer span:hover {
+  background: rgba(255, 255, 255, 0.13);
+  color: #fff;
+}
+
+/* MI icon：黃色要乾淨，不要髒掉 */
+body.night .mi-dot {
+  color: #ffb74a;
+  border-color: rgba(250, 157, 26, 0.34);
+  background: rgba(250, 157, 26, 0.14);
+  box-shadow:
+    0 8px 22px rgba(250, 157, 26, 0.12),
+    0 0 28px rgba(250, 157, 26, 0.08);
+}
+
+body.night .mi-step::before {
+  background: rgba(250, 157, 26, 0.34);
+}
+
+/* BI icon：綠色要亮但不要螢光 */
+body.night .bi-icon {
+  color: #78dd74;
+  background: rgba(74, 184, 71, 0.14);
+  box-shadow: 0 0 26px rgba(74, 184, 71, 0.08);
+}
+
+body.night .bi-flow-step:nth-child(2) .bi-icon,
+body.night .bi-flow-step:nth-child(4) .bi-icon {
+  color: #48b8f0;
+  background: rgba(2, 124, 196, 0.14);
+}
+
+/* VI Logo stage：夜晚仍要有展示板感，不要變黑洞 */
+body.night .vi-logo-hero {
+  border-color: rgba(255, 255, 255, 0.12);
+  background:
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.045));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 18px 60px rgba(0, 0, 0, 0.22);
+}
+
+/* 色票卡提升一點亮度 */
+body.night .vi-palette-item .color-chip {
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.18),
+    0 0 28px rgba(255, 255, 255, 0.05);
+}
+
+/* MRK 數字在夜晚模式要更亮 */
+body.night .mrk-metric-card strong {
+  color: #34a9e8;
+  text-shadow: 0 0 24px rgba(2, 124, 196, 0.12);
+}
+
+body.night .mrk-metric-card.primary {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(2, 124, 196, 0.16),
+      rgba(250, 157, 26, 0.08)
+    );
+}
+
+/* Funnel 線與點加強 */
+body.night .mrk-funnel-line {
+  opacity: 0.58;
+}
+
+body.night .funnel-dot {
+  border-color: rgba(7, 17, 31, 0.96);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.16),
+    0 0 22px rgba(2, 124, 196, 0.14);
+}
+
+/* Reflection number 不要太暗 */
+body.night .reflection-number {
+  box-shadow:
+    0 12px 30px rgba(2, 124, 196, 0.18),
+    0 0 30px rgba(2, 124, 196, 0.12);
+}
+
+/* ---------- 5. Section-level night glow ---------- */
+
+/* Overview：比 Hero 稍亮，讓封面與內容有分隔 */
+body.night .overview-section {
+  background:
+    radial-gradient(circle at 16% 22%, rgba(250, 157, 26, 0.08), transparent 26%),
+    radial-gradient(circle at 88% 36%, rgba(2, 124, 196, 0.12), transparent 32%) !important;
+}
+
+/* Overview 裝飾線與路線加強 */
+body.night .overview-copy::before {
+  box-shadow:
+    0 0 28px rgba(2, 124, 196, 0.22),
+    0 0 42px rgba(250, 157, 26, 0.08);
+}
+
+body.night .mini-route::before {
+  opacity: 0.72;
+}
+
+body.night .mini-route span {
+  color: rgba(241, 245, 249, 0.78);
+}
+
+body.night .mini-route span::before {
+  border-color: #07111f;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.08);
+}
+
+/* Insight：核心宣言偏藍灰光 */
+body.night .insight-section {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(2, 124, 196, 0.12), transparent 32%),
+    radial-gradient(circle at 20% 72%, rgba(238, 2, 140, 0.06), transparent 26%) !important;
+}
+
+/* MI：暖黃生活感 */
+body.night .mi-section {
+  background:
+    radial-gradient(circle at 84% 22%, rgba(250, 157, 26, 0.1), transparent 30%),
+    radial-gradient(circle at 18% 78%, rgba(2, 124, 196, 0.06), transparent 28%) !important;
+}
+
+/* VI：四色很淡地浮出，不搶 Logo */
+body.night .vi-section {
+  background:
+    radial-gradient(circle at 82% 22%, rgba(2, 124, 196, 0.10), transparent 28%),
+    radial-gradient(circle at 78% 76%, rgba(238, 2, 140, 0.06), transparent 25%),
+    radial-gradient(circle at 24% 78%, rgba(74, 184, 71, 0.06), transparent 24%) !important;
+}
+
+/* BI：微綠光 */
+body.night .bi-section {
+  background:
+    radial-gradient(circle at 84% 24%, rgba(74, 184, 71, 0.11), transparent 30%),
+    radial-gradient(circle at 18% 72%, rgba(2, 124, 196, 0.07), transparent 26%) !important;
+}
+
+/* PR：保持酒紅黑紫，和其他區塊拉開 */
+body.night .pr-section {
+  background:
+    radial-gradient(circle at 16% 16%, rgba(238, 2, 140, 0.26), transparent 30%),
+    radial-gradient(circle at 84% 72%, rgba(2, 124, 196, 0.13), transparent 34%),
+    linear-gradient(135deg, #220816 0%, #06101f 78%) !important;
+}
+
+/* PR 內部卡片邊界稍強，避免全黑黏在一起 */
+body.night .pr-evidence-card,
+body.night .pr-diagnosis-card,
+body.night .pr-response-board,
+body.night .pr-response-steps article {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.075);
+}
+
+/* MRK：藍黃政策行銷感 */
+body.night .mrk-section {
+  background:
+    radial-gradient(circle at 82% 20%, rgba(2, 124, 196, 0.12), transparent 30%),
+    radial-gradient(circle at 22% 72%, rgba(250, 157, 26, 0.08), transparent 28%) !important;
+}
+
+/* Reflection：收斂回深藍灰 */
+body.night .reflection-section {
+  background:
+    radial-gradient(circle at 18% 28%, rgba(2, 124, 196, 0.08), transparent 28%),
+    radial-gradient(circle at 84% 72%, rgba(250, 157, 26, 0.07), transparent 28%) !important;
+}
+
+/* Core Statement：結尾加強白字可讀性 */
+body.night .ending-section::before {
+  background:
+    radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.08), transparent 34%),
+    linear-gradient(
+      90deg,
+      rgba(7, 17, 31, 0.82),
+      rgba(7, 17, 31, 0.36)
+    );
+}
+
+/* ---------- 6. Header night refinement ---------- */
+
+body.night .site-header {
+  background: rgba(7, 17, 31, 0.82);
+  border-bottom-color: rgba(255, 255, 255, 0.11);
+}
+
+body.night .site-nav {
+  background: rgba(255, 255, 255, 0.085);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+body.night .site-nav a {
+  color: rgba(203, 213, 225, 0.72);
+}
+
+body.night .site-nav a:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+body.night .site-nav a.is-active {
+  color: #fff;
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.26),
+    inset 0 1px 0 rgba(255, 255, 255, 0.26);
+}
+
+/* Theme icon 在夜晚模式中更清楚 */
+body.night .theme-toggle {
+  color: rgba(248, 250, 252, 0.92);
+}
+
+body.night .theme-toggle::before {
+  background:
+    radial-gradient(circle, rgba(250, 157, 26, 0.2), rgba(255, 255, 255, 0.04));
+}
+
+/* =========================================================
+   Insight Scroll Reveal Refinement
+   目標：
+   1. 問句破題
+   2. 滾動時問題淡出、答案淡入
+   3. 修正 Insight 在日夜模式下的排版走位
+========================================================= */
+
+.insight-section {
+  min-height: 180vh;
+  display: block;
+  padding: 0;
+  background: transparent !important;
+}
+
+.insight-sticky {
+  position: sticky;
+  top: var(--header-height);
+  min-height: calc(100svh - var(--header-height));
+  display: grid;
+  place-items: center;
+  padding: clamp(56px, 8vh, 96px) 0;
+}
+
+.insight-container {
+  position: relative;
+  z-index: 2;
+  width: min(980px, calc(100% - 64px));
+  padding: clamp(52px, 6vw, 78px) clamp(36px, 6vw, 78px);
+  border: 1px solid rgba(16, 24, 40, 0.08);
+  border-radius: 42px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.72),
+      rgba(255, 255, 255, 0.34)
+    );
+  box-shadow: 0 36px 120px rgba(15, 23, 42, 0.07);
+  backdrop-filter: blur(18px);
+}
+
+body.night .insight-container {
+  border-color: rgba(255, 255, 255, 0.18);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.12),
+      rgba(255, 255, 255, 0.05)
+    );
+  box-shadow:
+    0 36px 120px rgba(0, 0, 0, 0.35),
+    0 0 90px rgba(2, 124, 196, 0.08);
+}
+
+.insight-panel {
+  position: relative;
+  min-height: clamp(360px, 42vh, 460px);
+  display: grid;
+  place-items: center;
+}
+
+.insight-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  will-change: opacity, transform, filter;
+}
+
+.insight-question {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.insight-answer {
+  opacity: 0;
+  transform: translateY(28px) scale(0.985);
+  pointer-events: none;
+}
+
+.insight-title {
+  max-width: 12.5em;
+  margin-bottom: 0;
+  font-size: clamp(2.85rem, 4.35vw, 4.45rem);
+  line-height: 1.3;
+  letter-spacing: 0.004em;
+}
+
+.insight-title::after {
+  content: "";
+  display: block;
+  width: 88px;
+  height: 5px;
+  margin: 32px auto 0;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      90deg,
+      var(--blue),
+      var(--green),
+      var(--red),
+      var(--yellow)
+    );
+}
+
+.insight-layer p:not(.section-kicker) {
+  max-width: 40em;
+  margin-top: 28px;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.9;
+}
+
+body.night .insight-layer p:not(.section-kicker) {
+  color: rgba(226, 232, 240, 0.78);
+}
+
+.insight-scroll-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted-soft);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+  opacity: 0.72;
+  transition: opacity 0.25s ease;
+}
+
+.insight-scroll-hint span {
+  width: 1px;
+  height: 28px;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      180deg,
+      var(--blue),
+      var(--green),
+      var(--red),
+      var(--yellow)
+    );
+  animation: insightHint 1.5s ease-in-out infinite;
+}
+
+@keyframes insightHint {
+  0% {
+    transform: scaleY(0.45);
+    opacity: 0.45;
+  }
+
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleY(0.45);
+    opacity: 0.45;
+  }
+}
+
+.insight-section.is-answer-visible .insight-scroll-hint {
+  opacity: 0;
+}
+
+/* 手機先做安全收斂，之後再精修 mobile */
+@media (max-width: 900px) {
+  .insight-section {
+    min-height: auto;
+  }
+
+  .insight-sticky {
+    position: relative;
+    top: auto;
+    min-height: auto;
+    padding: 96px 0;
+  }
+
+  .insight-container {
+    width: min(100% - 32px, 980px);
+    padding: 44px 24px;
+    border-radius: 28px;
+  }
+
+  .insight-panel {
+    min-height: auto;
+  }
+
+  .insight-layer {
+    position: relative;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .insight-answer {
+    margin-top: 64px;
+  }
+
+  .insight-scroll-hint {
+    display: none;
+  }
+
+  .insight-title {
+    font-size: clamp(2.05rem, 9vw, 3.1rem);
+    line-height: 1.34;
+  }
+}
+
+/* =========================================================
+   Insight Equation Style
+   目標：將 Insight 改成「悠遊卡 = 交通卡？」到「悠遊卡 = 無現生活入口」的等式轉場
+========================================================= */
+
+.insight-equation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0.28em;
+  max-width: none;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(3rem, 5vw, 5.25rem);
+  line-height: 1.16;
+  letter-spacing: 0.002em;
+}
+
+.insight-equation::after {
+  flex-basis: 100%;
+  content: "";
+  display: block;
+  width: 88px;
+  height: 5px;
+  margin: 34px auto 0;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      90deg,
+      var(--blue),
+      var(--green),
+      var(--red),
+      var(--yellow)
+    );
+}
+
+.equation-brand {
+  color: var(--text);
+}
+
+.equation-symbol {
+  color: var(--muted-soft);
+  font-weight: 900;
+}
+
+.equation-value {
+  color: var(--text);
+}
+
+.question-mark {
+  color: var(--yellow);
+  margin-left: 0.04em;
+}
+
+.answer-value {
+  position: relative;
+  color: var(--blue);
+}
+
+.answer-value::after {
+  content: "";
+  position: absolute;
+  left: 0.08em;
+  right: 0.08em;
+  bottom: 0.03em;
+  height: 0.14em;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(2, 124, 196, 0.18),
+      rgba(74, 184, 71, 0.16),
+      rgba(250, 157, 26, 0.16)
+    );
+  z-index: -1;
+}
+
+/* 夜晚模式 */
+body.night .equation-brand,
+body.night .equation-value {
+  color: #f8fafc;
+}
+
+body.night .equation-symbol {
+  color: rgba(203, 213, 225, 0.62);
+}
+
+body.night .question-mark {
+  color: #ffb74a;
+}
+
+body.night .answer-value {
+  color: #7dd3fc;
+}
+
+body.night .answer-value::after {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(2, 124, 196, 0.28),
+      rgba(74, 184, 71, 0.18),
+      rgba(250, 157, 26, 0.18)
+    );
+}
+
+/* 手機版先收斂 */
+@media (max-width: 900px) {
+  .insight-equation {
+    display: grid;
+    gap: 0.08em;
+    font-size: clamp(2.3rem, 11vw, 3.45rem);
+    line-height: 1.18;
+  }
+
+  .equation-symbol {
+    line-height: 1;
+  }
+
+  .insight-equation::after {
+    margin-top: 28px;
+  }
+}
+/* =========================================================
+   Insight Pinned Scroll Timing
+   目標：
+   1. Insight 進場後固定在視窗中
+   2. 問題淡出、答案淡入
+   3. 答案完整顯示後，才繼續滾到 MI
+========================================================= */
+
+/* 拉長 Insight 區塊本身的滾動距離 */
+.insight-section {
+  min-height: 240vh;
+  display: block;
+  padding: 0;
+  background: transparent !important;
+}
+
+/* 固定在 header 下方，直到整段 Insight 滾完 */
+.insight-sticky {
+  position: sticky;
+  top: var(--header-height);
+  min-height: calc(100svh - var(--header-height));
+  display: grid;
+  place-items: center;
+  padding: clamp(56px, 8vh, 96px) 0;
+}
+
+/* 桌機版讓卡片固定在視覺中心，不要上下飄 */
+.insight-container {
+  width: min(980px, calc(100% - 64px));
+}
+
+/* 讓問句/答案都疊在同一個視覺位置 */
+.insight-panel {
+  position: relative;
+  min-height: clamp(360px, 42vh, 460px);
+  display: grid;
+  place-items: center;
+}
+
+.insight-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  will-change: opacity, transform, filter;
+}
+
+/* 預設問題顯示 */
+.insight-question {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* 預設答案隱藏 */
+.insight-answer {
+  opacity: 0;
+  transform: translateY(28px) scale(0.985);
+  pointer-events: none;
+}
+
+/* 答案顯示後，隱藏 scroll hint */
+.insight-section.is-answer-visible .insight-scroll-hint {
+  opacity: 0;
+}
+
+/* 手機版先不要 sticky，避免行動裝置滾動體驗卡住 */
+@media (max-width: 900px) {
+  .insight-section {
+    min-height: auto;
+  }
+
+  .insight-sticky {
+    position: relative;
+    top: auto;
+    min-height: auto;
+    padding: 96px 0;
+  }
+
+  .insight-panel {
+    min-height: auto;
+  }
+
+  .insight-layer {
+    position: relative;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .insight-answer {
+    margin-top: 64px;
+  }
+}
+
+/* =========================================================
+   Insight True Pinned Storytelling Fix
+   目標：
+   1. Insight 進入後固定在畫面中央
+   2. 問句轉答案期間不往下跑
+   3. 答案顯示完成後才接續 Case Brief / MI
+========================================================= */
+
+#insight.insight-section {
+  position: relative;
+  display: block !important;
+  min-height: 260vh !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  scroll-margin-top: 0;
+}
+
+.insight-sticky {
+  position: sticky !important;
+  top: var(--header-height);
+  min-height: calc(100svh - var(--header-height));
+  display: grid;
+  place-items: center;
+  padding: clamp(48px, 7vh, 88px) 0;
+  overflow: visible;
+}
+
+.insight-container {
+  position: relative;
+  z-index: 2;
+  width: min(980px, calc(100% - 64px));
+  padding: clamp(52px, 6vw, 78px) clamp(36px, 6vw, 78px);
+  border: 1px solid rgba(16, 24, 40, 0.08);
+  border-radius: 42px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.72),
+      rgba(255, 255, 255, 0.34)
+    );
+  box-shadow: 0 36px 120px rgba(15, 23, 42, 0.07);
+  backdrop-filter: blur(18px);
+}
+
+body.night .insight-container {
+  border-color: rgba(255, 255, 255, 0.18);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.12),
+      rgba(255, 255, 255, 0.05)
+    );
+  box-shadow:
+    0 36px 120px rgba(0, 0, 0, 0.35),
+    0 0 90px rgba(2, 124, 196, 0.08);
+}
+
+.insight-panel {
+  position: relative;
+  min-height: clamp(360px, 42vh, 460px);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.insight-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  will-change: opacity, transform, filter;
+}
+
+.insight-question {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.insight-answer {
+  opacity: 0;
+  transform: translateY(28px) scale(0.985);
+  pointer-events: none;
+}
+
+.insight-equation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0.28em;
+  max-width: none;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(3rem, 5vw, 5.25rem);
+  line-height: 1.16;
+  letter-spacing: 0.002em;
+}
+
+.insight-equation::after {
+  flex-basis: 100%;
+  content: "";
+  display: block;
+  width: 88px;
+  height: 5px;
+  margin: 34px auto 0;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      90deg,
+      var(--blue),
+      var(--green),
+      var(--red),
+      var(--yellow)
+    );
+}
+
+.equation-brand,
+.equation-value {
+  color: var(--text);
+}
+
+.equation-symbol {
+  color: var(--muted-soft);
+  font-weight: 900;
+}
+
+.question-mark {
+  color: var(--yellow);
+  margin-left: 0.04em;
+}
+
+.answer-value {
+  position: relative;
+  color: var(--blue);
+}
+
+.answer-value::after {
+  content: "";
+  position: absolute;
+  left: 0.08em;
+  right: 0.08em;
+  bottom: 0.03em;
+  height: 0.14em;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(2, 124, 196, 0.18),
+      rgba(74, 184, 71, 0.16),
+      rgba(250, 157, 26, 0.16)
+    );
+  z-index: -1;
+}
+
+body.night .equation-brand,
+body.night .equation-value {
+  color: #f8fafc;
+}
+
+body.night .equation-symbol {
+  color: rgba(203, 213, 225, 0.62);
+}
+
+body.night .question-mark {
+  color: #ffb74a;
+}
+
+body.night .answer-value {
+  color: #7dd3fc;
+}
+
+.insight-layer p:not(.section-kicker) {
+  max-width: 40em;
+  margin-top: 28px;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.9;
+}
+
+body.night .insight-layer p:not(.section-kicker) {
+  color: rgba(226, 232, 240, 0.78);
+}
+
+.insight-scroll-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted-soft);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+  opacity: 0.72;
+  transition: opacity 0.25s ease;
+}
+
+.insight-scroll-hint span {
+  width: 1px;
+  height: 28px;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      180deg,
+      var(--blue),
+      var(--green),
+      var(--red),
+      var(--yellow)
+    );
+  animation: insightHint 1.5s ease-in-out infinite;
+}
+
+@keyframes insightHint {
+  0% {
+    transform: scaleY(0.45);
+    opacity: 0.45;
+  }
+
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleY(0.45);
+    opacity: 0.45;
+  }
+}
+
+.insight-section.is-answer-visible .insight-scroll-hint {
+  opacity: 0;
+}
+
+/* 手機版先取消 sticky，避免行動裝置體驗卡住 */
+@media (max-width: 900px) {
+  #insight.insight-section {
+    min-height: auto !important;
+  }
+
+  .insight-sticky {
+    position: relative !important;
+    top: auto;
+    min-height: auto;
+    padding: 96px 0;
+  }
+
+  .insight-panel {
+    min-height: auto;
+    overflow: visible;
+  }
+
+  .insight-layer {
+    position: relative;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .insight-answer {
+    margin-top: 64px;
+  }
+
+  .insight-scroll-hint {
+    display: none;
+  }
+
+  .insight-equation {
+    display: grid;
+    gap: 0.08em;
+    font-size: clamp(2.3rem, 11vw, 3.45rem);
+    line-height: 1.18;
+  }
+
+  .equation-symbol {
+    line-height: 1;
+  }
+}
+
+/* =========================================================
+   Insight Answer Hold Extension
+   目標：延長答案出現後的停留時間
+========================================================= */
+
+#insight.insight-section {
+  min-height: 340vh !important;
+}
+
+/* =========================================================
+   PR Dual Case Refinement
+   目標：
+   1. 保留 2015–2016 爭議作為主危機案例
+   2. 加入正向 PR：媒體透明、公益參與、公共服務
+   3. 壓縮畫面高度，讓桌機版更容易一屏看完整體架構
+   4. Response Framework 改成細長流程線
+========================================================= */
+
+.pr-section {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  background:
+    radial-gradient(circle at 14% 10%, rgba(238, 2, 140, 0.28), transparent 30%),
+    radial-gradient(circle at 86% 72%, rgba(2, 124, 196, 0.16), transparent 34%),
+    linear-gradient(135deg, #210718 0%, #07111f 78%) !important;
+}
+
+.pr-section h2,
+.pr-section h3,
+.pr-section strong {
+  color: #fff;
+}
+
+.pr-section p {
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.pr-section .section-kicker {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.pr-header {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 0.75fr);
+  gap: clamp(36px, 5vw, 72px);
+  align-items: end;
+  margin-bottom: 34px;
+}
+
+.pr-title-row {
+  margin-bottom: 0;
+}
+
+.pr-header .display-title {
+  max-width: 10em;
+  margin-bottom: 0;
+  font-size: clamp(2.65rem, 4.4vw, 4.65rem);
+  line-height: 1.18;
+}
+
+.pr-lead {
+  max-width: 38em;
+  margin: 0 0 6px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 1rem;
+  line-height: 1.86;
+}
+
+/* ---------- PR 雙案例版面 ---------- */
+
+.pr-dual-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(420px, 0.9fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.pr-crisis-card,
+.pr-trust-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 30px;
+  padding: clamp(26px, 3vw, 34px);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.11),
+      rgba(255, 255, 255, 0.055)
+    );
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.26);
+  backdrop-filter: blur(18px);
+}
+
+.pr-crisis-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 5px;
+  background: var(--red);
+  box-shadow: 0 0 32px rgba(238, 2, 140, 0.32);
+}
+
+.pr-trust-card::before {
+  content: "";
+  position: absolute;
+  right: -90px;
+  top: -90px;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(74, 184, 71, 0.16), transparent 64%);
+  pointer-events: none;
+}
+
+.pr-card-topline {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  align-items: baseline;
+  margin-bottom: 18px;
+}
+
+.pr-card-topline span {
+  color: #ff8ac8;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.pr-card-topline small {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.pr-trust-card .pr-card-topline span {
+  color: #8ee58a;
+}
+
+.pr-crisis-card h3,
+.pr-trust-card h3 {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 16px;
+  font-size: clamp(1.7rem, 2.2vw, 2.35rem);
+  line-height: 1.32;
+}
+
+.pr-crisis-card > p {
+  position: relative;
+  z-index: 1;
+  max-width: 42em;
+  margin-bottom: 24px;
+  font-size: 0.96rem;
+  line-height: 1.78;
+}
+
+/* ---------- 危機案例重點 ---------- */
+
+.pr-case-points {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.pr-case-points article {
+  min-height: 150px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 22px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.pr-case-points strong {
+  display: block;
+  margin-bottom: 10px;
+  color: #fff;
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+
+.pr-case-points span {
+  display: block;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.86rem;
+  line-height: 1.68;
+}
+
+.pr-source-links {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.pr-source-links a {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  padding: 8px 12px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.09);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-decoration: none;
+  transition:
+    background 0.22s ease,
+    border-color 0.22s ease,
+    transform 0.22s ease;
+}
+
+.pr-source-links a:hover {
+  border-color: rgba(255, 255, 255, 0.34);
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+/* ---------- 正向 PR / 信任累積 ---------- */
+
+.pr-trust-list {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.pr-trust-list article {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.trust-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(142, 229, 138, 0.22);
+  border-radius: 14px;
+  color: #fff;
+  background: rgba(74, 184, 71, 0.18);
+  font-size: 0.82rem;
+  font-weight: 900;
+  box-shadow: 0 0 28px rgba(74, 184, 71, 0.08);
+}
+
+.pr-trust-list strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.pr-trust-list p {
+  margin: 0;
+  max-width: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  line-height: 1.68;
+}
+
+.pr-trust-note {
+  position: relative;
+  z-index: 1;
+  margin: 24px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 18px;
+  max-width: none;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.92rem;
+  line-height: 1.76;
+}
+
+/* ---------- Response Framework 細長流程線 ---------- */
+
+.pr-response-line {
+  margin-top: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 26px;
+  padding: 22px 24px;
+  background: rgba(255, 255, 255, 0.065);
+  backdrop-filter: blur(18px);
+}
+
+.pr-response-heading {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: baseline;
+  margin-bottom: 20px;
+}
+
+.pr-response-heading span {
+  color: #ff8ac8;
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.pr-response-heading strong {
+  color: #fff;
+  font-size: 1.08rem;
+  line-height: 1.45;
+}
+
+.pr-response-track {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+
+.pr-response-track::before {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 20px;
+  height: 2px;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      90deg,
+      var(--red),
+      var(--yellow),
+      var(--blue)
+    );
+  opacity: 0.54;
+}
+
+.pr-response-track article {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.pr-response-track article > span {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 12px;
+  border: 4px solid #07111f;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--red);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.16),
+    0 0 26px rgba(238, 2, 140, 0.14);
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.pr-response-track strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #fff;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.pr-response-track p {
+  margin: 0;
+  max-width: none;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.pr-source {
+  margin-top: 18px;
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 0.78rem;
+}
+
+/* ---------- 關閉舊版 PR 區塊樣式殘留影響 ---------- */
+
+.pr-layout,
+.pr-evidence-wall,
+.pr-diagnosis-card,
+.pr-response-board,
+.pr-response-steps {
+  /* 保留空規則，避免舊 class 若還存在時造成不可預期重疊 */
+}
+
+/* ---------- 高度較矮桌機壓縮 ---------- */
+
+@media (max-height: 820px) and (min-width: 901px) {
+  .pr-header {
+    margin-bottom: 24px;
+  }
+
+  .pr-section {
+    padding-top: 112px;
+    padding-bottom: 112px;
+  }
+
+  .pr-crisis-card,
+  .pr-trust-card {
+    padding: 24px;
+  }
+
+  .pr-case-points article {
+    min-height: 132px;
+    padding: 16px;
+  }
+
+  .pr-crisis-card h3,
+  .pr-trust-card h3 {
+    font-size: clamp(1.55rem, 1.9vw, 2.05rem);
+  }
+
+  .pr-response-line {
+    margin-top: 20px;
+    padding: 18px 20px;
+  }
+}
+
+/* ---------- RWD ---------- */
+
+@media (max-width: 1180px) {
+  .pr-header,
+  .pr-dual-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .pr-case-points {
+    grid-template-columns: 1fr;
+  }
+
+  .pr-response-track {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .pr-response-track::before {
+    display: none;
+  }
+
+  .pr-response-track article {
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    gap: 12px;
+    text-align: left;
+    align-items: start;
+  }
+
+  .pr-response-track article > span {
+    margin: 0;
+  }
+}
+
+/* =========================================================
+   PR Compact Layout Patch
+   目標：
+   1. 修正 PR 主標題斷行問題
+   2. 壓縮 PR 區塊高度，讓桌機版更容易一屏看完
+   3. 保留「危機案例 × 信任累積 × 回應框架」結構
+========================================================= */
+
+.pr-section {
+  display: block !important;
+  min-height: auto !important;
+  padding-top: 96px !important;
+  padding-bottom: 78px !important;
+}
+
+/* Header 壓縮：標題與說明並排，但不要撐太高 */
+.pr-header {
+  grid-template-columns: minmax(0, 0.82fr) minmax(420px, 0.9fr);
+  gap: clamp(32px, 4vw, 64px);
+  align-items: center;
+  margin-bottom: 26px;
+}
+
+/* 主標題不再斷句 */
+.pr-title-single {
+  max-width: none !important;
+  margin-bottom: 0 !important;
+  white-space: nowrap;
+  font-size: clamp(2.7rem, 4vw, 4.15rem) !important;
+  line-height: 1.14 !important;
+  letter-spacing: 0.01em;
+}
+
+/* 小標與左側標題群間距壓縮 */
+.pr-title-row {
+  gap: 18px;
+}
+
+.pr-title-row .section-kicker {
+  margin-bottom: 8px;
+}
+
+/* 說明文字壓縮但保持可讀性 */
+.pr-lead {
+  max-width: 42em;
+  margin: 0;
+  font-size: 0.96rem;
+  line-height: 1.78;
+}
+
+/* 雙卡比例調整：不要讓右卡過高 */
+.pr-dual-layout {
+  grid-template-columns: minmax(0, 1fr) minmax(390px, 0.88fr);
+  gap: 22px;
+  align-items: stretch;
+}
+
+.pr-crisis-card,
+.pr-trust-card {
+  padding: 24px 26px;
+  border-radius: 28px;
+}
+
+/* 卡片內標題壓縮 */
+.pr-card-topline {
+  margin-bottom: 12px;
+}
+
+.pr-card-topline span,
+.pr-card-topline small {
+  font-size: 0.72rem;
+}
+
+.pr-crisis-card h3,
+.pr-trust-card h3 {
+  margin-bottom: 12px;
+  font-size: clamp(1.55rem, 2vw, 2.05rem);
+  line-height: 1.32;
+}
+
+/* 主案例說明少佔一點高度 */
+.pr-crisis-card > p {
+  margin-bottom: 18px;
+  font-size: 0.9rem;
+  line-height: 1.68;
+}
+
+/* 危機三點：壓成較輕的資訊卡 */
+.pr-case-points {
+  gap: 12px;
+}
+
+.pr-case-points article {
+  min-height: 112px;
+  padding: 14px;
+  border-radius: 18px;
+}
+
+.pr-case-points strong {
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+}
+
+.pr-case-points span {
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+/* 來源按鈕壓縮 */
+.pr-source-links {
+  margin-top: 16px;
+  gap: 8px;
+}
+
+.pr-source-links a {
+  padding: 7px 10px;
+  font-size: 0.74rem;
+}
+
+/* 正向 PR 右卡壓縮 */
+.pr-trust-list {
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.pr-trust-list article {
+  grid-template-columns: 36px 1fr;
+  gap: 12px;
+}
+
+.trust-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  font-size: 0.76rem;
+}
+
+.pr-trust-list strong {
+  margin-bottom: 2px;
+  font-size: 0.92rem;
+}
+
+.pr-trust-list p {
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+/* 右卡底部 note 不要太厚 */
+.pr-trust-note {
+  margin-top: 16px;
+  padding-top: 14px;
+  font-size: 0.82rem;
+  line-height: 1.66;
+}
+
+/* Response Framework 進一步變成細長導覽感 */
+.pr-response-line {
+  margin-top: 18px;
+  padding: 16px 20px;
+  border-radius: 22px;
+}
+
+.pr-response-heading {
+  margin-bottom: 14px;
+}
+
+.pr-response-heading span {
+  font-size: 0.72rem;
+}
+
+.pr-response-heading strong {
+  font-size: 1rem;
+}
+
+/* 流程線高度壓低 */
+.pr-response-track::before {
+  top: 17px;
+}
+
+.pr-response-track article > span {
+  width: 34px;
+  height: 34px;
+  margin-bottom: 8px;
+  border-width: 3px;
+  font-size: 0.76rem;
+}
+
+.pr-response-track strong {
+  margin-bottom: 2px;
+  font-size: 0.82rem;
+}
+
+.pr-response-track p {
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+/* 來源文字壓低 */
+.pr-source {
+  margin-top: 14px;
+  font-size: 0.72rem;
+  line-height: 1.55;
+}
+
+/* 較矮螢幕再壓縮一點 */
+@media (max-height: 820px) and (min-width: 901px) {
+  .pr-section {
+    padding-top: 84px !important;
+    padding-bottom: 64px !important;
+  }
+
+  .pr-header {
+    margin-bottom: 20px;
+  }
+
+  .pr-crisis-card,
+  .pr-trust-card {
+    padding: 20px 22px;
+  }
+
+  .pr-title-single {
+    font-size: clamp(2.45rem, 3.6vw, 3.7rem) !important;
+  }
+
+  .pr-crisis-card h3,
+  .pr-trust-card h3 {
+    font-size: clamp(1.4rem, 1.8vw, 1.85rem);
+  }
+
+  .pr-case-points article {
+    min-height: 96px;
+    padding: 12px;
+  }
+
+  .pr-trust-note {
+    display: none;
+  }
+}
+
+/* 寬度不足時才允許自然換行 */
+@media (max-width: 1180px) {
+  .pr-title-single {
+    white-space: normal;
+  }
+
+  .pr-header,
+  .pr-dual-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   PR Header Collision Fix
+   目標：
+   1. 修正 PR 右上角說明文字與主標題碰撞
+   2. 保留主標題單行完整閱讀
+   3. 讓說明文字回到標題下方，形成穩定報告節奏
+========================================================= */
+
+.pr-header {
+  display: block !important;
+  margin-bottom: 24px !important;
+}
+
+/* 標題列維持 tab + title */
+.pr-title-row {
+  display: grid !important;
+  grid-template-columns: auto 1fr;
+  gap: 18px;
+  align-items: start;
+  margin-bottom: 0 !important;
+}
+
+/* 主標題單行，但不要衝出太誇張 */
+.pr-title-single {
+  white-space: nowrap;
+  max-width: none !important;
+  font-size: clamp(2.65rem, 4.2vw, 4.05rem) !important;
+  line-height: 1.12 !important;
+  letter-spacing: 0.005em;
+}
+
+/* 說明文字移到標題下方，避開右上角撞字 */
+.pr-lead {
+  max-width: 760px !important;
+  margin: 18px 0 0 94px !important;
+  font-size: 0.94rem !important;
+  line-height: 1.72 !important;
+  color: rgba(255, 255, 255, 0.76) !important;
+}
+
+/* 讓 PR 區塊上緣稍微收一點，補回 lead 下移造成的高度 */
+.pr-section {
+  padding-top: 88px !important;
+}
+
+/* 矮螢幕再壓縮 */
+@media (max-height: 820px) and (min-width: 901px) {
+  .pr-title-single {
+    font-size: clamp(2.4rem, 3.8vw, 3.65rem) !important;
+  }
+
+  .pr-lead {
+    margin-top: 12px !important;
+    font-size: 0.88rem !important;
+    line-height: 1.62 !important;
+  }
+
+  .pr-section {
+    padding-top: 76px !important;
+  }
+}
+
+/* 寬度不足時才允許標題換行 */
+@media (max-width: 1180px) {
+  .pr-title-single {
+    white-space: normal;
+  }
+
+  .pr-lead {
+    margin-left: 0 !important;
+    max-width: 42em !important;
+  }
+}
+
+/* =========================================================
+   MRK Full-width Dynamic Dashboard
+   目標：
+   1. MRK 改成全寬 Dashboard，不再左右切版
+   2. 數據卡準備 count-up 動畫
+   3. Bar chart 進場展開
+   4. Funnel 改為精簡策略路徑
+========================================================= */
+
+.mrk-section {
+  display: block !important;
+  min-height: auto !important;
+  padding-top: 96px !important;
+  padding-bottom: 88px !important;
+  background:
+    radial-gradient(circle at 82% 18%, rgba(2, 124, 196, 0.12), transparent 30%),
+    radial-gradient(circle at 16% 78%, rgba(250, 157, 26, 0.08), transparent 28%) !important;
+}
+
+.mrk-header {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(420px, 0.9fr);
+  gap: clamp(32px, 4vw, 64px);
+  align-items: end;
+  margin-bottom: 26px;
+}
+
+.mrk-title-single {
+  max-width: none !important;
+  margin-bottom: 0 !important;
+  white-space: nowrap;
+  font-size: clamp(2.65rem, 4.2vw, 4.05rem) !important;
+  line-height: 1.12 !important;
+  letter-spacing: 0.005em;
+}
+
+.mrk-lead {
+  max-width: 42em;
+  margin: 0 0 4px;
+  font-size: 0.96rem;
+  line-height: 1.78;
+  color: var(--muted);
+}
+
+/* ---------- Dashboard 外框 ---------- */
+
+.mrk-dashboard {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 34px;
+  padding: clamp(26px, 3vw, 36px);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.94),
+      rgba(255, 255, 255, 0.66)
+    );
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(18px);
+}
+
+body.night .mrk-dashboard {
+  border-color: rgba(255, 255, 255, 0.16);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.105),
+      rgba(255, 255, 255, 0.055)
+    );
+  box-shadow:
+    0 28px 90px rgba(0, 0, 0, 0.36),
+    0 0 80px rgba(2, 124, 196, 0.055);
+}
+
+.mrk-dashboard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.16;
+  pointer-events: none;
+  background-image:
+    linear-gradient(90deg, rgba(2, 124, 196, 0.16) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(2, 124, 196, 0.12) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(135deg, #000 0%, transparent 70%);
+}
+
+.mrk-dashboard::after {
+  content: "";
+  position: absolute;
+  right: -120px;
+  top: -120px;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(250, 157, 26, 0.2), transparent 64%);
+  pointer-events: none;
+}
+
+.mrk-dashboard > * {
+  position: relative;
+  z-index: 1;
+}
+
+.mrk-dashboard-top {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(360px, 0.82fr);
+  gap: 28px;
+  align-items: end;
+  margin-bottom: 24px;
+}
+
+.mrk-dashboard-kicker {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--yellow);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.mrk-dashboard-top h3 {
+  max-width: 15em;
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(1.6rem, 2.2vw, 2.3rem);
+  line-height: 1.28;
+}
+
+.mrk-dashboard-top p {
+  max-width: 32em;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.74;
+}
+
+/* ---------- KPI Cards ---------- */
+
+.mrk-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.mrk-kpi-card {
+  min-height: 154px;
+  border: 1px solid rgba(16, 24, 40, 0.08);
+  border-radius: 24px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.62);
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
+}
+
+body.night .mrk-kpi-card {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.075);
+}
+
+.mrk-kpi-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(2, 124, 196, 0.24);
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.1);
+}
+
+.mrk-kpi-card.primary {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(2, 124, 196, 0.13),
+      rgba(250, 157, 26, 0.08)
+    );
+}
+
+body.night .mrk-kpi-card.primary {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(2, 124, 196, 0.18),
+      rgba(250, 157, 26, 0.09)
+    );
+}
+
+.mrk-kpi-card span {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--muted-soft);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.mrk-kpi-card strong {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--blue);
+  font-size: clamp(2.2rem, 3.4vw, 3.45rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  min-height: 1.04em;
+}
+
+body.night .mrk-kpi-card strong {
+  color: #34a9e8;
+  text-shadow: 0 0 24px rgba(2, 124, 196, 0.12);
+}
+
+.mrk-kpi-card p {
+  margin: 0;
+  max-width: none;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+
+/* ---------- Chart Board ---------- */
+
+.mrk-chart-board {
+  display: grid;
+  grid-template-columns: minmax(0, 0.74fr) minmax(520px, 1.26fr);
+  gap: 28px;
+  align-items: center;
+  border: 1px solid rgba(16, 24, 40, 0.08);
+  border-radius: 26px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.42);
+  margin-bottom: 20px;
+}
+
+body.night .mrk-chart-board {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.mrk-chart-copy span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--yellow);
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.mrk-chart-copy h3 {
+  max-width: 12em;
+  margin: 0 0 12px;
+  color: var(--text);
+  font-size: clamp(1.4rem, 1.8vw, 1.95rem);
+  line-height: 1.34;
+}
+
+.mrk-chart-copy p {
+  max-width: 32em;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.72;
+}
+
+.mrk-bars {
+  display: grid;
+  gap: 16px;
+}
+
+.mrk-bar-row {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 18px;
+  align-items: center;
+}
+
+.mrk-bar-label strong {
+  display: block;
+  color: var(--text);
+  font-size: 0.94rem;
+  line-height: 1.4;
+}
+
+.mrk-bar-label span {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted-soft);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.mrk-bar-track {
+  position: relative;
+  overflow: hidden;
+  height: 16px;
+  border-radius: 999px;
+  background: rgba(2, 124, 196, 0.1);
+}
+
+body.night .mrk-bar-track {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mrk-bar-track span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(
+      90deg,
+      var(--yellow),
+      var(--blue),
+      var(--green)
+    );
+  box-shadow: 0 0 24px rgba(2, 124, 196, 0.18);
+  transition: width 1.05s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mrk-section.is-chart-visible .mrk-bar-track span {
+  width: var(--bar-width);
+}
+
+/* ---------- Funnel Strip ---------- */
+
+.mrk-funnel-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.mrk-funnel-strip article {
+  position: relative;
+  min-height: 112px;
+  border: 1px solid rgba(16, 24, 40, 0.08);
+  border-radius: 22px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.42);
+}
+
+body.night .mrk-funnel-strip article {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.mrk-funnel-strip span {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--blue), #35a9e8);
+  font-size: 0.74rem;
+  font-weight: 900;
+}
+
+.mrk-funnel-strip article:nth-child(2) span {
+  background: linear-gradient(135deg, var(--yellow), var(--blue));
+}
+
+.mrk-funnel-strip article:nth-child(3) span {
+  background: linear-gradient(135deg, var(--green), var(--blue));
+}
+
+.mrk-funnel-strip article:nth-child(4) span {
+  background: linear-gradient(135deg, var(--red), var(--blue));
+}
+
+.mrk-funnel-strip strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--text);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.mrk-funnel-strip p {
+  margin: 0;
+  max-width: none;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+/* ---------- MRK source ---------- */
+
+.mrk-source {
+  margin-top: 14px;
+  color: var(--muted-soft);
+  font-size: 0.74rem;
+  line-height: 1.55;
+}
+
+/* ---------- 關閉舊 MRK 殘留影響 ---------- */
+
+.mrk-strategy-layout,
+.mrk-dashboard-card,
+.mrk-metric-grid,
+.mrk-metric-card,
+.mrk-logic-list,
+.mrk-funnel {
+  /* 新版 MRK 不使用這些 class */
+}
+
+/* ---------- 矮螢幕壓縮 ---------- */
+
+@media (max-height: 820px) and (min-width: 901px) {
+  .mrk-section {
+    padding-top: 82px !important;
+    padding-bottom: 68px !important;
+  }
+
+  .mrk-header {
+    margin-bottom: 20px;
+  }
+
+  .mrk-title-single {
+    font-size: clamp(2.4rem, 3.8vw, 3.65rem) !important;
+  }
+
+  .mrk-dashboard {
+    padding: 24px;
+  }
+
+  .mrk-dashboard-top {
+    margin-bottom: 18px;
+  }
+
+  .mrk-kpi-card {
+    min-height: 132px;
+    padding: 16px;
+  }
+
+  .mrk-kpi-card strong {
+    font-size: clamp(1.95rem, 2.8vw, 2.75rem);
+  }
+
+  .mrk-chart-board {
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+
+  .mrk-funnel-strip article {
+    min-height: 96px;
+    padding: 14px;
+  }
+}
+
+/* ---------- RWD ---------- */
+
+@media (max-width: 1180px) {
+  .mrk-header,
+  .mrk-dashboard-top,
+  .mrk-chart-board {
+    grid-template-columns: 1fr;
+  }
+
+  .mrk-title-single {
+    white-space: normal;
+  }
+
+  .mrk-kpi-grid,
+  .mrk-funnel-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .mrk-bar-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 700px) {
+  .mrk-kpi-grid,
+  .mrk-funnel-strip {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   MRK Compact Banner Dashboard Patch
+   目標：
+   1. 加入 TPASS 官方 Banner 作為視覺錨點
+   2. 修正標題斷行與說明文字重疊
+   3. 壓縮整體高度，讓桌機版更接近一屏展示
+   4. 調整 chart 左右比例與 bar spacing
+========================================================= */
+
+.mrk-section {
+  display: block !important;
+  min-height: auto !important;
+  padding-top: 82px !important;
+  padding-bottom: 70px !important;
+}
+
+/* ---------- 上方標題 + Banner ---------- */
+
+.mrk-compact-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(420px, 0.86fr);
+  gap: clamp(28px, 4vw, 56px);
+  align-items: end;
+  margin-bottom: 22px;
+}
+
+.mrk-compact-copy .section-title-row {
+  margin-bottom: 0;
+}
+
+.mrk-title-single {
+  max-width: none !important;
+  margin-bottom: 0 !important;
+  white-space: nowrap;
+  font-size: clamp(2.45rem, 3.75vw, 3.85rem) !important;
+  line-height: 1.12 !important;
+  letter-spacing: 0.004em;
+}
+
+.mrk-lead {
+  max-width: 760px !important;
+  margin: 14px 0 0 94px !important;
+  font-size: 0.9rem !important;
+  line-height: 1.66 !important;
+  color: var(--muted);
+}
+
+/* 官方 Banner 裁切成橫幅視覺，不讓它撐高頁面 */
+.mrk-banner-card {
+  position: relative;
+  overflow: hidden;
+  height: 166px;
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.mrk-banner-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.04);
+}
+
+.mrk-banner-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(7, 17, 31, 0.08),
+      rgba(7, 17, 31, 0.0)
+    );
+  pointer-events: none;
+}
+
+.mrk-banner-card figcaption {
+  position: absolute;
+  left: 16px;
+  bottom: 12px;
+  z-index: 1;
+  border-radius: 999px;
+  padding: 5px 9px;
+  color: rgba(255, 255, 255, 0.86);
+  background: rgba(7, 17, 31, 0.48);
+  backdrop-filter: blur(10px);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+/* ---------- Dashboard 壓縮 ---------- */
+
+.mrk-dashboard-compact {
+  padding: 22px !important;
+  border-radius: 30px;
+}
+
+/* 四個 KPI 縮短高度 */
+.mrk-kpi-grid {
+  gap: 12px !important;
+  margin-bottom: 16px !important;
+}
+
+.mrk-kpi-card {
+  min-height: 116px !important;
+  padding: 16px 18px !important;
+  border-radius: 20px !important;
+}
+
+.mrk-kpi-card span {
+  margin-bottom: 6px !important;
+  font-size: 0.72rem !important;
+}
+
+.mrk-kpi-card strong {
+  margin-bottom: 6px !important;
+  font-size: clamp(1.9rem, 2.65vw, 2.7rem) !important;
+  line-height: 1.02 !important;
+}
+
+.mrk-kpi-card p {
+  font-size: 0.76rem !important;
+  line-height: 1.48 !important;
+}
+
+/* ---------- 下方 chart + funnel 並排 ---------- */
+
+.mrk-dashboard-bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 1.28fr) minmax(300px, 0.72fr);
+  gap: 16px;
+  align-items: stretch;
+}
+
+.mrk-chart-compact {
+  display: grid;
+  grid-template-columns: minmax(230px, 0.55fr) minmax(0, 1.45fr) !important;
+  gap: 18px !important;
+  align-items: center;
+  margin-bottom: 0 !important;
+  padding: 18px 20px !important;
+  border-radius: 22px !important;
+}
+
+.mrk-chart-copy span {
+  margin-bottom: 6px !important;
+  font-size: 0.7rem !important;
+}
+
+.mrk-chart-copy h3 {
+  max-width: 12em;
+  margin-bottom: 8px !important;
+  font-size: clamp(1.22rem, 1.55vw, 1.55rem) !important;
+  line-height: 1.32 !important;
+}
+
+.mrk-chart-copy p {
+  font-size: 0.78rem !important;
+  line-height: 1.58 !important;
+}
+
+/* Bar chart：縮短 label 欄位，避免線條與文字距離太遠 */
+.mrk-bars {
+  gap: 12px !important;
+}
+
+.mrk-bar-row {
+  grid-template-columns: 112px minmax(0, 1fr) !important;
+  gap: 12px !important;
+}
+
+.mrk-bar-label strong {
+  font-size: 0.82rem !important;
+}
+
+.mrk-bar-label span {
+  font-size: 0.7rem !important;
+}
+
+.mrk-bar-track {
+  height: 13px !important;
+}
+
+/* ---------- Funnel 改成右側 compact cards ---------- */
+
+.mrk-funnel-compact {
+  grid-template-columns: 1fr 1fr !important;
+  gap: 10px !important;
+}
+
+.mrk-funnel-compact article {
+  min-height: auto !important;
+  padding: 14px !important;
+  border-radius: 18px !important;
+}
+
+.mrk-funnel-compact span {
+  width: 30px !important;
+  height: 30px !important;
+  margin-bottom: 8px !important;
+  border-radius: 10px !important;
+  font-size: 0.68rem !important;
+}
+
+.mrk-funnel-compact strong {
+  margin-bottom: 3px !important;
+  font-size: 0.82rem !important;
+}
+
+.mrk-funnel-compact p {
+  font-size: 0.7rem !important;
+  line-height: 1.45 !important;
+}
+
+/* source 壓縮 */
+.mrk-source {
+  margin-top: 10px !important;
+  font-size: 0.7rem !important;
+}
+
+/* ---------- Night mode ---------- */
+
+body.night .mrk-banner-card {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 18px 60px rgba(0, 0, 0, 0.28),
+    0 0 60px rgba(2, 124, 196, 0.06);
+}
+
+body.night .mrk-banner-card::after {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(7, 17, 31, 0.34),
+      rgba(7, 17, 31, 0.05)
+    );
+}
+
+/* ---------- 矮螢幕再壓縮 ---------- */
+
+@media (max-height: 820px) and (min-width: 901px) {
+  .mrk-section {
+    padding-top: 72px !important;
+    padding-bottom: 54px !important;
+  }
+
+  .mrk-compact-hero {
+    margin-bottom: 16px;
+  }
+
+  .mrk-banner-card {
+    height: 140px;
+  }
+
+  .mrk-title-single {
+    font-size: clamp(2.25rem, 3.45vw, 3.45rem) !important;
+  }
+
+  .mrk-lead {
+    margin-top: 10px !important;
+    font-size: 0.84rem !important;
+    line-height: 1.54 !important;
+  }
+
+  .mrk-dashboard-compact {
+    padding: 18px !important;
+  }
+
+  .mrk-kpi-card {
+    min-height: 98px !important;
+    padding: 14px !important;
+  }
+
+  .mrk-kpi-card strong {
+    font-size: clamp(1.7rem, 2.35vw, 2.35rem) !important;
+  }
+
+  .mrk-chart-compact {
+    padding: 16px !important;
+  }
+
+  .mrk-funnel-compact article {
+    padding: 12px !important;
+  }
+}
+
+/* ---------- RWD ---------- */
+
+@media (max-width: 1180px) {
+  .mrk-compact-hero,
+  .mrk-dashboard-bottom {
+    grid-template-columns: 1fr;
+  }
+
+  .mrk-title-single {
+    white-space: normal;
+  }
+
+  .mrk-lead {
+    margin-left: 0 !important;
+  }
+
+  .mrk-banner-card {
+    height: 180px;
+  }
+
+  .mrk-chart-compact {
+    grid-template-columns: 1fr !important;
+  }
+
+  .mrk-funnel-compact {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .mrk-funnel-compact {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* =========================================================
+   MRK Header Overlap Fix
+   目標：
+   1. 修正 TPASS 標題與 Banner 重疊
+   2. 保留桌機版標題一行呈現
+   3. 壓縮 Banner 尺寸，避免搶走主標題空間
+========================================================= */
+
+.mrk-compact-hero {
+  grid-template-columns: minmax(0, 1fr) clamp(340px, 34vw, 420px) !important;
+  gap: clamp(22px, 3vw, 36px) !important;
+  align-items: center !important;
+}
+
+.mrk-compact-copy {
+  min-width: 0;
+}
+
+.mrk-compact-copy .section-title-row {
+  min-width: 0;
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
+/* 關鍵：縮小標題字級，避免撞到 Banner */
+.mrk-title-single {
+  white-space: nowrap !important;
+  max-width: 100% !important;
+  overflow: visible;
+  font-size: clamp(2.25rem, 3.15vw, 3.25rem) !important;
+  line-height: 1.12 !important;
+  letter-spacing: 0.002em;
+}
+
+/* 說明文字保持在標題下方，不跟 Banner 搶層級 */
+.mrk-lead {
+  max-width: 620px !important;
+  margin: 12px 0 0 94px !important;
+  font-size: 0.88rem !important;
+  line-height: 1.62 !important;
+}
+
+/* Banner 壓小一點，作為視覺錨點，不要變主角 */
+.mrk-banner-card {
+  height: 138px !important;
+  border-radius: 24px !important;
+  align-self: center;
+}
+
+.mrk-banner-card img {
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.03);
+}
+
+/* Dashboard 往上收一點，補回畫面高度 */
+.mrk-dashboard-compact {
+  padding-top: 20px !important;
+}
+
+/* 矮螢幕再壓縮 */
+@media (max-height: 820px) and (min-width: 901px) {
+  .mrk-title-single {
+    font-size: clamp(2.05rem, 2.9vw, 2.95rem) !important;
+  }
+
+  .mrk-lead {
+    margin-top: 8px !important;
+    font-size: 0.82rem !important;
+    line-height: 1.52 !important;
+  }
+
+  .mrk-banner-card {
+    height: 122px !important;
+  }
+
+  .mrk-compact-hero {
+    margin-bottom: 14px !important;
+  }
+}
+
+/* 寬度不夠時，不硬撐一行，避免再次重疊 */
+@media (max-width: 1180px) {
+  .mrk-compact-hero {
+    grid-template-columns: 1fr !important;
+  }
+
+  .mrk-title-single {
+    white-space: normal !important;
+  }
+
+  .mrk-lead {
+    margin-left: 0 !important;
+    max-width: 42em !important;
+  }
+
+  .mrk-banner-card {
+    height: 160px !important;
+  }
+}
+
+/* =========================================================
+   TPASS Banner Lightbox
+   目標：
+   1. 點擊 MRK 官方 Banner 後放大檢視
+   2. 支援背景點擊關閉、關閉按鈕、ESC 關閉
+========================================================= */
+
+.mrk-banner-button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 1px solid var(--border);
+  text-align: left;
+  cursor: zoom-in;
+}
+
+.mrk-banner-button:hover img {
+  transform: scale(1.075);
+}
+
+.mrk-banner-button:hover {
+  border-color: rgba(2, 124, 196, 0.28);
+  box-shadow:
+    0 18px 60px rgba(15, 23, 42, 0.12),
+    0 0 60px rgba(2, 124, 196, 0.08);
+}
+
+.mrk-banner-caption {
+  position: absolute;
+  left: 16px;
+  bottom: 12px;
+  z-index: 1;
+  border-radius: 999px;
+  padding: 5px 9px;
+  color: rgba(255, 255, 255, 0.86);
+  background: rgba(7, 17, 31, 0.48);
+  backdrop-filter: blur(10px);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.mrk-banner-zoom {
+  position: absolute;
+  right: 14px;
+  bottom: 12px;
+  z-index: 1;
+  border-radius: 999px;
+  padding: 5px 9px;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(2, 124, 196, 0.68);
+  backdrop-filter: blur(10px);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease;
+}
+
+.mrk-banner-button:hover .mrk-banner-zoom {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Lightbox ---------- */
+
+body.lightbox-open {
+  overflow: hidden;
+}
+
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: grid;
+  place-items: center;
+  padding: 40px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.24s ease;
+}
+
+.image-lightbox.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(2, 124, 196, 0.18), transparent 36%),
+    rgba(7, 17, 31, 0.78);
+  backdrop-filter: blur(16px);
+  cursor: zoom-out;
+}
+
+.lightbox-panel {
+  position: relative;
+  z-index: 1;
+  width: min(1080px, 92vw);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 30px;
+  padding: 18px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.18),
+      rgba(255, 255, 255, 0.08)
+    );
+  box-shadow: 0 40px 140px rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(18px);
+  transform: scale(0.96) translateY(12px);
+  transition:
+    transform 0.24s ease,
+    opacity 0.24s ease;
+}
+
+.image-lightbox.is-open .lightbox-panel {
+  transform: scale(1) translateY(0);
+}
+
+.lightbox-panel img {
+  width: 100%;
+  max-height: 72vh;
+  object-fit: contain;
+  border-radius: 22px;
+  background: #fff;
+}
+
+.lightbox-panel p {
+  margin: 12px 4px 0;
+  max-width: none;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.lightbox-close {
+  position: absolute;
+  right: -14px;
+  top: -14px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(7, 17, 31, 0.74);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+  cursor: pointer;
+  transition:
+    transform 0.22s ease,
+    background 0.22s ease;
+}
+
+.lightbox-close:hover {
+  transform: scale(1.06);
+  background: rgba(2, 124, 196, 0.86);
+}
+
+.lightbox-close svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+/* 手機安全處理 */
+@media (max-width: 700px) {
+  .image-lightbox {
+    padding: 18px;
+  }
+
+  .lightbox-panel {
+    width: 100%;
+    border-radius: 22px;
+    padding: 12px;
+  }
+
+  .lightbox-panel img {
+    max-height: 70vh;
+    border-radius: 16px;
+  }
+
+  .lightbox-close {
+    right: 8px;
+    top: 8px;
+  }
+
+  .mrk-banner-zoom {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* =========================================================
+   Final Statement + Footer + Reporter Modal
+========================================================= */
+
+/* ---------- Core Statement polish ---------- */
+
+.ending-section {
+  min-height: 94vh;
+  padding-top: var(--header-height);
+}
+
+.statement-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.statement-card::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 32px;
+  pointer-events: none;
+}
+
+.statement-card::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 34px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(2, 124, 196, 0.14), transparent 64%);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.statement-title {
+  position: relative;
+  z-index: 1;
+  text-wrap: balance;
+}
+
+.statement-subtitle {
+  position: relative;
+  z-index: 1;
+}
+
+.statement-tags {
+  position: relative;
+  z-index: 1;
+}
+
+.statement-tags span {
+  transition:
+    transform 0.22s ease,
+    background 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.statement-tags span:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.34);
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 12px 32px rgba(255, 255, 255, 0.08);
+}
+
+.statement-backtop {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  margin-top: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  padding: 9px 14px;
+  color: rgba(255, 255, 255, 0.86);
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    transform 0.22s ease,
+    background 0.22s ease,
+    color 0.22s ease;
+}
+
+.statement-backtop:hover {
+  transform: translateY(-2px);
+  color: #fff;
+  background: rgba(2, 124, 196, 0.42);
+}
+
+/* ---------- Footer redesign ---------- */
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 0;
+  background: rgba(248, 250, 252, 0.78);
+  backdrop-filter: blur(16px);
+}
+
+body.night .site-footer {
+  background: rgba(7, 17, 31, 0.86);
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+.footer-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 32px;
+  align-items: center;
+}
+
+.footer-sources span,
+.footer-credit span {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--muted-soft);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.footer-sources p {
+  margin: 0;
+  max-width: 88em;
+  color: var(--muted-soft);
+  font-size: 0.78rem;
+  line-height: 1.65;
+}
+
+.footer-credit {
+  text-align: right;
+}
+
+.reporter-button {
+  border: 0;
+  padding: 0;
+  color: var(--text);
+  background: transparent;
+  font: inherit;
+  font-size: 0.98rem;
+  font-weight: 900;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-decoration-color: rgba(2, 124, 196, 0.28);
+  text-underline-offset: 5px;
+  transition:
+    color 0.22s ease,
+    text-decoration-color 0.22s ease,
+    transform 0.22s ease;
+}
+
+.reporter-button:hover {
+  color: var(--blue);
+  text-decoration-color: var(--blue);
+  transform: translateY(-1px);
+}
+
+/* ---------- Reporter Modal ---------- */
+
+body.reporter-modal-open {
+  overflow: hidden;
+}
+
+.reporter-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 3200;
+  display: grid;
+  place-items: center;
+  padding: 40px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.24s ease;
+}
+
+.reporter-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.reporter-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background:
+    radial-gradient(circle at 48% 32%, rgba(238, 2, 140, 0.2), transparent 34%),
+    radial-gradient(circle at 68% 60%, rgba(2, 124, 196, 0.2), transparent 36%),
+    rgba(7, 17, 31, 0.8);
+  backdrop-filter: blur(16px);
+  cursor: pointer;
+}
+
+.reporter-panel {
+  position: relative;
+  z-index: 1;
+  width: min(980px, 92vw);
+  max-height: 88vh;
+  overflow: auto;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 34px;
+  padding: clamp(26px, 4vw, 42px);
+  color: #fff;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.18),
+      rgba(255, 255, 255, 0.08)
+    );
+  box-shadow: 0 40px 140px rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(22px);
+  transform: scale(0.96) translateY(12px);
+  transition:
+    transform 0.24s ease,
+    opacity 0.24s ease;
+}
+
+.reporter-modal.is-open .reporter-panel {
+  transform: scale(1) translateY(0);
+}
+
+.reporter-close {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(7, 17, 31, 0.72);
+  cursor: pointer;
+  transition:
+    transform 0.22s ease,
+    background 0.22s ease;
+}
+
+.reporter-close:hover {
+  transform: scale(1.06);
+  background: rgba(2, 124, 196, 0.86);
+}
+
+.reporter-close svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.reporter-profile {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 28px;
+  padding-right: 48px;
+}
+
+.reporter-avatar {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 24px;
+  color: #fff;
+  background:
+    linear-gradient(
+      135deg,
+      var(--blue),
+      var(--green),
+      var(--red),
+      var(--yellow)
+    );
+  box-shadow: 0 18px 48px rgba(2, 124, 196, 0.22);
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
+.reporter-profile .section-kicker {
+  margin-bottom: 6px;
+  color: var(--yellow) !important;
+}
+
+.reporter-profile h2 {
+  margin: 0 0 6px;
+  color: #fff;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.1;
+}
+
+.reporter-profile p {
+  margin: 0;
+  max-width: none;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.reporter-modal-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1fr 1fr;
+  gap: 16px;
+}
+
+.reporter-card {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 26px;
+  padding: 22px;
+  background: rgba(255, 255, 255, 0.075);
+}
+
+.reporter-card-title {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.reporter-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  color: #fff;
+  background: rgba(2, 124, 196, 0.28);
+}
+
+.reporter-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.reporter-card-title span:not(.reporter-icon) {
+  display: block;
+  margin-bottom: 2px;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.reporter-card-title strong {
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.reporter-qr {
+  width: min(230px, 100%);
+  margin: 0 auto;
+  border-radius: 22px;
+  background: #fff;
+}
+
+.reporter-note {
+  margin: 16px 0 0;
+  max-width: none;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.82rem;
+  line-height: 1.68;
+}
+
+.logo-chip-grid,
+.tech-chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.logo-chip,
+.tech-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  padding: 9px 12px;
+  color: rgba(255, 255, 255, 0.86);
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.84rem;
+  font-weight: 900;
+}
+
+.logo-chip b {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(2, 124, 196, 0.42);
+  font-size: 0.72rem;
+}
+
+.tech-chip.html {
+  background: rgba(250, 157, 26, 0.2);
+}
+
+.tech-chip.css {
+  background: rgba(2, 124, 196, 0.22);
+}
+
+.tech-chip.js {
+  background: rgba(250, 214, 26, 0.2);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  .footer-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-credit {
+    text-align: left;
+  }
+
+  .reporter-modal {
+    padding: 18px;
+  }
+
+  .reporter-panel {
+    width: 100%;
+    border-radius: 26px;
+    padding: 24px;
+  }
+
+  .reporter-profile {
+    grid-template-columns: 1fr;
+    padding-right: 40px;
+  }
+
+  .reporter-modal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .reporter-close {
+    right: 14px;
+    top: 14px;
+  }
+}
+
+/* =========================================================
+   Core Statement Final Refinement
+   目標：
+   1. 讓結尾主句更有收束感
+   2. 修正主標換行節奏
+   3. 降低卡片壓迫感，提升作品集結尾質感
+========================================================= */
+
+.ending-section {
+  min-height: 92vh;
+  padding-top: var(--header-height);
+  padding-bottom: 0;
+}
+
+/* 卡片稍微收窄，讓結尾更像精緻宣言卡 */
+.statement-card {
+  width: min(900px, 100%);
+  padding: clamp(50px, 5.4vw, 72px) clamp(44px, 6vw, 82px);
+  border-radius: 38px;
+}
+
+/* 內框不要太靠外，降低壓迫感 */
+.statement-card::before {
+  inset: 16px;
+  border-radius: 28px;
+  opacity: 0.72;
+}
+
+/* 主標從 4 行壓成更漂亮的 2 行 */
+.statement-title-final {
+  max-width: 14.5em !important;
+  font-size: clamp(3rem, 4.25vw, 4.55rem) !important;
+  line-height: 1.26 !important;
+  letter-spacing: 0.006em;
+}
+
+/* 讓第一句和第二句視覺上更像「轉折」 */
+.statement-title-final .title-line:first-child {
+  opacity: 0.96;
+}
+
+.statement-title-final .title-line:last-child {
+  position: relative;
+  display: inline-block;
+}
+
+/* 第二句底部加一點低調光感，形成結語重點 */
+.statement-title-final .title-line:last-child::after {
+  content: "";
+  position: absolute;
+  left: 0.08em;
+  right: 0.08em;
+  bottom: 0.06em;
+  z-index: -1;
+  height: 0.18em;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(2, 124, 196, 0.22),
+      rgba(74, 184, 71, 0.18),
+      rgba(250, 157, 26, 0.16)
+    );
+}
+
+/* 分隔線距離略收，結尾更俐落 */
+.statement-line {
+  margin: 28px auto 22px !important;
+}
+
+/* 副標提高可讀性，但不要搶主標 */
+.statement-subtitle-final {
+  max-width: 34em;
+  margin-bottom: 0;
+  color: rgba(255, 255, 255, 0.82) !important;
+  font-size: 1.02rem !important;
+  line-height: 1.8 !important;
+}
+
+/* Chips 更像結論關鍵字，不像一般 tag */
+.statement-tags {
+  margin-top: 26px;
+}
+
+.statement-tags span {
+  padding: 9px 14px;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+}
+
+/* Back to top 弱化，避免搶走最後一句 */
+.statement-backtop {
+  margin-top: 26px;
+  padding: 8px 13px;
+  opacity: 0.72;
+}
+
+.statement-backtop:hover {
+  opacity: 1;
+}
+
+/* 背景大圖稍微再暗一點，讓玻璃卡更突出 */
+.ending-section::before {
+  background:
+    radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.07), transparent 34%),
+    linear-gradient(
+      90deg,
+      rgba(7, 17, 31, 0.84),
+      rgba(7, 17, 31, 0.42)
+    ) !important;
+}
+
+/* 桌機矮螢幕安全壓縮 */
+@media (max-height: 820px) and (min-width: 901px) {
+  .statement-card {
+    padding: 44px 68px;
+  }
+
+  .statement-title-final {
+    font-size: clamp(2.65rem, 3.75vw, 3.95rem) !important;
+    line-height: 1.22 !important;
+  }
+
+  .statement-tags {
+    margin-top: 22px;
+  }
+
+  .statement-backtop {
+    margin-top: 22px;
+  }
+}
+
+/* 手機先安全收斂 */
+@media (max-width: 900px) {
+  .statement-card {
+    width: 100%;
+    padding: 42px 24px;
+    border-radius: 30px;
+  }
+
+  .statement-title-final {
+    font-size: clamp(2rem, 9vw, 3rem) !important;
+    line-height: 1.36 !important;
+  }
+
+  .statement-title-final .title-line:last-child::after {
+    height: 0.14em;
+  }
+}
+
+/* =========================================================
+   Core Statement Clean Final Override
+   目標：
+   1. 移除舊版錯位底線
+   2. 重新控制結尾文字換行
+   3. 讓 Core Statement 更像作品集收尾宣言
+========================================================= */
+
+/* 移除前面舊版 statement underline，避免橫線穿過標題 */
+.statement-title-final .title-line:last-child::after,
+.statement-title-v2 .title-line::after {
+  content: none !important;
+  display: none !important;
+}
+
+.ending-section-final {
+  min-height: calc(100vh - var(--header-height));
+  padding-top: var(--header-height);
+  padding-bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+.statement-card-final {
+  width: min(880px, 100%);
+  padding: clamp(52px, 5.5vw, 76px) clamp(44px, 6vw, 84px);
+  border-radius: 38px;
+}
+
+/* 讓內框不要太貼邊 */
+.statement-card-final::before {
+  inset: 16px;
+  border-radius: 28px;
+  opacity: 0.68;
+}
+
+/* 主標重新控制：3 行固定節奏，不讓中文字被亂切 */
+.statement-title-v2 {
+  position: relative;
+  z-index: 1;
+  max-width: none !important;
+  margin-bottom: 24px !important;
+  color: #fff !important;
+  font-size: clamp(3.2rem, 4.45vw, 4.75rem) !important;
+  line-height: 1.22 !important;
+  letter-spacing: 0.006em;
+  text-align: center;
+}
+
+.statement-title-v2 .title-line {
+  display: block;
+  white-space: nowrap;
+}
+
+/* 最後一行做重點，但只讓「自由流動」有光感，不做整條大底線 */
+.statement-highlight {
+  position: relative;
+  display: inline-block !important;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.statement-highlight::before {
+  content: "";
+  position: absolute;
+  left: -0.08em;
+  right: -0.08em;
+  bottom: 0.05em;
+  z-index: -1;
+  height: 0.2em;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(2, 124, 196, 0.34),
+      rgba(74, 184, 71, 0.24),
+      rgba(250, 157, 26, 0.22)
+    );
+}
+
+/* 副標直接取代原本 statement-line，讓結尾更俐落 */
+.statement-subtitle-v2 {
+  position: relative;
+  z-index: 1;
+  max-width: 34em;
+  margin: 0 auto;
+  color: rgba(255, 255, 255, 0.82) !important;
+  font-size: 1.04rem !important;
+  line-height: 1.82 !important;
+  text-align: center;
+}
+
+/* 補一條短品牌色線，但不要干擾主標 */
+.statement-subtitle-v2::before {
+  content: "";
+  display: block;
+  width: 82px;
+  height: 5px;
+  margin: 0 auto 24px;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      90deg,
+      var(--blue),
+      var(--green),
+      var(--red),
+      var(--yellow)
+    );
+}
+
+.statement-tags-v2 {
+  position: relative;
+  z-index: 1;
+  margin-top: 26px;
+}
+
+.statement-tags-v2 span {
+  padding: 9px 14px;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+}
+
+.statement-backtop-v2 {
+  position: relative;
+  z-index: 1;
+  margin-top: 26px;
+  opacity: 0.72;
+}
+
+.statement-backtop-v2:hover {
+  opacity: 1;
+}
+
+/* 桌機矮螢幕壓縮 */
+@media (max-height: 820px) and (min-width: 901px) {
+  .statement-card-final {
+    padding: 44px 68px;
+  }
+
+  .statement-title-v2 {
+    font-size: clamp(2.8rem, 3.9vw, 4rem) !important;
+    line-height: 1.18 !important;
+    margin-bottom: 20px !important;
+  }
+
+  .statement-subtitle-v2::before {
+    margin-bottom: 20px;
+  }
+
+  .statement-tags-v2 {
+    margin-top: 22px;
+  }
+
+  .statement-backtop-v2 {
+    margin-top: 22px;
+  }
+}
+
+/* 寬度不足時才允許自然換行 */
+@media (max-width: 900px) {
+  .statement-card-final {
+    width: 100%;
+    padding: 42px 24px;
+    border-radius: 30px;
+  }
+
+  .statement-title-v2 {
+    font-size: clamp(2.2rem, 9vw, 3.1rem) !important;
+    line-height: 1.34 !important;
+  }
+
+  .statement-title-v2 .title-line {
+    white-space: normal;
+  }
+}
+
+/* =========================================================
+   Core Statement Official Wording Override
+   目標：
+   1. 改用悠遊卡官方語彙「無現生活，悠遊無限」
+   2. 改用官方核心價值：便利 / 安全 / 信任 / 公益
+   3. 補上出處連結，讓報告更可信
+========================================================= */
+
+.statement-title-final .title-line:last-child::after,
+.statement-title-v2 .title-line::after,
+.statement-title-v3 .title-line::after {
+  content: none !important;
+  display: none !important;
+}
+
+.statement-title-v3 {
+  position: relative;
+  z-index: 1;
+  max-width: none !important;
+  margin-bottom: 24px !important;
+  color: #fff !important;
+  font-size: clamp(4rem, 6vw, 6.4rem) !important;
+  line-height: 1.06 !important;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.statement-title-v3 .title-line {
+  display: block;
+  white-space: nowrap;
+}
+
+.statement-highlight {
+  position: relative;
+  display: inline-block !important;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.statement-highlight::before {
+  content: "";
+  position: absolute;
+  left: -0.08em;
+  right: -0.08em;
+  bottom: 0.04em;
+  z-index: -1;
+  height: 0.18em;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(2, 124, 196, 0.36),
+      rgba(74, 184, 71, 0.28),
+      rgba(238, 2, 140, 0.24),
+      rgba(250, 157, 26, 0.26)
+    );
+}
+
+.statement-subtitle-v3 {
+  position: relative;
+  z-index: 1;
+  max-width: 42em;
+  margin: 0 auto;
+  color: rgba(255, 255, 255, 0.84) !important;
+  font-size: 1.08rem !important;
+  line-height: 1.86 !important;
+  text-align: center;
+}
+
+.statement-subtitle-v3::before {
+  content: "";
+  display: block;
+  width: 86px;
+  height: 5px;
+  margin: 0 auto 24px;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      90deg,
+      var(--blue),
+      var(--green),
+      var(--red),
+      var(--yellow)
+    );
+}
+
+.statement-source-note {
+  position: relative;
+  z-index: 1;
+  max-width: none;
+  margin: 20px auto 0;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.76rem;
+  font-weight: 800;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.statement-source-links {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.statement-source-links a {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  padding: 7px 11px;
+  color: rgba(255, 255, 255, 0.76);
+  background: rgba(255, 255, 255, 0.07);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-decoration: none;
+  transition:
+    transform 0.22s ease,
+    color 0.22s ease,
+    background 0.22s ease,
+    border-color 0.22s ease;
+}
+
+.statement-source-links a:hover {
+  transform: translateY(-1px);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(2, 124, 196, 0.32);
+}
+
+/* 官方核心價值 chips */
+.statement-tags-v2 span {
+  min-width: 64px;
+  justify-content: center;
+}
+
+/* 桌機矮螢幕壓縮 */
+@media (max-height: 820px) and (min-width: 901px) {
+  .statement-title-v3 {
+    font-size: clamp(3.3rem, 5vw, 5.2rem) !important;
+    margin-bottom: 18px !important;
+  }
+
+  .statement-subtitle-v3 {
+    font-size: 0.98rem !important;
+    line-height: 1.7 !important;
+  }
+
+  .statement-subtitle-v3::before {
+    margin-bottom: 18px;
+  }
+
+  .statement-source-note {
+    margin-top: 14px;
+  }
+
+  .statement-source-links {
+    margin-top: 8px;
+  }
+}
+
+/* 寬度不足時允許換行 */
+@media (max-width: 900px) {
+  .statement-title-v3 {
+    font-size: clamp(2.8rem, 13vw, 4.4rem) !important;
+    line-height: 1.12 !important;
+  }
+
+  .statement-title-v3 .title-line {
+    white-space: normal;
+  }
+
+  .statement-subtitle-v3 {
+    font-size: 0.95rem !important;
+  }
+}
+
+.footer-sources a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(2, 124, 196, 0.22);
+  transition:
+    color 0.22s ease,
+    border-color 0.22s ease;
+}
+
+.footer-sources a:hover {
+  color: var(--blue);
+  border-color: var(--blue);
+}
+
+body.night .footer-sources a:hover {
+  color: #7dd3fc;
+  border-color: #7dd3fc;
+}
+
+/* =========================================================
+   Core Statement Minimal Official Version
+   目標：
+   1. 只保留官方語彙與一句補充
+   2. 移除來源、chips、Back to top 等輔助元件
+   3. 讓結尾更乾淨俐落
+========================================================= */
+
+.ending-clean {
+  min-height: calc(100vh - var(--header-height));
+  padding-top: var(--header-height);
+  display: flex;
+  align-items: center;
+}
+
+/* 移除舊版 Core Statement 殘留元素 */
+.statement-tags,
+.statement-tags-v2,
+.statement-backtop,
+.statement-backtop-v2,
+.statement-source-note,
+.statement-source-links,
+.statement-line {
+  display: none !important;
+}
+
+/* 移除所有舊底線效果 */
+.statement-title-final .title-line:last-child::after,
+.statement-title-v2 .title-line::after,
+.statement-title-v3 .title-line::after,
+.statement-highlight::before {
+  content: none !important;
+  display: none !important;
+}
+
+.statement-card-clean {
+  width: min(860px, 100%);
+  padding: clamp(58px, 6vw, 86px) clamp(48px, 7vw, 96px);
+  border-radius: 40px;
+  text-align: center;
+}
+
+.statement-card-clean::before {
+  inset: 18px;
+  border-radius: 30px;
+  opacity: 0.58;
+}
+
+.statement-official-title {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: #fff;
+  font-size: clamp(4.4rem, 7vw, 7.6rem);
+  font-weight: 900;
+  line-height: 1.04;
+  letter-spacing: 0.02em;
+}
+
+.statement-official-title span {
+  display: block;
+  white-space: nowrap;
+}
+
+.statement-official-title::after {
+  content: "";
+  display: block;
+  width: 96px;
+  height: 5px;
+  margin: 34px auto 0;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      90deg,
+      var(--blue),
+      var(--green),
+      var(--red),
+      var(--yellow)
+    );
+}
+
+.statement-official-subtitle {
+  position: relative;
+  z-index: 1;
+  max-width: 42em;
+  margin: 28px auto 0;
+  color: rgba(255, 255, 255, 0.82) !important;
+  font-size: 1.08rem !important;
+  line-height: 1.86 !important;
+  text-align: center;
+}
+
+/* 桌機矮螢幕壓縮 */
+@media (max-height: 820px) and (min-width: 901px) {
+  .statement-card-clean {
+    padding: 48px 76px;
+  }
+
+  .statement-official-title {
+    font-size: clamp(3.7rem, 5.8vw, 6rem);
+  }
+
+  .statement-official-title::after {
+    margin-top: 26px;
+  }
+
+  .statement-official-subtitle {
+    margin-top: 22px;
+    font-size: 0.98rem !important;
+    line-height: 1.72 !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .statement-card-clean {
+    padding: 44px 24px;
+    border-radius: 30px;
+  }
+
+  .statement-official-title {
+    font-size: clamp(3rem, 13vw, 4.8rem);
+    line-height: 1.1;
+  }
+
+  .statement-official-title span {
+    white-space: normal;
+  }
+
+  .statement-official-subtitle {
+    font-size: 0.95rem !important;
+  }
+}
+
+.footer-sources a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(2, 124, 196, 0.22);
+  transition:
+    color 0.22s ease,
+    border-color 0.22s ease;
+}
+
+.footer-sources a:hover {
+  color: var(--blue);
+  border-color: var(--blue);
+}
+
+body.night .footer-sources a:hover {
+  color: #7dd3fc;
+  border-color: #7dd3fc;
+}
+
+/* =========================================================
+   Reporter Modal Pure SVG Icons
+   目標：
+   1. 工具與語法改成純 SVG icon 表示
+   2. 不使用文字 chip
+   3. hover 時有輕微互動
+========================================================= */
+
+.logo-chip-grid,
+.tech-chip-grid,
+.logo-chip,
+.tech-chip {
+  display: none !important;
+}
+
+.pure-icon-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.pure-icon-grid a {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1 / 1;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
+}
+
+.pure-icon-grid a:hover {
+  transform: translateY(-3px);
+  border-color: rgba(2, 124, 196, 0.34);
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.22),
+    0 0 42px rgba(2, 124, 196, 0.12);
+}
+
+.pure-icon-grid img {
+  width: 52%;
+  height: 52%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ChatGPT / GitHub 黑色圖示放在白底裡，維持辨識度 */
+.reporter-tools-card .pure-icon-grid a:nth-child(1) img,
+.reporter-tools-card .pure-icon-grid a:nth-child(3) img {
+  width: 56%;
+  height: 56%;
+}
+
+.reporter-tools-card .pure-icon-grid a:nth-child(2) img {
+  width: 58%;
+  height: 58%;
+}
+
+.reporter-stack-card .pure-icon-grid img {
+  width: 58%;
+  height: 58%;
+}
+
+/* 移除原本卡片內說明文字造成的冗長感 */
+.reporter-tools-card .reporter-note,
+.reporter-stack-card .reporter-note {
+  display: none !important;
+}
+
+@media (max-width: 900px) {
+  .pure-icon-grid {
+    gap: 12px;
+  }
+
+  .pure-icon-grid a {
+    border-radius: 20px;
+  }
+}
+
+.reporter-name-zh {
+  margin: -2px 0 10px !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 1.05rem !important;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+/* =========================================================
+   VI Local Official Logo Patch
+   目標：
+   1. VI 改用本地官方 SVG
+   2. 修正 Logo 尺寸與展示區比例
+   3. 修正白天模式 vi-keywords 太淡問題
+========================================================= */
+
+.vi-logo-official {
+  display: grid;
+  place-items: center;
+  min-height: 280px;
+  padding: 34px;
+}
+
+.vi-logo-official img {
+  width: min(360px, 72%);
+  max-height: 210px;
+  object-fit: contain;
+}
+
+.vi-logo-hero.vi-logo-official {
+  background:
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.56));
+}
+
+body.night .vi-logo-hero.vi-logo-official {
+  background:
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.045));
+}
+
+body.night .vi-logo-official img {
+  filter: drop-shadow(0 18px 42px rgba(0, 0, 0, 0.22));
+}
+
+.vi-keywords span {
+  border-color: rgba(16, 24, 40, 0.1) !important;
+  color: var(--muted) !important;
+  background: rgba(255, 255, 255, 0.68) !important;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.04) !important;
+}
+
+.vi-keywords span:hover {
+  transform: translateY(-2px);
+  color: var(--text) !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+}
+
+body.night .vi-keywords span {
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  color: rgba(255, 255, 255, 0.78) !important;
+  background: rgba(255, 255, 255, 0.075) !important;
+}
+
+body.night .vi-keywords span:hover {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+}
+
+@media (max-height: 820px) and (min-width: 901px) {
+  .vi-logo-official {
+    min-height: 240px;
+    padding: 28px;
+  }
+
+  .vi-logo-official img {
+    width: min(320px, 68%);
+    max-height: 180px;
+  }
+}
+/* =========================================================
+   Reporter Tech Stack Text Icon Patch
+   目標：Website Structure 改用文字 icon，避免外連圖片破圖
+========================================================= */
+
+.code-icon-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.code-icon-grid a {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1 / 1;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 24px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.95),
+      rgba(255, 255, 255, 0.78)
+    );
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease,
+    background 0.22s ease;
+}
+
+.code-icon-grid a:hover {
+  transform: translateY(-3px);
+  border-color: rgba(2, 124, 196, 0.34);
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.22),
+    0 0 42px rgba(2, 124, 196, 0.14);
+}
+
+.code-icon-grid span {
+  color: #172033;
+  font-size: 1rem;
+  font-weight: 950;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+/* 個別語法顏色提示 */
+.code-icon-grid a:nth-child(1) span {
+  color: #e34f26;
+}
+
+.code-icon-grid a:nth-child(2) span {
+  color: #1572b6;
+}
+
+.code-icon-grid a:nth-child(3) span {
+  color: #b28b00;
+}
+
+/* 夜晚模式 */
+body.night .code-icon-grid a {
+  border-color: rgba(255, 255, 255, 0.16);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.13),
+      rgba(255, 255, 255, 0.07)
+    );
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+body.night .code-icon-grid a:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.18),
+      rgba(255, 255, 255, 0.09)
+    );
+}
+
+body.night .code-icon-grid span {
+  color: #fff;
+}

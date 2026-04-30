@@ -20,8 +20,8 @@
       <a href="#hero" class="site-logo">EasyCard Case Study</a>
 
       <nav class="site-nav" aria-label="主要導覽">
-        <a href="#overview">Overview</a>
         <a href="#insight">Insight</a>
+        <a href="#overview">Brief</a>
         <a href="#mi">MI</a>
         <a href="#vi">VI</a>
         <a href="#bi">BI</a>
@@ -29,9 +29,29 @@
         <a href="#mrk">MRK</a>
       </nav>
 
-      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
-        夜晚模式
-      </button>
+<button
+  class="theme-toggle"
+  id="themeToggle"
+  type="button"
+  aria-label="切換夜晚模式"
+  aria-pressed="false"
+>
+  <svg class="theme-icon sun-icon" viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="12" r="4" />
+    <path d="M12 2v2" />
+    <path d="M12 20v2" />
+    <path d="M4.93 4.93l1.41 1.41" />
+    <path d="M17.66 17.66l1.41 1.41" />
+    <path d="M2 12h2" />
+    <path d="M20 12h2" />
+    <path d="M4.93 19.07l1.41-1.41" />
+    <path d="M17.66 6.34l1.41-1.41" />
+  </svg>
+
+  <svg class="theme-icon moon-icon" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M21 14.4A8.5 8.5 0 0 1 9.6 3a7 7 0 1 0 11.4 11.4z" />
+  </svg>
+</button>
     </div>
   </header>
 
@@ -51,7 +71,7 @@
           </p>
 
           <p class="hero-description">
-            以 MI / VI / BI / PR / MRK 架構，拆解悠遊卡如何從「嗶卡進站」延伸為城市日常的無現金便利入口。
+            以 MI / VI / BI / PR / MRK 架構，拆解悠遊卡如何從「嗶卡進站」<br>延伸為城市日常的無現金便利入口。
           </p>
 
           <div class="hero-meta" aria-label="專案資訊">
@@ -63,7 +83,53 @@
       </div>
     </section>
 
-    <!-- Overview -->
+<!-- Core Insight -->
+<section id="insight" class="insight-section">
+  <div class="insight-sticky">
+    <div class="container narrow-container center-text insight-container">
+      <div class="insight-panel">
+        <div class="insight-layer insight-question">
+          <p class="section-kicker">Core Question</p>
+
+          <h2 class="display-title center-title insight-title insight-equation">
+            <span class="equation-brand">悠遊卡</span>
+            <span class="equation-symbol">=</span>
+            <span class="equation-value">
+              交通卡<span class="question-mark">?</span>
+            </span>
+          </h2>
+
+          <p>
+            多數人對它的第一印象，仍停留在通勤進站時的「嗶一下」。
+          </p>
+        </div>
+
+        <div class="insight-layer insight-answer" aria-hidden="true">
+          <p class="section-kicker">Core Insight</p>
+
+          <h2 class="display-title center-title insight-title insight-equation">
+            <span class="equation-brand">悠遊卡</span>
+            <span class="equation-symbol">=</span>
+            <span class="equation-value answer-value">
+              無現生活入口
+            </span>
+          </h2>
+
+          <p>
+            但它真正累積的是一套跨越交通、消費、繳費、公共服務與政策應用的城市日常體驗。
+          </p>
+        </div>
+      </div>
+
+      <div class="insight-scroll-hint" aria-hidden="true">
+        <span></span>
+        <small>Scroll to reveal</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- Case Brief -->
     <section id="overview" class="content-section overview-section">
       <div class="container">
         <div class="section-grid">
@@ -114,22 +180,7 @@
       </div>
     </section>
 
-    <!-- Core Insight -->
-    <section id="insight" class="content-section insight-section">
-      <div class="container narrow-container center-text insight-container">
-        <p class="section-kicker">Core Insight</p>
 
-        <h2 class="display-title center-title insight-title">
-          <span class="title-line">悠遊卡賣的不是交通卡，</span>
-          <span class="title-line">而是城市日常的</span>
-          <span class="title-line">無現金便利入口。</span>
-        </h2>
-
-        <p>
-          它的品牌價值已從「搭車工具」延伸到交通、消費、生活服務、數位支付、政策推動與城市日常資料應用。
-        </p>
-      </div>
-    </section>
 
     <!-- MI -->
     <section id="mi" class="content-section topic-section mi-section">
@@ -324,10 +375,10 @@
               <p>Logo 將四個方向的箭頭整合成花卉與笑臉，讓支付科技不只有效率，也保有生活感與親近感。</p>
             </div>
 
-            <div class="vi-logo-hero">
+            <div class="vi-logo-hero vi-logo-official">
               <img
-                src="https://www.ypdesigngroup.com/images/taipei-easycard-logo.svg?crc=4167322686"
-                alt="悠遊卡四色 Logo"
+                src="assets/images/EasyCard_Corporation_Logo_with_text.svg"
+                alt="悠遊卡公司官方識別 Logo"
               />
             </div>
 
@@ -365,7 +416,7 @@
               </article>
             </div>
 
-            <p class="vi-source">圖片來源：Y&amp;P Design Group</p>
+            <p class="vi-source">Logo 來源：悠遊卡公司官方識別素材；視覺概念參考：Y&amp;P Design Group</p>
           </aside>
         </div>
       </div>
@@ -491,263 +542,332 @@
       </div>
     </section>
 
-    <!-- PR -->
-    <section id="pr" class="case-section pr-section">
-      <div class="container">
-        <div class="pr-layout">
-          <div class="pr-main">
-            <div class="section-title-row pr-title-row">
-              <div class="side-tab tab-red">
-                <span>PR</span>
-                <small>公關案例</small>
-              </div>
-
-              <div>
-                <p class="section-kicker">Public Relations</p>
-
-                <h2 class="display-title">
-                  <span class="title-line">2015–2016</span>
-                  <span class="title-line">名人卡爭議</span>
-                </h2>
-              </div>
-            </div>
-
-            <p class="pr-lead">
-              公共品牌的行銷話題，不能只追求短期聲量；它必須同時承擔公共形象、社會觀感與品牌信任的風險。
-            </p>
-
-            <div class="pr-evidence-wall" aria-label="事件資料來源">
-              <article class="pr-evidence-card official">
-                <span>Official Statement</span>
-                <h3>悠遊卡公司針對公平會裁罰發布說明</h3>
-                <p>以官方回應作為事件後續處理與立場說明依據。</p>
-                <a href="https://www.easycard.com.tw/new?cls=1&id=1508381971" target="_blank" rel="noreferrer">
-                  查看來源
-                </a>
-              </article>
-
-              <article class="pr-evidence-card media">
-                <span>Media Coverage</span>
-                <h3>社會輿論聚焦公共品牌形象與公益名義</h3>
-                <p>媒體報導可補足事件當時的社會討論與輿論壓力。</p>
-                <a href="https://www.cna.com.tw/news/aloc/201508270152.aspx" target="_blank" rel="noreferrer">
-                  查看來源
-                </a>
-              </article>
-
-              <article class="pr-evidence-card media">
-                <span>Public Debate</span>
-                <h3>爭議從商品話題延伸為品牌信任議題</h3>
-                <p>事件核心不是銷售成績，而是品牌行為是否符合公共性。</p>
-                <a href="https://www.cna.com.tw/news/aloc/201508270268.aspx" target="_blank" rel="noreferrer">
-                  查看來源
-                </a>
-              </article>
-            </div>
-          </div>
-
-          <aside class="pr-diagnosis-card" aria-label="品牌公關診斷">
-            <span class="pr-card-kicker">Brand Risk Diagnosis</span>
-            <h3>短期話題成功，可能換來長期信任損耗。</h3>
-
-            <div class="pr-risk-list">
-              <article>
-                <span>01</span>
-                <div>
-                  <strong>MI 落差</strong>
-                  <p>與「信任、公益、公共服務」的品牌核心產生不一致。</p>
-                </div>
-              </article>
-
-              <article>
-                <span>02</span>
-                <div>
-                  <strong>受眾感受</strong>
-                  <p>公共服務品牌需要考量更廣泛的社會觀感與族群接受度。</p>
-                </div>
-              </article>
-
-              <article>
-                <span>03</span>
-                <div>
-                  <strong>聯名審核</strong>
-                  <p>跨界合作不只看聲量，也應評估公共性、媒體風險與品牌適配度。</p>
-                </div>
-              </article>
-            </div>
-          </aside>
+<!-- PR -->
+<section id="pr" class="case-section pr-section">
+  <div class="container">
+    <div class="pr-header">
+      <div class="section-title-row pr-title-row">
+        <div class="side-tab tab-red">
+          <span>PR</span>
+          <small>公關案例</small>
         </div>
 
-        <div class="pr-response-board" aria-label="危機處理流程">
-          <div class="pr-response-title">
-            <span>Response Framework</span>
-            <strong>從話題危機到信任修復</strong>
+        <div>
+          <p class="section-kicker">Public Relations</p>
+
+          <h2 class="display-title pr-title-single">
+  聲量與信任的平衡
+</h2>
+        </div>
+      </div>
+
+      <p class="pr-lead">
+        公共品牌的 PR 不只是處理危機，也包含長期資訊透明、公益參與與公共服務合作。悠遊卡的品牌公關，核心在於如何同時管理聲量、社會觀感與信任資產。
+      </p>
+    </div>
+
+    <div class="pr-dual-layout">
+      <article class="pr-crisis-card" aria-label="危機公關案例">
+        <div class="pr-card-topline">
+          <span>Crisis Case</span>
+          <small>2015–2016</small>
+        </div>
+
+        <h3>名人卡爭議</h3>
+
+        <p>
+          該事件讓悠遊卡從商品話題進入公共品牌討論，爭議焦點不只在銷售，而是公共形象、公益名義與社會觀感是否一致。
+        </p>
+
+        <div class="pr-case-points">
+          <article>
+            <strong>事件焦點</strong>
+            <span>話題行銷引發公共品牌形象討論</span>
+          </article>
+
+          <article>
+            <strong>品牌問題</strong>
+            <span>短期聲量與 MI 的信任、公益、公共服務產生落差</span>
+          </article>
+
+          <article>
+            <strong>後續應對</strong>
+            <span>官方說明、觀感評估與制度修正成為信任修復關鍵</span>
+          </article>
+        </div>
+
+        <div class="pr-source-links">
+          <a href="https://www.easycard.com.tw/new?cls=1&id=1508381971" target="_blank" rel="noreferrer">
+            官方說明
+          </a>
+          <a href="https://www.cna.com.tw/news/aloc/201508270152.aspx" target="_blank" rel="noreferrer">
+            媒體報導
+          </a>
+        </div>
+      </article>
+
+      <article class="pr-trust-card" aria-label="正向公關與信任累積">
+        <div class="pr-card-topline">
+          <span>Trust Building</span>
+          <small>Positive PR</small>
+        </div>
+
+        <h3>公關不只是滅火，也是在日常累積信任。</h3>
+
+        <div class="pr-trust-list">
+          <article>
+            <span class="trust-icon">01</span>
+            <div>
+              <strong>媒體透明溝通</strong>
+              <p>透過新聞稿、記者會與即時回應，讓公共服務品牌維持資訊透明度。</p>
+            </div>
+          </article>
+
+          <article>
+            <span class="trust-icon">02</span>
+            <div>
+              <strong>公益與社會參與</strong>
+              <p>以數位公益、社會友善與平台串聯，建立品牌的公共價值感。</p>
+            </div>
+          </article>
+
+          <article>
+            <span class="trust-icon">03</span>
+            <div>
+              <strong>公共服務合作</strong>
+              <p>與政府、交通、生活服務場景合作，讓品牌被感知為城市基礎服務的一部分。</p>
+            </div>
+          </article>
+        </div>
+
+        <p class="pr-trust-note">
+          正向 PR 的重點不是一次活動，而是讓品牌長期被理解為「可信任、可依賴、可參與城市生活」的公共介面。
+        </p>
+      </article>
+    </div>
+
+    <div class="pr-response-line" aria-label="危機處理流程">
+      <div class="pr-response-heading">
+        <span>Response Framework</span>
+        <strong>從話題危機到信任修復</strong>
+      </div>
+
+      <div class="pr-response-track">
+        <article>
+          <span>1</span>
+          <strong>議題浮現</strong>
+          <p>監測社會反應</p>
+        </article>
+
+        <article>
+          <span>2</span>
+          <strong>觀感評估</strong>
+          <p>判斷品牌落差</p>
+        </article>
+
+        <article>
+          <span>3</span>
+          <strong>官方說明</strong>
+          <p>釐清立場責任</p>
+        </article>
+
+        <article>
+          <span>4</span>
+          <strong>制度修正</strong>
+          <p>建立風險審核</p>
+        </article>
+
+        <article>
+          <span>5</span>
+          <strong>信任修復</strong>
+          <p>回到公共價值</p>
+        </article>
+      </div>
+    </div>
+
+    <p class="section-source pr-source">
+      資料來源：悠遊卡官方新聞稿、中央社新聞、悠遊卡永續報告書。此頁以品牌公關角度整理事件脈絡，不使用人物照片與爭議卡面。
+    </p>
+  </div>
+</section>
+
+<!-- MRK -->
+<section id="mrk" class="case-section mrk-section">
+  <div class="container">
+    <div class="mrk-compact-hero">
+      <div class="mrk-compact-copy">
+        <div class="section-title-row">
+          <div class="side-tab tab-blue">
+            <span>MRK</span>
+            <small>行銷案例</small>
           </div>
 
-          <div class="pr-response-steps">
-            <article>
-              <span>1</span>
-              <strong>議題浮現</strong>
-              <p>監測社會反應與媒體討論。</p>
-            </article>
+          <div>
+            <p class="section-kicker">Marketing</p>
 
-            <article>
-              <span>2</span>
-              <strong>觀感評估</strong>
-              <p>判斷爭議是否影響品牌核心。</p>
-            </article>
-
-            <article>
-              <span>3</span>
-              <strong>官方說明</strong>
-              <p>清楚說明立場、程序與責任。</p>
-            </article>
-
-            <article>
-              <span>4</span>
-              <strong>制度修正</strong>
-              <p>建立聯名與活動風險審核。</p>
-            </article>
-
-            <article>
-              <span>5</span>
-              <strong>信任修復</strong>
-              <p>回到便利、安全、信任、公益。</p>
-            </article>
+            <h2 class="display-title mrk-title-single">
+              TPASS 行政院通勤月票
+            </h2>
           </div>
         </div>
 
-        <p class="section-source pr-source">
-          資料來源：悠遊卡官方新聞稿、中央社新聞。此頁以品牌公關角度整理事件脈絡，不使用人物照片與爭議卡面。
+        <p class="mrk-lead">
+          TPASS 的行銷價值不只是「月票優惠」，而是把價格誘因、通勤剛需與公共運輸整合成一套高頻使用情境，讓悠遊卡從搭車工具延伸為城市生活方案。
         </p>
       </div>
-    </section>
 
-    <!-- MRK -->
-    <section id="mrk" class="case-section mrk-section">
-      <div class="container">
-        <div class="mrk-strategy-layout">
-          <div class="topic-copy mrk-copy">
-            <div class="section-title-row">
-              <div class="side-tab tab-blue">
-                <span>MRK</span>
-                <small>行銷案例</small>
-              </div>
+<button
+  class="mrk-banner-card mrk-banner-button"
+  id="tpassBannerButton"
+  type="button"
+  aria-label="放大檢視 TPASS 官方形象 Banner"
+>
+  <img
+    src="https://www.tpass.tw/storage/banner/c69114845e4261.jpg"
+    alt="TPASS 行政院通勤月票官方形象 Banner"
+  />
+  <span class="mrk-banner-caption">TPASS 官方形象 Banner</span>
+  <span class="mrk-banner-zoom">點擊放大</span>
+</button>
+    </div>
 
-              <div>
-                <p class="section-kicker">Marketing</p>
+    <div class="mrk-dashboard mrk-dashboard-compact" aria-label="TPASS 行銷數據儀表板">
+      <div class="mrk-kpi-grid" aria-label="TPASS 關鍵行銷數據">
+        <article class="mrk-kpi-card primary">
+          <span>總銷售</span>
+          <strong
+            class="count-up"
+            data-start="0"
+            data-end="1300"
+            data-suffix="萬+"
+            data-final="1,300萬+"
+          >0</strong>
+          <p>悠遊卡定期票總銷售張數</p>
+        </article>
 
-                <h2 class="display-title">
-                  <span class="title-line">TPASS</span>
-                  <span class="title-line">行政院通勤月票</span>
-                </h2>
-              </div>
-            </div>
+        <article class="mrk-kpi-card">
+          <span>穩定月銷</span>
+          <strong
+            class="count-up"
+            data-start="0"
+            data-end="52"
+            data-suffix="萬"
+            data-final="52萬"
+          >0</strong>
+          <p>基北北桃都會通每月穩定銷量</p>
+        </article>
 
-            <p class="mrk-intro">
-              TPASS 的行銷價值不只是「月票優惠」，而是透過價格誘因、通勤剛需與公共運輸整合，培養高頻使用習慣，讓悠遊卡成為公共政策與城市生活的入口。
+        <article class="mrk-kpi-card">
+          <span>使用頻率</span>
+          <strong
+            class="count-up"
+            data-start="0"
+            data-end="80"
+            data-suffix="次"
+            data-final="70–80次"
+          >0</strong>
+          <p>每張月票平均每月搭乘次數</p>
+        </article>
+
+        <article class="mrk-kpi-card">
+          <span>省錢感</span>
+          <strong
+            class="count-up"
+            data-start="0"
+            data-end="1000"
+            data-prefix="$"
+            data-final="$1,000"
+          >0</strong>
+          <p>平均每月節省交通支出</p>
+        </article>
+      </div>
+
+      <div class="mrk-dashboard-bottom">
+        <div class="mrk-chart-board mrk-chart-compact">
+          <div class="mrk-chart-copy">
+            <span>Marketing Logic</span>
+            <h3>從補貼誘因，到生活習慣養成。</h3>
+            <p>
+              TPASS 將政策補貼轉譯成使用者可感知的省錢、便利與穩定通勤。
             </p>
-
-            <div class="mrk-tags" aria-label="TPASS 行銷策略關鍵字">
-              <span>Policy Marketing</span>
-              <span>Commuter Habit</span>
-              <span>Public Value</span>
-            </div>
-
-            <div class="mrk-logic-list" aria-label="TPASS 行銷邏輯">
-              <article>
-                <span>01</span>
-                <div>
-                  <strong>降低使用門檻</strong>
-                  <p>用月票價格誘因，讓通勤族更容易轉向公共運輸。</p>
-                </div>
-              </article>
-
-              <article>
-                <span>02</span>
-                <div>
-                  <strong>創造高頻場景</strong>
-                  <p>每日通勤形成固定接觸，提升卡片與服務黏著度。</p>
-                </div>
-              </article>
-
-              <article>
-                <span>03</span>
-                <div>
-                  <strong>放大公共價值</strong>
-                  <p>把省錢、便利、減碳與政策服務連成同一套敘事。</p>
-                </div>
-              </article>
-            </div>
           </div>
 
-          <aside class="mrk-dashboard-card" aria-label="TPASS 行銷數據儀表板">
-            <div class="mrk-dashboard-header">
-              <span>Campaign Dashboard</span>
-              <h3>把搭車工具，轉化為通勤生活方案。</h3>
-            </div>
-
-            <div class="mrk-metric-grid">
-              <article class="mrk-metric-card primary">
-                <span>總銷售</span>
-                <strong>1,300萬+</strong>
-                <p>悠遊卡定期票總銷售張數</p>
-              </article>
-
-              <article class="mrk-metric-card">
-                <span>穩定月銷</span>
-                <strong>52萬</strong>
-                <p>基北北桃都會通每月穩定銷量</p>
-              </article>
-
-              <article class="mrk-metric-card">
-                <span>使用頻率</span>
-                <strong>70–80次</strong>
-                <p>每張月票平均每月搭乘次數</p>
-              </article>
-
-              <article class="mrk-metric-card">
-                <span>省錢感</span>
-                <strong>$1,000</strong>
-                <p>平均每月節省交通支出</p>
-              </article>
-            </div>
-
-            <div class="mrk-funnel" aria-label="TPASS 行銷轉化路徑">
-              <div class="mrk-funnel-line"></div>
-
-              <article>
-                <span class="funnel-dot"></span>
+          <div class="mrk-bars" aria-label="TPASS 行銷策略推進">
+            <article class="mrk-bar-row">
+              <div class="mrk-bar-label">
                 <strong>價格誘因</strong>
-                <p>降低決策成本</p>
-              </article>
+                <span>降低決策成本</span>
+              </div>
+              <div class="mrk-bar-track">
+                <span style="--bar-width: 88%"></span>
+              </div>
+            </article>
 
-              <article>
-                <span class="funnel-dot"></span>
+            <article class="mrk-bar-row">
+              <div class="mrk-bar-label">
                 <strong>通勤剛需</strong>
-                <p>提高使用頻率</p>
-              </article>
+                <span>提高使用頻率</span>
+              </div>
+              <div class="mrk-bar-track">
+                <span style="--bar-width: 82%"></span>
+              </div>
+            </article>
 
-              <article>
-                <span class="funnel-dot"></span>
+            <article class="mrk-bar-row">
+              <div class="mrk-bar-label">
                 <strong>品牌黏著</strong>
-                <p>養成固定習慣</p>
-              </article>
+                <span>養成固定習慣</span>
+              </div>
+              <div class="mrk-bar-track">
+                <span style="--bar-width: 72%"></span>
+              </div>
+            </article>
 
-              <article>
-                <span class="funnel-dot"></span>
+            <article class="mrk-bar-row">
+              <div class="mrk-bar-label">
                 <strong>公共價值</strong>
-                <p>連結城市政策</p>
-              </article>
-            </div>
+                <span>連結城市政策</span>
+              </div>
+              <div class="mrk-bar-track">
+                <span style="--bar-width: 64%"></span>
+              </div>
+            </article>
+          </div>
+        </div>
 
-            <p class="mrk-source">
-              資料來源：悠遊卡官方 TPASS 新聞稿、TPASS 官方網站
-            </p>
-          </aside>
+        <div class="mrk-funnel-strip mrk-funnel-compact" aria-label="TPASS 行銷轉化路徑">
+          <article>
+            <span>01</span>
+            <strong>補貼可感</strong>
+            <p>價格優惠讓使用者願意嘗試</p>
+          </article>
+
+          <article>
+            <span>02</span>
+            <strong>每日接觸</strong>
+            <p>通勤情境創造高頻使用</p>
+          </article>
+
+          <article>
+            <span>03</span>
+            <strong>習慣建立</strong>
+            <p>月票綁定固定移動路徑</p>
+          </article>
+
+          <article>
+            <span>04</span>
+            <strong>品牌延伸</strong>
+            <p>從交通支付延伸到生活方案</p>
+          </article>
         </div>
       </div>
-    </section>
+    </div>
+
+    <p class="section-source mrk-source">
+      資料來源：悠遊卡官方 TPASS 新聞稿、TPASS 官方網站。
+    </p>
+  </div>
+</section>
 
     <!-- Reflection -->
     <section id="reflection" class="content-section reflection-section">
@@ -804,42 +924,228 @@
       </div>
     </section>
 
-    <!-- Ending -->
-    <section id="statement" class="ending-section">
-      <div class="container ending-container">
-        <div class="statement-card">
-          <p class="section-kicker">Core Statement</p>
+<!-- Ending -->
+<section id="statement" class="ending-section ending-clean">
+  <div class="container ending-container">
+    <article class="statement-card statement-card-clean">
+      <p class="section-kicker">Core Statement</p>
 
-          <h2 class="display-title center-title">
-            <span class="title-line">悠遊卡賣的不是交通卡，</span>
-            <span class="title-line">而是讓城市生活</span>
-            <span class="title-line">更自由流動的無現金便利。</span>
-          </h2>
+      <h2 class="statement-official-title">
+        <span>無現生活，</span>
+        <span>悠遊無限。</span>
+      </h2>
 
-          <div class="statement-line"></div>
-
-          <p>
-            從「嗶一下」開始，串起交通、支付、服務與生活。
-          </p>
-
-          <div class="statement-tags" aria-label="品牌核心關鍵字">
-            <span>Traffic</span>
-            <span>Payment</span>
-            <span>Service</span>
-            <span>Life</span>
-          </div>
-        </div>
-      </div>
-    </section>
+      <p class="statement-official-subtitle">
+        從交通支付為起點，拓展至數位金融、社會公益與永續應用。
+      </p>
+    </article>
+  </div>
+</section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>
-        EasyCard Brand Analysis Case Study｜資料來源：悠遊卡官方網站、Y&amp;P Design Group、Kat Wang Portfolio、TPASS 官方網站、悠遊卡官方新聞稿、中央社新聞
-      </p>
+  <div
+  class="image-lightbox"
+  id="imageLightbox"
+  role="dialog"
+  aria-modal="true"
+  aria-hidden="true"
+  aria-label="TPASS 官方形象 Banner 放大檢視"
+>
+  <button class="lightbox-backdrop" type="button" aria-label="關閉放大圖片"></button>
+
+  <div class="lightbox-panel">
+    <button class="lightbox-close" id="lightboxClose" type="button" aria-label="關閉">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6 6l12 12" />
+        <path d="M18 6L6 18" />
+      </svg>
+    </button>
+
+    <img
+      src="https://www.tpass.tw/storage/banner/c69114845e4261.jpg"
+      alt="TPASS 行政院通勤月票官方形象 Banner 放大圖"
+    />
+
+    <p>TPASS 官方形象 Banner｜資料來源：TPASS 官方網站</p>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container footer-layout">
+<div class="footer-sources">
+  <span>Sources</span>
+  <p>
+    <a href="https://www.easycard.com.tw/about" target="_blank" rel="noreferrer">悠遊卡官方網站</a>
+    ｜
+    <a href="https://www.easycard.com.tw/easycards?cls=1515395053" target="_blank" rel="noreferrer">悠遊卡產品與服務</a>
+    ｜
+    <a href="https://www.easycard.com.tw/new?cls=4&id=1509586707" target="_blank" rel="noreferrer">無現生活悠遊無限動畫影片</a>
+    ｜
+    <a href="https://yax.easycard.com.tw/_upload/files/2024%20CSR%20small.pdf" target="_blank" rel="noreferrer">2024 永續報告書</a>
+    ｜
+    <a href="https://www.ypdesigngroup.com/phone/easycard.html" target="_blank" rel="noreferrer">Y&amp;P Design Group</a>
+    ｜
+    <a href="https://katwang.webflow.io/work/easycard" target="_blank" rel="noreferrer">Kat Wang Portfolio</a>
+    ｜
+    <a href="https://www.tpass.tw/" target="_blank" rel="noreferrer">TPASS 官方網站</a>
+    ｜
+    <a href="https://www.cna.com.tw/news/aloc/201508270152.aspx" target="_blank" rel="noreferrer">中央社新聞</a>
+  </p>
+</div>
+
+    <div class="footer-credit">
+      <span>Report by</span>
+      <button
+        class="reporter-button"
+        id="reporterButton"
+        type="button"
+        aria-haspopup="dialog"
+        aria-controls="reporterModal"
+      >
+        Sean Huang
+      </button>
     </div>
-  </footer>
+  </div>
+</footer>
+
+<div
+  class="reporter-modal"
+  id="reporterModal"
+  role="dialog"
+  aria-modal="true"
+  aria-hidden="true"
+  aria-labelledby="reporterModalTitle"
+>
+  <button class="reporter-backdrop" type="button" aria-label="關閉報告者資訊"></button>
+
+  <div class="reporter-panel">
+    <button class="reporter-close" id="reporterClose" type="button" aria-label="關閉">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6 6l12 12" />
+        <path d="M18 6L6 18" />
+      </svg>
+    </button>
+
+    <div class="reporter-profile">
+      <div class="reporter-avatar" aria-hidden="true">
+        SH
+      </div>
+
+      <div>
+        <p class="section-kicker">Report Author</p>
+        <h2 id="reporterModalTitle">Sean Huang</h2>
+        <p class="reporter-name-zh">黃煒翔</p>
+        <p>
+          Brand Analysis / UI Presentation / Marketing Design
+        </p>
+      </div>
+    </div>
+
+    <div class="reporter-modal-grid">
+      <section class="reporter-card reporter-contact">
+        <div class="reporter-card-title">
+          <span class="reporter-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="4" y="4" width="16" height="16" rx="5" />
+              <circle cx="12" cy="12" r="3.2" />
+              <path d="M17.2 6.8h.01" />
+            </svg>
+          </span>
+          <div>
+            <span>Contact</span>
+            <strong>Instagram QR Code</strong>
+          </div>
+        </div>
+
+        <img
+          class="reporter-qr"
+          src="assets/images/weixiang0410_qr.png"
+          alt="Sean Huang Instagram QR Code"
+        />
+
+        <p class="reporter-note">
+          掃描 QR Code 查看 Instagram 聯絡資訊。
+        </p>
+      </section>
+
+      <section class="reporter-card reporter-tools-card">
+        <div class="reporter-card-title">
+          <span class="reporter-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" />
+              <path d="M12 12l8-4.5" />
+              <path d="M12 12v9" />
+              <path d="M12 12L4 7.5" />
+            </svg>
+          </span>
+          <div>
+            <span>Tools</span>
+            <strong>Production Workflow</strong>
+          </div>
+        </div>
+
+        <div class="pure-icon-grid" aria-label="此報告使用工具">
+          <a href="https://github.com/" target="_blank" rel="noreferrer" aria-label="GitHub">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/960px-Octicons-mark-github.svg.png?_=20180806170715"
+              alt=""
+            />
+          </a>
+
+          <a href="https://code.visualstudio.com/" target="_blank" rel="noreferrer" aria-label="Visual Studio Code">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Visual_Studio_Code_1.35_icon.svg/960px-Visual_Studio_Code_1.35_icon.svg.png?_=20210804221519"
+              alt=""
+            />
+          </a>
+
+          <a href="https://chatgpt.com/" target="_blank" rel="noreferrer" aria-label="ChatGPT">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/ChatGPT-Logo.svg/960px-ChatGPT-Logo.svg.png?_=20240214002031"
+              alt=""
+            />
+          </a>
+        </div>
+
+        <p class="reporter-note">
+          使用 GitHub Pages 部署，VS Code 編輯，並以 ChatGPT 協助資料整理、文案架構與前端調整。
+        </p>
+      </section>
+
+<!-- Tech Stack -->
+<section class="reporter-card reporter-stack-card">
+  <div class="reporter-card-title">
+    <span class="reporter-icon">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M8 9l-4 3 4 3" />
+        <path d="M16 9l4 3-4 3" />
+        <path d="M14 5l-4 14" />
+      </svg>
+    </span>
+
+    <div>
+      <span>Tech Stack</span>
+      <strong>Website Structure</strong>
+    </div>
+  </div>
+
+  <div class="code-icon-grid" aria-label="使用語法">
+    <a href="https://developer.mozilla.org/docs/Web/HTML" target="_blank" rel="noreferrer" aria-label="HTML">
+      <span>HTML</span>
+    </a>
+
+    <a href="https://developer.mozilla.org/docs/Web/CSS" target="_blank" rel="noreferrer" aria-label="CSS">
+      <span>CSS</span>
+    </a>
+
+    <a href="https://developer.mozilla.org/docs/Web/JavaScript" target="_blank" rel="noreferrer" aria-label="JavaScript">
+      <span>JS</span>
+    </a>
+  </div>
+</section>
+    </div>
+  </div>
+</div>
 
   <script src="script.js"></script>
 </body>
