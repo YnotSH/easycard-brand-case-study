@@ -8179,3 +8179,303 @@ body.night .hero-section .shape-green {
     color: rgba(255, 255, 255, 0.74) !important;
   }
 }
+
+/* =========================================================
+   Desktop MI Compact Layout Fix
+   目標：
+   1. 修正 MI 桌機版右側卡片過高
+   2. 讓 A Day with EasyCard 一屏內可完整呈現
+   3. 不影響手機版 MI 目前排版
+========================================================= */
+
+@media (min-width: 769px) {
+  .mi-section {
+    padding-top: 96px !important;
+    padding-bottom: 96px !important;
+  }
+
+  .mi-section .mi-layout {
+    align-items: center !important;
+    gap: clamp(56px, 6vw, 88px) !important;
+  }
+
+  .mi-scenario-card {
+    max-width: 620px !important;
+    padding: 30px !important;
+    border-radius: 32px !important;
+  }
+
+  .mi-scenario-card::after {
+    width: 180px !important;
+    height: 180px !important;
+    right: -64px !important;
+    top: -64px !important;
+  }
+
+  .mi-card-kicker {
+    margin-bottom: 8px !important;
+    font-size: 0.72rem !important;
+    letter-spacing: 0.14em !important;
+  }
+
+  .mi-scenario-header h3 {
+    max-width: 13em !important;
+    font-size: clamp(1.65rem, 2vw, 2.15rem) !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.035em !important;
+  }
+
+  .mi-card-intro {
+    max-width: 34em !important;
+    margin-top: 10px !important;
+    font-size: 0.86rem !important;
+    line-height: 1.66 !important;
+  }
+
+  .mi-scenario-grid {
+    gap: 10px !important;
+    margin-top: 18px !important;
+  }
+
+  .mi-scenario-item {
+    grid-template-columns: 44px 1fr !important;
+    gap: 12px !important;
+    padding: 14px 16px !important;
+    border-radius: 18px !important;
+  }
+
+  .mi-scenario-icon {
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 13px !important;
+  }
+
+  .mi-scenario-icon svg {
+    width: 19px !important;
+    height: 19px !important;
+  }
+
+  .mi-scenario-stage {
+    margin-bottom: 3px !important;
+    font-size: 0.64rem !important;
+    letter-spacing: 0.11em !important;
+  }
+
+  .mi-scenario-item h4 {
+    margin-bottom: 4px !important;
+    font-size: 0.96rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .mi-scenario-item p {
+    font-size: 0.78rem !important;
+    line-height: 1.55 !important;
+  }
+
+  .mi-mini-tags {
+    gap: 6px !important;
+    margin-top: 8px !important;
+  }
+
+  .mi-mini-tags span {
+    padding: 4px 7px !important;
+    font-size: 0.62rem !important;
+  }
+
+  .mi-logic-strip {
+    gap: 9px !important;
+    margin-top: 16px !important;
+    padding-top: 14px !important;
+  }
+
+  .mi-logic-strip span {
+    font-size: 0.72rem !important;
+  }
+}
+
+/* 矮螢幕桌機再壓縮一階，避免底部被切 */
+@media (min-width: 769px) and (max-height: 820px) {
+  .mi-section {
+    padding-top: 78px !important;
+    padding-bottom: 78px !important;
+  }
+
+  .mi-scenario-card {
+    padding: 26px !important;
+  }
+
+  .mi-scenario-header h3 {
+    font-size: clamp(1.48rem, 1.8vw, 1.95rem) !important;
+  }
+
+  .mi-card-intro {
+    font-size: 0.8rem !important;
+    line-height: 1.58 !important;
+  }
+
+  .mi-scenario-grid {
+    gap: 8px !important;
+    margin-top: 14px !important;
+  }
+
+  .mi-scenario-item {
+    padding: 12px 14px !important;
+  }
+
+  .mi-scenario-item p {
+    font-size: 0.74rem !important;
+    line-height: 1.48 !important;
+  }
+
+  .mi-mini-tags {
+    margin-top: 6px !important;
+  }
+
+  .mi-logic-strip {
+    margin-top: 12px !important;
+    padding-top: 12px !important;
+  }
+}
+
+/* =========================================================
+   BI Core Statement Visual Polish
+   目標：
+   1. 讓「體驗核心」成為 BI 區塊的結論重點
+   2. 修正文字過綠、過散、閱讀性不足
+   3. 桌機 / 手機都維持自然斷句
+========================================================= */
+
+.bi-core-card,
+.bi-experience-core,
+.bi-service-core,
+.bi-service-card .bi-core-statement-wrap {
+  position: relative;
+  overflow: hidden;
+  margin-top: 22px;
+  border: 1px solid rgba(67, 181, 71, 0.28);
+  border-radius: 22px;
+  padding: 22px 24px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(67, 181, 71, 0.18),
+      rgba(2, 124, 196, 0.08)
+    );
+}
+
+.bi-core-card::after,
+.bi-experience-core::after,
+.bi-service-core::after,
+.bi-service-card .bi-core-statement-wrap::after {
+  content: "";
+  position: absolute;
+  right: -42px;
+  bottom: -42px;
+  width: 120px;
+  height: 120px;
+  border-radius: 999px;
+  background: rgba(67, 181, 71, 0.16);
+  pointer-events: none;
+}
+
+.bi-core-card .bi-core-label,
+.bi-experience-core .bi-core-label,
+.bi-service-core .bi-core-label,
+.bi-service-card .bi-core-statement-wrap .bi-core-label {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-bottom: 10px;
+  color: var(--green);
+  font-size: 0.74rem;
+  font-weight: 950;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.bi-core-statement {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin: 0;
+  color: var(--text);
+  font-size: 1.18rem;
+  font-weight: 950;
+  line-height: 1.58;
+  letter-spacing: -0.02em;
+}
+
+.bi-core-line {
+  display: inline;
+  white-space: normal;
+}
+
+/* 夜晚模式：主句改白，label 保留綠色提示 */
+body.night .bi-core-card,
+body.night .bi-experience-core,
+body.night .bi-service-core,
+body.night .bi-service-card .bi-core-statement-wrap {
+  border-color: rgba(67, 181, 71, 0.34);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(67, 181, 71, 0.18),
+      rgba(2, 124, 196, 0.12)
+    );
+}
+
+body.night .bi-core-statement {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* 桌機版：讓主句穩定成兩行左右，不要太碎 */
+@media (min-width: 769px) {
+  .bi-core-card,
+  .bi-experience-core,
+  .bi-service-core,
+  .bi-service-card .bi-core-statement-wrap {
+    padding: 22px 26px;
+  }
+
+  .bi-core-statement {
+    max-width: 18em;
+    font-size: 1.15rem;
+    line-height: 1.58;
+  }
+
+  .bi-core-line {
+    display: block;
+    white-space: nowrap;
+  }
+}
+
+/* 手機版：避免被迫一行塞滿 */
+@media (max-width: 768px) {
+  .bi-core-card,
+  .bi-experience-core,
+  .bi-service-core,
+  .bi-service-card .bi-core-statement-wrap {
+    margin-top: 18px !important;
+    padding: 18px 18px !important;
+    border-radius: 20px !important;
+  }
+
+  .bi-core-card .bi-core-label,
+  .bi-experience-core .bi-core-label,
+  .bi-service-core .bi-core-label,
+  .bi-service-card .bi-core-statement-wrap .bi-core-label {
+    margin-bottom: 9px !important;
+    font-size: 0.66rem !important;
+  }
+
+  .bi-core-statement {
+    font-size: 1.02rem !important;
+    line-height: 1.62 !important;
+  }
+
+  .bi-core-line {
+    display: block !important;
+    white-space: normal !important;
+  }
+}
