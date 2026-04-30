@@ -323,4 +323,119 @@ window.addEventListener("keydown", (event) => {
   if (reporterModal?.classList.contains("is-open")) {
     closeReporterModal();
   }
+});/* ---------- Keyboard topic navigation ---------- */
+
+const topicNavLinks = Array.from(document.querySelectorAll(".site-nav a[href^='#']"));
+const topicSections = topicNavLinks
+  .map((link) => {
+    const target = document.querySelector(link.getAttribute("href"));
+    return target
+      ? {
+          link,
+          target,
+          id: target.id,
+        }
+      : null;
+  })
+  .filter(Boolean);
+
+const isTypingContext = () => {
+  const activeElement = document.activeElement;
+
+  if (!activeElement) return false;
+
+  const tagName = activeElement.tagName?.toLowerCase();
+
+  return (
+    tagName === "input" ||
+    tagName === "textarea" ||
+    tagName === "select" ||
+    activeElement.isContentEditable
+  );
+};
+
+const isAnyModalOpen = () => {
+  return (
+    document.querySelector(".image-lightbox.is-open") ||
+    document.querySelector(".reporter-modal.is-open")
+  );
+};
+
+const getCurrentTopicIndex = () => {
+  const activeLinkIndex = topicNavLinks.findIndex((link) =>
+    link.classList.contains("is-active")
+  );
+
+  if (activeLinkIndex >= 0) {
+    return activeLinkIndex;
+  }
+
+  const headerHeight = document.querySelector(".site-header")?.offsetHeight || 0;
+  const currentY = window.scrollY + headerHeight + window.innerHeight * 0.28;
+
+  let currentIndex = -1;
+
+  topicSections.forEach((item, index) => {
+    const sectionTop = item.target.offsetTop;
+
+    if (currentY >= sectionTop) {
+      currentIndex = index;
+    }
+  });
+
+  return currentIndex;
+};
+
+const scrollToTopic = (index) => {
+  const item = topicSections[index];
+
+  if (!item) return;
+
+  const headerHeight = document.querySelector(".site-header")?.offsetHeight || 0;
+  const targetTop = item.target.getBoundingClientRect().top + window.scrollY - headerHeight + 1;
+
+  window.scrollTo({
+    top: targetTop,
+    behavior: "smooth",
+  });
+
+  topicNavLinks.forEach((link) => {
+    link.classList.toggle("is-active", link === item.link);
+  });
+};
+
+window.addEventListener("keydown", (event) => {
+  if (
+    isTypingContext() ||
+    isAnyModalOpen() ||
+    event.metaKey ||
+    event.ctrlKey ||
+    event.altKey
+  ) {
+    return;
+  }
+
+  if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") {
+    return;
+  }
+
+  const currentIndex = getCurrentTopicIndex();
+
+  if (event.key === "ArrowRight") {
+    const nextIndex = Math.min(currentIndex + 1, topicSections.length - 1);
+
+    if (nextIndex !== currentIndex) {
+      event.preventDefault();
+      scrollToTopic(nextIndex);
+    }
+  }
+
+  if (event.key === "ArrowLeft") {
+    const prevIndex = Math.max(currentIndex - 1, 0);
+
+    if (prevIndex !== currentIndex && currentIndex >= 0) {
+      event.preventDefault();
+      scrollToTopic(prevIndex);
+    }
+  }
 });
