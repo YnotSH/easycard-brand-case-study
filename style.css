@@ -4802,3 +4802,2886 @@ body.night .footer-sources a:hover {
   font-weight: 800;
   letter-spacing: 0.08em
 }
+
+/* =========================================================
+   Mobile RWD Foundation Patch
+   目標：
+   1. 手機版顯示橫向滑動導覽列
+   2. 修正 Insight 手機版過長空白
+   3. 統一手機版字級、間距、卡片寬度
+   4. 先不影響桌機版
+========================================================= */
+
+@media (max-width: 768px) {
+  :root {
+    --header-height: 112px;
+  }
+
+  html {
+    font-size: 15px;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  section {
+    scroll-margin-top: var(--header-height);
+  }
+
+  .container,
+  .narrow-container {
+    width: min(100% - 28px, var(--container));
+  }
+
+  /* ---------- Header / Nav ---------- */
+
+  .site-header {
+    height: auto !important;
+    min-height: var(--header-height);
+  }
+
+  .header-inner {
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    gap: 10px 12px;
+    width: min(100% - 24px, var(--container));
+    height: auto !important;
+    padding: 12px 0 10px;
+  }
+
+  .brand-mark,
+  .site-logo {
+    align-self: center;
+    font-size: 0.86rem;
+    white-space: nowrap;
+  }
+
+  .theme-toggle {
+    width: 38px;
+    height: 38px;
+  }
+
+  .theme-icon {
+    width: 21px;
+    height: 21px;
+  }
+
+  .site-nav {
+    grid-column: 1 / -1;
+    display: flex !important;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    justify-content: flex-start;
+    gap: 6px;
+    padding: 6px;
+    border-radius: 999px;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .site-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .site-nav a {
+    flex: 0 0 auto;
+    min-width: auto;
+    padding: 7px 12px;
+    font-size: 0.78rem;
+    scroll-snap-align: center;
+  }
+
+  /* ---------- Global section rhythm ---------- */
+
+  .content-section,
+  .case-section {
+    padding-top: 72px !important;
+    padding-bottom: 72px !important;
+  }
+
+  .display-title {
+    font-size: clamp(2.15rem, 11vw, 3.2rem) !important;
+    line-height: 1.18 !important;
+    letter-spacing: -0.035em;
+  }
+
+  .section-kicker,
+  .eyebrow {
+    margin-bottom: 10px;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+  }
+
+  .section-copy > p,
+  .pr-lead,
+  .mrk-lead {
+    max-width: none;
+    font-size: 0.92rem;
+    line-height: 1.78;
+  }
+
+  .section-title-row {
+    grid-template-columns: auto 1fr !important;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .side-tab {
+    width: 54px;
+    height: 54px;
+    border-radius: 15px;
+  }
+
+  .side-tab span {
+    font-size: 0.9rem;
+  }
+
+  .side-tab small {
+    font-size: 0.62rem;
+  }
+
+  .two-column,
+  .section-grid,
+  .mi-layout,
+  .vi-layout,
+  .bi-layout,
+  .reflection-layout,
+  .pr-dual-layout,
+  .mrk-compact-hero,
+  .mrk-dashboard-bottom,
+  .mrk-chart-board {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+
+  .info-panel,
+  .mi-journey-card,
+  .vi-showcase-card,
+  .bi-service-card,
+  .mrk-dashboard,
+  .reflection-card,
+  .statement-card {
+    border-radius: 24px;
+  }
+
+  /* ---------- Hero ---------- */
+
+  .hero-section {
+    min-height: calc(100svh - var(--header-height));
+    padding: 48px 0;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(2.8rem, 15vw, 4.7rem) !important;
+    line-height: 1.05;
+  }
+
+  .hero-subtitle {
+    margin-top: 14px;
+    font-size: 1.08rem;
+  }
+
+  .hero-description {
+    margin-top: 14px;
+    max-width: 22em;
+    font-size: 0.9rem;
+    line-height: 1.75;
+  }
+
+  .hero-tags,
+  .overview-tags,
+  .vi-keywords {
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .hero-tags span,
+  .overview-tags span,
+  .vi-keywords span {
+    padding: 7px 10px;
+    font-size: 0.7rem;
+  }
+
+  .shape-yellow {
+    width: 70vw;
+    height: 36vw;
+    right: -28%;
+    top: -8%;
+  }
+
+  .shape-red {
+    width: 58vw;
+    height: 78vw;
+    right: -32%;
+    bottom: -10%;
+  }
+
+  /* ---------- Insight：手機取消 pinned 高度 ---------- */
+
+  .insight-section {
+    min-height: auto !important;
+    padding: 72px 0 !important;
+    scroll-margin-top: var(--header-height);
+  }
+
+  .insight-sticky {
+    position: relative !important;
+    top: auto !important;
+    min-height: auto !important;
+    display: block !important;
+    padding: 0 !important;
+  }
+
+  .insight-container {
+    width: min(100% - 28px, 720px) !important;
+    padding: 30px 20px !important;
+    border-radius: 26px !important;
+  }
+
+  .insight-panel {
+    display: grid !important;
+    min-height: auto !important;
+    gap: 46px !important;
+    overflow: visible !important;
+  }
+
+  .insight-layer {
+    position: relative !important;
+    inset: auto !important;
+    display: block !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    pointer-events: auto !important;
+  }
+
+  .insight-answer {
+    opacity: 1 !important;
+  }
+
+  .insight-equation {
+    display: grid !important;
+    gap: 0.04em !important;
+    font-size: clamp(2.05rem, 11vw, 3.05rem) !important;
+    line-height: 1.18 !important;
+  }
+
+  .insight-equation::after {
+    width: 72px;
+    height: 4px;
+    margin-top: 22px;
+  }
+
+  .insight-layer p:not(.section-kicker) {
+    margin-top: 18px;
+    font-size: 0.88rem;
+    line-height: 1.72;
+  }
+
+  .insight-scroll-hint {
+    display: none !important;
+  }
+
+  /* ---------- Brief ---------- */
+
+  .overview-section {
+    padding-top: 68px !important;
+  }
+
+  .info-panel {
+    padding: 22px;
+  }
+
+  .info-panel dl {
+    gap: 18px;
+  }
+
+  .info-panel dd {
+    font-size: 0.95rem;
+  }
+
+  .mini-route {
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  /* ---------- MI / VI / BI ---------- */
+
+  .mi-journey-card,
+  .vi-showcase-card,
+  .bi-service-card {
+    padding: 22px !important;
+  }
+
+  .mi-card-header,
+  .pr-card-topline {
+    gap: 10px;
+  }
+
+  .mi-card-header h3,
+  .vi-showcase-card h3,
+  .bi-service-card h3 {
+    font-size: 1.55rem;
+  }
+
+  .mi-step,
+  .bi-flow-step {
+    grid-template-columns: 42px 1fr;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .mi-dot,
+  .bi-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+  }
+
+  .vi-logo-hero {
+    min-height: 190px !important;
+    padding: 24px !important;
+  }
+
+  .vi-logo-official img,
+  .vi-logo-hero img {
+    width: min(250px, 78%) !important;
+    max-height: 140px !important;
+  }
+
+  .vi-palette-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .vi-palette-item {
+    padding: 13px;
+  }
+
+  /* ---------- PR ---------- */
+
+  .pr-section {
+    padding-top: 72px !important;
+    padding-bottom: 72px !important;
+  }
+
+  .pr-header {
+    margin-bottom: 22px;
+  }
+
+  .pr-title-row {
+    grid-template-columns: auto 1fr !important;
+    gap: 14px;
+  }
+
+  .pr-title-single {
+    white-space: normal !important;
+    font-size: clamp(2.05rem, 10vw, 3rem) !important;
+    line-height: 1.18;
+  }
+
+  .pr-lead {
+    margin: 14px 0 0 !important;
+    font-size: 0.88rem;
+    line-height: 1.72;
+  }
+
+  .pr-crisis-card,
+  .pr-trust-card {
+    padding: 20px;
+    border-radius: 24px;
+  }
+
+  .pr-case-points {
+    grid-template-columns: 1fr !important;
+  }
+
+  .pr-case-points article {
+    min-height: auto;
+  }
+
+  .pr-response-track {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .pr-response-track::before {
+    display: none;
+  }
+
+  .pr-response-track article {
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    gap: 10px;
+    text-align: left;
+  }
+
+  .pr-response-track article > span {
+    margin: 0;
+  }
+
+  /* ---------- MRK ---------- */
+
+  .mrk-section {
+    padding-top: 72px !important;
+    padding-bottom: 72px !important;
+  }
+
+  .mrk-title-single {
+    white-space: normal !important;
+    font-size: clamp(2.05rem, 10vw, 3rem) !important;
+    line-height: 1.16;
+  }
+
+  .mrk-lead {
+    margin: 14px 0 0 !important;
+  }
+
+  .mrk-banner-card {
+    height: 128px !important;
+  }
+
+  .mrk-dashboard {
+    padding: 16px !important;
+  }
+
+  .mrk-kpi-grid,
+  .mrk-funnel-strip {
+    grid-template-columns: 1fr !important;
+  }
+
+  .mrk-kpi-card {
+    min-height: auto !important;
+    padding: 15px 16px !important;
+  }
+
+  .mrk-kpi-card strong {
+    font-size: 2rem !important;
+  }
+
+  .mrk-chart-board {
+    padding: 16px !important;
+  }
+
+  .mrk-bar-row {
+    grid-template-columns: 1fr !important;
+    gap: 7px !important;
+  }
+
+  /* ---------- Reflection / Ending ---------- */
+
+  .reflection-section {
+    padding-top: 72px !important;
+    padding-bottom: 72px !important;
+  }
+
+  .reflection-card {
+    grid-template-columns: 42px 1fr;
+    gap: 14px;
+    padding: 18px;
+  }
+
+  .ending-section {
+    min-height: calc(100svh - var(--header-height));
+    padding: 72px 0;
+  }
+
+  .statement-card {
+    width: 100%;
+    padding: 44px 24px !important;
+    border-radius: 28px !important;
+  }
+
+  .statement-official-title {
+    font-size: clamp(3rem, 15vw, 4.6rem) !important;
+    line-height: 1.08 !important;
+  }
+
+  .statement-official-title span {
+    white-space: normal !important;
+  }
+
+  .statement-official-subtitle {
+    margin-top: 22px;
+    font-size: 0.92rem !important;
+    line-height: 1.72 !important;
+  }
+
+  /* ---------- Footer / Modal ---------- */
+
+  .footer-layout {
+    grid-template-columns: 1fr !important;
+    gap: 18px;
+  }
+
+  .footer-credit {
+    text-align: left !important;
+  }
+
+  .footer-sources p {
+    font-size: 0.72rem;
+    line-height: 1.8;
+  }
+
+  .reporter-modal,
+  .image-lightbox {
+    padding: 16px !important;
+  }
+
+  .reporter-panel,
+  .lightbox-panel {
+    width: 100% !important;
+    max-height: 88svh;
+    border-radius: 24px !important;
+    padding: 20px !important;
+  }
+
+  .reporter-profile {
+    grid-template-columns: 1fr !important;
+    gap: 14px;
+    padding-right: 38px;
+  }
+
+  .reporter-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+  }
+
+  .reporter-modal-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .pure-icon-grid,
+  .code-icon-grid {
+    gap: 10px;
+  }
+
+  .pure-icon-grid a,
+  .code-icon-grid a {
+    border-radius: 18px;
+  }
+}
+/* =========================================================
+   Mobile Insight Pinned Storytelling Patch
+   目標：
+   1. 手機版恢復 Insight pinned storytelling
+   2. 先固定在同一個高度
+   3. 問題淡出後答案淡入，再繼續往下閱讀
+========================================================= */
+
+@media (max-width: 768px) {
+  .insight-section {
+    min-height: 240svh !important;
+    padding: 0 !important;
+    scroll-margin-top: 0 !important;
+  }
+
+  .insight-sticky {
+    position: sticky !important;
+    top: var(--header-height) !important;
+    display: grid !important;
+    place-items: center !important;
+    min-height: calc(100svh - var(--header-height)) !important;
+    padding: 20px 0 !important;
+  }
+
+  .insight-container {
+    width: min(100% - 28px, 480px) !important;
+    padding: 28px 20px !important;
+    border-radius: 28px !important;
+  }
+
+  .insight-panel {
+    position: relative !important;
+    display: grid !important;
+    place-items: center !important;
+    min-height: 430px !important;
+    overflow: hidden !important;
+  }
+
+  .insight-layer {
+    position: absolute !important;
+    inset: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    will-change: opacity, transform, filter;
+  }
+
+  .insight-question {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .insight-answer {
+    opacity: 0;
+    transform: translateY(28px) scale(0.985);
+    pointer-events: none;
+  }
+
+  .insight-equation {
+    display: grid !important;
+    gap: 0.08em !important;
+    font-size: clamp(2rem, 12vw, 3.1rem) !important;
+    line-height: 1.16 !important;
+  }
+
+  .insight-equation::after {
+    width: 68px !important;
+    height: 4px !important;
+    margin-top: 20px !important;
+  }
+
+  .insight-layer p:not(.section-kicker) {
+    max-width: 21em;
+    margin-top: 18px !important;
+    font-size: 0.86rem !important;
+    line-height: 1.72 !important;
+  }
+
+  .insight-scroll-hint {
+    display: flex !important;
+    bottom: 14px !important;
+    transform: translateX(-50%) scale(0.86);
+  }
+
+  .insight-section.is-answer-visible .insight-scroll-hint {
+    opacity: 0;
+  }
+}
+
+/* =========================================================
+   Mobile Insight Overlap Fix
+   目標：
+   1. 避免 question / answer 同時強烈顯示
+   2. 修正手機版公式字級過大與堆疊問題
+   3. 重置舊手機樣式殘留的 margin
+========================================================= */
+
+@media (max-width: 768px) {
+  .insight-panel {
+    min-height: 390px !important;
+  }
+
+  .insight-layer {
+    margin: 0 !important;
+  }
+
+  .insight-question,
+  .insight-answer {
+    margin: 0 !important;
+  }
+
+  .insight-equation {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: baseline !important;
+    column-gap: 0.18em !important;
+    row-gap: 0.02em !important;
+    font-size: clamp(2.15rem, 10.2vw, 2.85rem) !important;
+    line-height: 1.12 !important;
+    letter-spacing: -0.035em !important;
+  }
+
+  .insight-equation .equation-brand,
+  .insight-equation .equation-symbol,
+  .insight-equation .equation-value {
+    display: inline !important;
+  }
+
+  .insight-equation::after {
+    flex-basis: 100%;
+    width: 64px !important;
+    height: 4px !important;
+    margin-top: 18px !important;
+  }
+
+  .insight-layer p:not(.section-kicker) {
+    max-width: 22em !important;
+    margin-top: 18px !important;
+    font-size: 0.84rem !important;
+    line-height: 1.7 !important;
+  }
+
+  .insight-answer {
+    pointer-events: none;
+  }
+}
+
+/* =========================================================
+   Mobile Insight Initial State Safety Patch
+========================================================= */
+
+@media (max-width: 768px) {
+  .insight-question {
+    opacity: 1 !important;
+  }
+
+  .insight-answer {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  .insight-section.is-answer-visible .insight-answer {
+    pointer-events: auto !important;
+  }
+}
+
+/* =========================================================
+   Mobile Nav Interaction Polish
+   目標：
+   1. active nav 自動滑動後視覺更清楚
+   2. 手機 nav 左右有滑動暗示
+   3. 避免 nav 文字太擠
+========================================================= */
+
+@media (max-width: 768px) {
+  .site-nav {
+    position: relative;
+    mask-image:
+      linear-gradient(
+        90deg,
+        transparent 0,
+        #000 18px,
+        #000 calc(100% - 18px),
+        transparent 100%
+      );
+    -webkit-mask-image:
+      linear-gradient(
+        90deg,
+        transparent 0,
+        #000 18px,
+        #000 calc(100% - 18px),
+        transparent 100%
+      );
+    scroll-padding-inline: 18px;
+  }
+
+  .site-nav a {
+    min-width: 58px;
+    padding-inline: 13px;
+  }
+
+  .site-nav a.is-active {
+    transform: translateY(-1px);
+    box-shadow:
+      0 8px 20px rgba(2, 124, 196, 0.22),
+      0 0 0 1px rgba(255, 255, 255, 0.32) inset;
+  }
+}
+/* =========================================================
+   Mobile Brief Typography Polish
+   目標：
+   1. Brief 手機版只微調字級與閱讀節奏
+   2. 不改版型，避免牽動桌機
+========================================================= */
+
+@media (max-width: 768px) {
+  /* Brief 區塊整體節奏稍微收斂 */
+  .overview-section {
+    padding-top: 64px !important;
+    padding-bottom: 68px !important;
+  }
+
+  /* Brief 標題比其他章節略小，避免一開始資訊壓迫 */
+  .overview-section .display-title {
+    font-size: clamp(2rem, 10vw, 2.85rem) !important;
+    line-height: 1.18 !important;
+    letter-spacing: -0.035em;
+    margin-bottom: 18px !important;
+  }
+
+  /* Brief 內文提高可讀性 */
+  .overview-copy > p,
+  .overview-section .section-copy > p {
+    font-size: 0.94rem !important;
+    line-height: 1.86 !important;
+    letter-spacing: 0.01em;
+  }
+
+  /* 標籤不要太搶戲 */
+  .overview-tags {
+    margin-top: 18px !important;
+    gap: 8px !important;
+  }
+
+  .overview-tags span {
+    padding: 7px 10px !important;
+    font-size: 0.68rem !important;
+    letter-spacing: 0.02em;
+  }
+
+  /* 資訊卡手機版層級更清楚 */
+  .overview-section .info-panel {
+    padding: 22px 20px !important;
+    border-radius: 22px !important;
+  }
+
+  .overview-section .info-panel dl {
+    gap: 18px !important;
+  }
+
+  .overview-section .info-panel dt {
+    margin-bottom: 5px !important;
+    font-size: 0.74rem !important;
+    letter-spacing: 0.08em;
+  }
+
+  .overview-section .info-panel dd {
+    font-size: 0.92rem !important;
+    line-height: 1.55 !important;
+  }
+
+  /* 交通 / 支付 / 生活 / 服務小流程，保持輕量 */
+  .overview-section .mini-route {
+    margin-top: 22px !important;
+    gap: 16px !important;
+  }
+
+  .overview-section .mini-route span {
+    font-size: 0.68rem !important;
+  }
+}
+
+/* =========================================================
+   Mobile Reading Header Behavior
+   目標：
+   1. 手機版閱讀時收起章節導覽列
+   2. Logo 與日夜切換 icon 維持同列
+   3. 減少閱讀過程中的固定物件干擾
+========================================================= */
+
+@media (max-width: 768px) {
+  body.mobile-header-compact {
+    --header-height: 58px;
+  }
+
+  .site-header {
+    transition:
+      min-height 0.28s ease,
+      height 0.28s ease,
+      background 0.28s ease,
+      box-shadow 0.28s ease;
+  }
+
+  .header-inner {
+    transition:
+      padding 0.28s ease,
+      gap 0.28s ease;
+  }
+
+  .site-nav {
+    max-height: 46px;
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      max-height 0.28s ease,
+      opacity 0.22s ease,
+      transform 0.28s ease,
+      padding 0.28s ease,
+      margin 0.28s ease,
+      border-color 0.28s ease;
+  }
+
+  .site-header.is-compact {
+    min-height: 58px !important;
+    height: 58px !important;
+    background: rgba(248, 250, 252, 0.86);
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+  }
+
+  body.night .site-header.is-compact {
+    background: rgba(7, 17, 31, 0.88);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+  }
+
+  .site-header.is-compact .header-inner {
+    padding: 9px 0 !important;
+    gap: 0 12px !important;
+  }
+
+  .site-header.is-compact .site-nav {
+    max-height: 0 !important;
+    margin: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    border-color: transparent;
+    overflow: hidden;
+  }
+
+  .site-header.is-compact .brand-mark,
+  .site-header.is-compact .site-logo {
+    font-size: 0.82rem;
+  }
+
+  .site-header.is-compact .theme-toggle {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* =========================================================
+   Mobile Compact Header Alignment Fix
+   目標：
+   1. 收合後變成真正單列 header
+   2. 品牌名稱與日夜 icon 垂直置中
+   3. 導覽列收合時不再佔 grid 空間
+========================================================= */
+
+@media (max-width: 768px) {
+  body.mobile-header-compact {
+    --header-height: 56px;
+  }
+
+  .site-header.is-compact {
+    height: 56px !important;
+    min-height: 56px !important;
+  }
+
+  .site-header.is-compact .header-inner {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-rows: 56px !important;
+    grid-template-areas: "brand theme" !important;
+    align-items: center !important;
+    width: min(100% - 28px, var(--container)) !important;
+    height: 56px !important;
+    padding: 0 !important;
+    gap: 0 12px !important;
+  }
+
+  .site-header.is-compact .brand-mark,
+  .site-header.is-compact .site-logo {
+    grid-area: brand;
+    align-self: center !important;
+    justify-self: start !important;
+    margin: 0 !important;
+    color: var(--text);
+    font-size: 0.86rem !important;
+    line-height: 1 !important;
+    white-space: nowrap;
+  }
+
+  .site-header.is-compact .theme-toggle {
+    grid-area: theme;
+    align-self: center !important;
+    justify-self: end !important;
+    width: 36px !important;
+    height: 36px !important;
+    margin: 0 !important;
+  }
+
+  .site-header.is-compact .theme-icon {
+    width: 21px !important;
+    height: 21px !important;
+  }
+
+  /* 收合時 nav 完全退出版面流，不留下第二列空間 */
+  .site-header.is-compact .site-nav {
+    position: absolute !important;
+    left: 50%;
+    top: 100%;
+    width: min(100% - 28px, var(--container));
+    max-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    opacity: 0 !important;
+    transform: translate(-50%, -8px) !important;
+    pointer-events: none !important;
+    overflow: hidden !important;
+    border-color: transparent !important;
+  }
+
+  /* 展開狀態維持兩列：第一列品牌與 icon，第二列 nav */
+  .site-header:not(.is-compact) .header-inner {
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-rows: auto auto !important;
+    align-items: center !important;
+  }
+
+  .site-header:not(.is-compact) .site-nav {
+    grid-column: 1 / -1;
+  }
+}
+
+/* =========================================================
+   Mobile MI Section Polish
+   目標：
+   1. MI 手機版降低資訊壓迫
+   2. 強化「城市日常」與「一日悠遊生活」的敘事關係
+   3. 讓時間軸卡片更像輕量流程，而不是厚重表單
+========================================================= */
+
+@media (max-width: 768px) {
+  /* ---------- MI section rhythm ---------- */
+
+  .mi-section {
+    padding-top: 70px !important;
+    padding-bottom: 72px !important;
+  }
+
+  .mi-section .section-title-row {
+    margin-bottom: 22px !important;
+  }
+
+  .mi-section .display-title {
+    font-size: clamp(2.05rem, 10.5vw, 3rem) !important;
+    line-height: 1.16 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .mi-section .section-copy > p {
+    font-size: 0.9rem !important;
+    line-height: 1.78 !important;
+  }
+
+  /* ---------- MI point list ---------- */
+
+  .mi-section .point-list {
+    gap: 13px !important;
+    margin-top: 8px !important;
+  }
+
+  .mi-section .point-list li {
+    padding-left: 14px !important;
+    border-left-width: 3px !important;
+  }
+
+  .mi-section .point-list strong {
+    margin-bottom: 2px !important;
+    font-size: 0.88rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .mi-section .point-list span {
+    font-size: 0.86rem !important;
+    line-height: 1.58 !important;
+  }
+
+  /* ---------- MI journey card ---------- */
+
+  .mi-journey-card {
+    padding: 20px !important;
+    border-radius: 24px !important;
+  }
+
+  .mi-card-header {
+    align-items: flex-start !important;
+    margin-bottom: 18px !important;
+  }
+
+  .mi-card-kicker {
+    margin-bottom: 6px !important;
+    font-size: 0.68rem !important;
+    letter-spacing: 0.12em !important;
+  }
+
+  .mi-card-header h3 {
+    font-size: 1.42rem !important;
+    line-height: 1.28 !important;
+  }
+
+  .mi-mini-badge {
+    padding: 7px 10px !important;
+    font-size: 0.68rem !important;
+    white-space: nowrap;
+  }
+
+  /* ---------- timeline：改成更輕量 ---------- */
+
+  .mi-steps {
+    gap: 10px !important;
+    margin-top: 0 !important;
+  }
+
+  .mi-step {
+    grid-template-columns: 38px 1fr !important;
+    gap: 11px !important;
+    padding: 12px 13px !important;
+    border-radius: 17px !important;
+    background: rgba(255, 255, 255, 0.48) !important;
+  }
+
+  .mi-dot {
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 11px !important;
+  }
+
+  .mi-dot svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .mi-step time {
+    font-size: 0.7rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .mi-step strong {
+    margin-top: 1px !important;
+    font-size: 0.88rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .mi-step p {
+    margin-top: 2px !important;
+    font-size: 0.78rem !important;
+    line-height: 1.52 !important;
+  }
+
+  /* ---------- footer tags ---------- */
+
+  .mi-card-footer {
+    gap: 7px !important;
+    margin-top: 16px !important;
+  }
+
+  .mi-card-footer span {
+    padding: 6px 9px !important;
+    font-size: 0.68rem !important;
+  }
+
+  /* 夜晚模式稍微降低卡片亮度，避免 MI timeline 太碎 */
+  body.night .mi-step {
+    background: rgba(255, 255, 255, 0.065) !important;
+  }
+}
+
+/* =========================================================
+   Mobile Section Side Tab Unification
+   目標：
+   1. 手機版所有彩色頁簽統一成章節代碼徽章
+   2. 隱藏中文小字，避免擠壓、直排、破版
+   3. 讓 MI / VI / BI / PR / MRK 視覺節奏一致
+========================================================= */
+
+@media (max-width: 768px) {
+  .section-title-row {
+    grid-template-columns: 52px minmax(0, 1fr) !important;
+    gap: 14px !important;
+    align-items: start !important;
+  }
+
+  .side-tab {
+    width: 52px !important;
+    height: 52px !important;
+    min-width: 52px !important;
+    border-radius: 16px !important;
+    display: grid !important;
+    place-items: center !important;
+    padding: 0 !important;
+  }
+
+  .side-tab span {
+    display: block !important;
+    margin: 0 !important;
+    color: inherit !important;
+    font-size: 0.96rem !important;
+    font-weight: 950 !important;
+    line-height: 1 !important;
+    letter-spacing: 0.02em !important;
+    writing-mode: horizontal-tb !important;
+    transform: none !important;
+  }
+
+  .side-tab small {
+    display: none !important;
+  }
+
+  .tab-yellow,
+  .tab-blue,
+  .tab-green,
+  .tab-red {
+    color: #fff !important;
+  }
+
+  .tab-neutral {
+    color: var(--text) !important;
+    background: rgba(255, 255, 255, 0.82) !important;
+    border: 1px solid rgba(16, 24, 40, 0.1) !important;
+  }
+
+  body.night .tab-neutral {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.09) !important;
+    border-color: rgba(255, 255, 255, 0.16) !important;
+  }
+
+  .section-title-row .section-kicker {
+    margin-bottom: 8px !important;
+  }
+}
+
+/* =========================================================
+   MI Scenario Card Redesign
+   目標：
+   1. 移除「行程表」感
+   2. 改成品牌理念推導：交通 → 支付 → 服務
+   3. 手機版更像品牌分析卡片，而不是時間軸清單
+========================================================= */
+
+.mi-scenario-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.mi-scenario-card::after {
+  content: "";
+  position: absolute;
+  right: -80px;
+  top: -80px;
+  width: 220px;
+  height: 220px;
+  border-radius: 999px;
+  background:
+    radial-gradient(
+      circle,
+      rgba(250, 157, 26, 0.14),
+      transparent 68%
+    );
+  pointer-events: none;
+}
+
+.mi-scenario-header {
+  display: block !important;
+  position: relative;
+  z-index: 1;
+}
+
+.mi-scenario-header h3 {
+  max-width: 12em;
+}
+
+.mi-card-intro {
+  max-width: 34em;
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.72;
+}
+
+.mi-scenario-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.mi-scenario-item {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 14px;
+  align-items: start;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 18px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.62),
+      rgba(255, 255, 255, 0.36)
+    );
+}
+
+.mi-scenario-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 15px;
+  color: var(--yellow);
+  background: rgba(250, 157, 26, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(250, 157, 26, 0.18);
+}
+
+.mi-scenario-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.85;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mi-scenario-stage {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--yellow);
+  font-size: 0.68rem;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.mi-scenario-item h4 {
+  margin: 0 0 6px;
+  color: var(--text);
+  font-size: 1.02rem;
+  line-height: 1.35;
+}
+
+.mi-scenario-item p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.65;
+}
+
+.mi-mini-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.mi-mini-tags span {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 5px 8px;
+  color: var(--muted);
+  background: rgba(16, 24, 40, 0.055);
+  font-size: 0.68rem;
+  font-weight: 850;
+}
+
+.mi-logic-strip {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  border-top: 1px solid var(--border);
+  padding-top: 18px;
+}
+
+.mi-logic-strip span {
+  color: var(--text);
+  font-size: 0.78rem;
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+.mi-logic-strip i {
+  flex: 1;
+  height: 2px;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(250, 157, 26, 0.7),
+      rgba(2, 124, 196, 0.32)
+    );
+}
+
+/* 夜晚模式 */
+body.night .mi-scenario-item {
+  border-color: rgba(255, 255, 255, 0.14);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.09),
+      rgba(255, 255, 255, 0.05)
+    );
+}
+
+body.night .mi-mini-tags span {
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* 手機版 */
+@media (max-width: 768px) {
+  .mi-scenario-card {
+    padding: 22px 20px !important;
+  }
+
+  .mi-scenario-header h3 {
+    max-width: none;
+    font-size: 1.42rem !important;
+    line-height: 1.32 !important;
+  }
+
+  .mi-card-intro {
+    margin-top: 10px !important;
+    font-size: 0.86rem !important;
+    line-height: 1.72 !important;
+  }
+
+  .mi-scenario-grid {
+    gap: 12px !important;
+    margin-top: 20px !important;
+  }
+
+  .mi-scenario-item {
+    grid-template-columns: 42px 1fr !important;
+    gap: 12px !important;
+    padding: 14px !important;
+    border-radius: 18px !important;
+  }
+
+  .mi-scenario-icon {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 12px !important;
+  }
+
+  .mi-scenario-icon svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .mi-scenario-stage {
+    font-size: 0.62rem !important;
+    margin-bottom: 3px !important;
+  }
+
+  .mi-scenario-item h4 {
+    font-size: 0.92rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  .mi-scenario-item p {
+    font-size: 0.78rem !important;
+    line-height: 1.58 !important;
+  }
+
+  .mi-mini-tags {
+    gap: 6px !important;
+    margin-top: 10px !important;
+  }
+
+  .mi-mini-tags span {
+    padding: 4px 7px !important;
+    font-size: 0.62rem !important;
+  }
+
+  .mi-logic-strip {
+    gap: 8px !important;
+    margin-top: 18px !important;
+    padding-top: 16px !important;
+  }
+
+  .mi-logic-strip span {
+    font-size: 0.68rem !important;
+  }
+}
+
+/* =========================================================
+   Mobile MI Final Polish
+========================================================= */
+
+@media (max-width: 768px) {
+  .mi-logic-strip {
+    padding-bottom: 2px !important;
+  }
+
+  .mi-logic-strip span {
+    white-space: nowrap !important;
+  }
+
+  .mi-scenario-card {
+    margin-bottom: 4px !important;
+  }
+}
+
+/* =========================================================
+   Mobile VI Color Card Redesign
+   目標：
+   1. 四色說明卡直接以品牌色填滿
+   2. 文字壓在色塊上，提高 VI 區塊的視覺記憶點
+   3. 黃色卡使用深色文字，確保閱讀對比
+========================================================= */
+
+@media (max-width: 768px) {
+  .vi-palette-grid {
+    gap: 12px !important;
+  }
+
+  .vi-palette-item {
+    position: relative;
+    display: block !important;
+    min-height: 96px;
+    overflow: hidden;
+    border: 0 !important;
+    border-radius: 20px !important;
+    padding: 18px 18px 16px !important;
+    color: #fff !important;
+    box-shadow:
+      0 16px 38px rgba(15, 23, 42, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.24);
+  }
+
+  .vi-palette-item::after {
+    content: "";
+    position: absolute;
+    right: -32px;
+    top: -32px;
+    width: 110px;
+    height: 110px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.16);
+    pointer-events: none;
+  }
+
+  .vi-palette-item .color-chip {
+    display: none !important;
+  }
+
+  .vi-palette-item strong {
+    position: relative;
+    z-index: 1;
+    display: block;
+    margin-bottom: 6px;
+    color: inherit !important;
+    font-size: 1rem !important;
+    line-height: 1.25 !important;
+    letter-spacing: 0.01em;
+  }
+
+  .vi-palette-item p {
+    position: relative;
+    z-index: 1;
+    margin: 0 !important;
+    color: inherit !important;
+    font-size: 0.78rem !important;
+    line-height: 1.58 !important;
+    opacity: 0.9;
+  }
+
+  .vi-palette-item:nth-child(1) {
+    background:
+      linear-gradient(
+        135deg,
+        #087ec2 0%,
+        #1aa0df 100%
+      ) !important;
+  }
+
+  .vi-palette-item:nth-child(2) {
+    background:
+      linear-gradient(
+        135deg,
+        #43b547 0%,
+        #68c85c 100%
+      ) !important;
+  }
+
+  .vi-palette-item:nth-child(3) {
+    background:
+      linear-gradient(
+        135deg,
+        #ec008c 0%,
+        #ff4fb2 100%
+      ) !important;
+  }
+
+  .vi-palette-item:nth-child(4) {
+    color: #172033 !important;
+    background:
+      linear-gradient(
+        135deg,
+        #ff9f1a 0%,
+        #ffc35a 100%
+      ) !important;
+  }
+
+  .vi-palette-item:nth-child(4)::after {
+    background: rgba(255, 255, 255, 0.24);
+  }
+
+  .vi-palette-item:nth-child(4) p {
+    color: rgba(23, 32, 51, 0.78) !important;
+  }
+
+  body.night .vi-palette-item {
+    box-shadow:
+      0 18px 44px rgba(0, 0, 0, 0.26),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* =========================================================
+   Mobile VI 2x2 Color Card Grid
+   目標：
+   1. 手機版四色說明卡改成 2x2
+   2. 色塊填滿卡片，強化 VI 記憶點
+   3. 保持文字可讀性與品牌色辨識
+========================================================= */
+
+@media (max-width: 768px) {
+  .vi-palette-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+
+  .vi-palette-item {
+    position: relative;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 118px;
+    overflow: hidden;
+    border: 0 !important;
+    border-radius: 20px !important;
+    padding: 15px 14px !important;
+    color: #fff !important;
+    box-shadow:
+      0 14px 34px rgba(15, 23, 42, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.24);
+  }
+
+  .vi-palette-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.14),
+        rgba(0, 0, 0, 0.12)
+      );
+    pointer-events: none;
+  }
+
+  .vi-palette-item::after {
+    content: "";
+    position: absolute;
+    right: -34px;
+    top: -34px;
+    width: 100px;
+    height: 100px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+    pointer-events: none;
+  }
+
+  .vi-palette-item .color-chip {
+    display: none !important;
+  }
+
+  .vi-palette-item strong {
+    position: relative;
+    z-index: 1;
+    display: block;
+    margin-bottom: 5px;
+    color: inherit !important;
+    font-size: 0.88rem !important;
+    line-height: 1.22 !important;
+    letter-spacing: -0.01em;
+  }
+
+  .vi-palette-item p {
+    position: relative;
+    z-index: 1;
+    margin: 0 !important;
+    color: inherit !important;
+    font-size: 0.68rem !important;
+    line-height: 1.48 !important;
+    opacity: 0.9;
+  }
+
+  .vi-palette-item:nth-child(1) {
+    background:
+      linear-gradient(
+        135deg,
+        #087ec2 0%,
+        #1aa0df 100%
+      ) !important;
+  }
+
+  .vi-palette-item:nth-child(2) {
+    background:
+      linear-gradient(
+        135deg,
+        #43b547 0%,
+        #68c85c 100%
+      ) !important;
+  }
+
+  .vi-palette-item:nth-child(3) {
+    background:
+      linear-gradient(
+        135deg,
+        #ec008c 0%,
+        #ff4fb2 100%
+      ) !important;
+  }
+
+  .vi-palette-item:nth-child(4) {
+    color: #172033 !important;
+    background:
+      linear-gradient(
+        135deg,
+        #ff9f1a 0%,
+        #ffc35a 100%
+      ) !important;
+  }
+
+  .vi-palette-item:nth-child(4)::before {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.22),
+        rgba(255, 255, 255, 0.02)
+      );
+  }
+
+  .vi-palette-item:nth-child(4)::after {
+    background: rgba(255, 255, 255, 0.28);
+  }
+
+  .vi-palette-item:nth-child(4) p {
+    color: rgba(23, 32, 51, 0.76) !important;
+  }
+
+  body.night .vi-palette-item {
+    box-shadow:
+      0 16px 40px rgba(0, 0, 0, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* =========================================================
+   Mobile BI Section Fix
+   目標：
+   1. 修正「體驗核心」內文被截斷
+   2. 讓 BI 手機版卡片高度自然展開
+   3. 降低資訊壓迫，維持品牌行為分析感
+========================================================= */
+
+@media (max-width: 768px) {
+  /* ---------- BI section rhythm ---------- */
+
+  .bi-section {
+    padding-top: 70px !important;
+    padding-bottom: 72px !important;
+  }
+
+  .bi-section .section-title-row {
+    margin-bottom: 22px !important;
+  }
+
+  .bi-section .display-title {
+    font-size: clamp(2.05rem, 10.5vw, 3rem) !important;
+    line-height: 1.16 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* ---------- 左側重點清單：避免體驗核心被切 ---------- */
+
+  .bi-section .point-list,
+  .bi-section .point-list li,
+  .bi-section .point-list strong,
+  .bi-section .point-list span {
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .bi-section .point-list {
+    gap: 13px !important;
+    margin-top: 10px !important;
+  }
+
+  .bi-section .point-list li {
+    padding-left: 14px !important;
+    border-left-width: 3px !important;
+  }
+
+  .bi-section .point-list strong {
+    display: block !important;
+    margin-bottom: 3px !important;
+    font-size: 0.88rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .bi-section .point-list span {
+    display: block !important;
+    font-size: 0.86rem !important;
+    line-height: 1.62 !important;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+
+  /* ---------- 右側服務卡：高度自然展開 ---------- */
+
+  .bi-service-card,
+  .bi-service-card * {
+    max-height: none !important;
+  }
+
+  .bi-service-card {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    padding: 22px 20px !important;
+    border-radius: 24px !important;
+  }
+
+  .bi-service-card h3 {
+    font-size: 1.38rem !important;
+    line-height: 1.32 !important;
+  }
+
+  .bi-service-card p {
+    font-size: 0.86rem !important;
+    line-height: 1.72 !important;
+  }
+
+  /* ---------- BI flow：每列不要被壓扁 ---------- */
+
+  .bi-flow-list,
+  .bi-flow-step {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .bi-flow-list {
+    gap: 11px !important;
+  }
+
+  .bi-flow-step {
+    grid-template-columns: 40px 1fr !important;
+    gap: 12px !important;
+    align-items: start !important;
+    padding: 14px !important;
+    border-radius: 18px !important;
+  }
+
+  .bi-icon {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 12px !important;
+  }
+
+  .bi-icon svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .bi-flow-step strong {
+    display: block !important;
+    margin-bottom: 4px !important;
+    font-size: 0.9rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .bi-flow-step p {
+    margin: 0 !important;
+    font-size: 0.78rem !important;
+    line-height: 1.6 !important;
+  }
+}
+
+/* =========================================================
+   Mobile BI Title Line Break Fix
+   目標：
+   1. 修正 BI 標題「每一 / 次」錯誤斷句
+   2. 讓 BI 標題在手機版形成有節奏的三行
+========================================================= */
+
+@media (max-width: 768px) {
+  .bi-section .bi-title {
+    font-size: clamp(2.05rem, 10vw, 2.85rem) !important;
+    line-height: 1.12 !important;
+    letter-spacing: -0.04em !important;
+  }
+
+  .bi-section .bi-title .title-line {
+    display: block !important;
+    white-space: nowrap !important;
+  }
+
+  .bi-section .bi-title .title-line:last-child {
+    display: inline-block !important;
+  }
+}
+
+/* =========================================================
+   Mobile BI Core Statement Line Break Fix
+========================================================= */
+
+@media (max-width: 768px) {
+  .bi-core-statement {
+    display: block !important;
+    font-size: 1.15rem !important;
+    line-height: 1.55 !important;
+    letter-spacing: -0.015em !important;
+  }
+
+  .bi-core-line {
+    display: block !important;
+    white-space: nowrap !important;
+  }
+}
+
+/* =========================================================
+   Mobile PR Title Line Break Fix
+========================================================= */
+
+@media (max-width: 768px) {
+  .pr-mobile-title {
+    font-size: clamp(2.15rem, 11vw, 3rem) !important;
+    line-height: 1.12 !important;
+    letter-spacing: -0.04em !important;
+  }
+
+  .pr-mobile-title .title-line {
+    display: block !important;
+    white-space: nowrap !important;
+  }
+}
+
+/* =========================================================
+   Mobile PR Response Framework Fix
+   目標：
+   1. 手機版取消桌機橫向 timeline
+   2. 改成直向流程卡片
+   3. 修正數字、標題、說明文字跑版
+========================================================= */
+
+@media (max-width: 768px) {
+  .pr-response-card {
+    padding: 20px !important;
+    border-radius: 24px !important;
+  }
+
+  .pr-response-card .section-kicker,
+  .pr-response-card .eyebrow {
+    margin-bottom: 8px !important;
+    font-size: 0.68rem !important;
+    letter-spacing: 0.12em !important;
+  }
+
+  .pr-response-card h3 {
+    margin: 0 0 18px !important;
+    font-size: 1.15rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .pr-response-track {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    margin-top: 0 !important;
+  }
+
+  .pr-response-track::before,
+  .pr-response-track::after {
+    display: none !important;
+  }
+
+  .pr-response-track article {
+    display: grid !important;
+    grid-template-columns: 38px 1fr !important;
+    align-items: start !important;
+    gap: 12px !important;
+    min-height: auto !important;
+    padding: 12px 13px !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 16px !important;
+    background: rgba(255, 255, 255, 0.055) !important;
+    text-align: left !important;
+  }
+
+  .pr-response-track article > span {
+    display: grid !important;
+    place-items: center !important;
+    width: 32px !important;
+    height: 32px !important;
+    margin: 0 !important;
+    border-radius: 999px !important;
+    background: var(--red) !important;
+    color: #fff !important;
+    font-size: 0.82rem !important;
+    font-weight: 950 !important;
+    line-height: 1 !important;
+    box-shadow:
+      0 10px 24px rgba(236, 0, 140, 0.25),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.28) !important;
+  }
+
+  .pr-response-track article strong {
+    display: block !important;
+    margin: 0 0 4px !important;
+    color: #fff !important;
+    font-size: 0.9rem !important;
+    line-height: 1.35 !important;
+    white-space: normal !important;
+  }
+
+  .pr-response-track article small,
+  .pr-response-track article p {
+    display: block !important;
+    margin: 0 !important;
+    color: rgba(255, 255, 255, 0.68) !important;
+    font-size: 0.74rem !important;
+    line-height: 1.55 !important;
+    white-space: normal !important;
+  }
+}
+
+/* =========================================================
+   Mobile PR Response Framework Text Alignment Fix
+   目標：
+   1. 讓 Response Framework 的內文進到標題下方
+   2. 避免內文掉進數字欄導致斷字
+   3. 手機版形成：數字｜標題 + 說明 的穩定結構
+========================================================= */
+
+@media (max-width: 768px) {
+  .pr-response-track article {
+    grid-template-columns: 34px minmax(0, 1fr) !important;
+    grid-template-rows: auto auto !important;
+    align-items: start !important;
+    column-gap: 12px !important;
+    row-gap: 3px !important;
+    padding: 13px 14px !important;
+  }
+
+  .pr-response-track article > span {
+    grid-column: 1 !important;
+    grid-row: 1 / span 2 !important;
+    width: 30px !important;
+    height: 30px !important;
+    align-self: start !important;
+  }
+
+  .pr-response-track article strong {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    margin: 1px 0 2px !important;
+    font-size: 0.9rem !important;
+    line-height: 1.35 !important;
+    white-space: normal !important;
+  }
+
+  .pr-response-track article small,
+  .pr-response-track article p {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    margin: 0 !important;
+    color: rgba(255, 255, 255, 0.68) !important;
+    font-size: 0.76rem !important;
+    line-height: 1.55 !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
+    white-space: normal !important;
+  }
+}
+
+/* =========================================================
+   Mobile MRK Section Polish
+   目標：
+   1. 修正 MRK 手機版標題與說明文字節奏
+   2. 讓 TPASS Banner 在手機版保持可辨識
+   3. 壓縮 KPI / chart / funnel 高度，避免資訊過長
+========================================================= */
+
+@media (max-width: 768px) {
+  /* ---------- MRK section rhythm ---------- */
+
+  .mrk-section {
+    padding-top: 72px !important;
+    padding-bottom: 76px !important;
+  }
+
+  .mrk-section .section-title-row,
+  .mrk-header {
+    margin-bottom: 22px !important;
+  }
+
+  .mrk-title-single,
+  .mrk-section .display-title {
+    font-size: clamp(2.05rem, 10vw, 2.85rem) !important;
+    line-height: 1.14 !important;
+    letter-spacing: -0.04em !important;
+    white-space: normal !important;
+  }
+
+  .mrk-lead {
+    margin-top: 14px !important;
+    font-size: 0.88rem !important;
+    line-height: 1.76 !important;
+  }
+
+  /* ---------- TPASS Banner ---------- */
+
+  .mrk-banner-card {
+    height: 118px !important;
+    border-radius: 22px !important;
+    overflow: hidden !important;
+  }
+
+  .mrk-banner-card img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+  }
+
+  .mrk-banner-label {
+    left: 12px !important;
+    bottom: 10px !important;
+    padding: 6px 9px !important;
+    font-size: 0.64rem !important;
+    border-radius: 999px !important;
+  }
+
+  /* ---------- Dashboard ---------- */
+
+  .mrk-dashboard,
+  .mrk-dashboard-card {
+    padding: 16px !important;
+    border-radius: 24px !important;
+  }
+
+  .mrk-dashboard-title,
+  .mrk-dashboard-card h3 {
+    font-size: 1.25rem !important;
+    line-height: 1.36 !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* KPI 改成 2x2，避免一張一張太長 */
+  .mrk-kpi-grid,
+  .mrk-metric-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+
+  .mrk-kpi-card,
+  .mrk-metric-card {
+    min-height: 108px !important;
+    padding: 13px 12px !important;
+    border-radius: 18px !important;
+  }
+
+  .mrk-kpi-card span,
+  .mrk-metric-card span {
+    font-size: 0.68rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .mrk-kpi-card strong,
+  .mrk-metric-card strong {
+    display: block !important;
+    margin-top: 6px !important;
+    font-size: clamp(1.55rem, 8vw, 2rem) !important;
+    line-height: 1.05 !important;
+    letter-spacing: -0.04em !important;
+  }
+
+  .mrk-kpi-card p,
+  .mrk-metric-card p {
+    margin-top: 7px !important;
+    font-size: 0.68rem !important;
+    line-height: 1.45 !important;
+  }
+
+  /* ---------- Marketing logic / chart ---------- */
+
+  .mrk-chart-board,
+  .mrk-logic-panel {
+    padding: 16px !important;
+    border-radius: 22px !important;
+  }
+
+  .mrk-chart-board h3,
+  .mrk-logic-panel h3 {
+    font-size: 1.12rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .mrk-chart-board p,
+  .mrk-logic-panel p {
+    font-size: 0.8rem !important;
+    line-height: 1.68 !important;
+  }
+
+  .mrk-bar-list,
+  .mrk-logic-list {
+    gap: 12px !important;
+  }
+
+  .mrk-bar-row {
+    display: grid !important;
+    grid-template-columns: 88px minmax(0, 1fr) !important;
+    gap: 10px !important;
+    align-items: center !important;
+  }
+
+  .mrk-bar-label strong {
+    font-size: 0.78rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .mrk-bar-label span,
+  .mrk-bar-label small {
+    font-size: 0.64rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .mrk-bar-track {
+    height: 10px !important;
+    border-radius: 999px !important;
+  }
+
+  /* ---------- Funnel / bottom cards ---------- */
+
+  .mrk-funnel-strip,
+  .mrk-dashboard-bottom {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .mrk-funnel-strip article,
+  .mrk-bottom-card {
+    padding: 13px 14px !important;
+    border-radius: 17px !important;
+  }
+
+  .mrk-funnel-strip span {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 0.72rem !important;
+  }
+
+  .mrk-funnel-strip strong,
+  .mrk-bottom-card strong {
+    font-size: 0.86rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .mrk-funnel-strip p,
+  .mrk-bottom-card p {
+    font-size: 0.72rem !important;
+    line-height: 1.55 !important;
+  }
+}
+
+/* =========================================================
+   Mobile MRK 2x2 Funnel Cards
+   目標：
+   1. MRK 的 01 / 02 / 03 / 04 改成 2x2
+   2. 降低手機版段落高度
+   3. 讓行銷轉化邏輯更像矩陣
+========================================================= */
+
+@media (max-width: 768px) {
+  .mrk-funnel-strip,
+  .mrk-dashboard-bottom {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+
+  .mrk-funnel-strip article,
+  .mrk-bottom-card {
+    position: relative;
+    min-height: 112px !important;
+    padding: 14px 12px 13px !important;
+    border-radius: 18px !important;
+    overflow: hidden;
+  }
+
+  .mrk-funnel-strip article::after,
+  .mrk-bottom-card::after {
+    content: "";
+    position: absolute;
+    right: -28px;
+    top: -28px;
+    width: 78px;
+    height: 78px;
+    border-radius: 999px;
+    background: rgba(2, 124, 196, 0.08);
+    pointer-events: none;
+  }
+
+  .mrk-funnel-strip span,
+  .mrk-bottom-card .step-number,
+  .mrk-bottom-card span:first-child {
+    position: relative;
+    z-index: 1;
+    width: 30px !important;
+    height: 30px !important;
+    margin-bottom: 10px !important;
+    border-radius: 10px !important;
+    font-size: 0.72rem !important;
+    font-weight: 950 !important;
+  }
+
+  .mrk-funnel-strip strong,
+  .mrk-bottom-card strong {
+    position: relative;
+    z-index: 1;
+    display: block !important;
+    margin-bottom: 5px !important;
+    font-size: 0.82rem !important;
+    line-height: 1.35 !important;
+    letter-spacing: -0.01em;
+  }
+
+  .mrk-funnel-strip p,
+  .mrk-bottom-card p {
+    position: relative;
+    z-index: 1;
+    margin: 0 !important;
+    font-size: 0.68rem !important;
+    line-height: 1.5 !important;
+  }
+
+  body.night .mrk-funnel-strip article::after,
+  body.night .mrk-bottom-card::after {
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* =========================================================
+   Mobile MRK 2x2 Funnel Layout Fix
+   目標：
+   1. 修正剛剛 MRK 01–04 跑版
+   2. 下半區維持單欄排列
+   3. 只有 01–04 卡片本身做 2x2
+========================================================= */
+
+@media (max-width: 768px) {
+  /* 整個 MRK 下半區不能做 2 欄，否則 Marketing Logic 會跟卡片擠在一起 */
+  .mrk-dashboard-bottom {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  /* Marketing Logic 維持全寬 */
+  .mrk-logic-panel,
+  .mrk-chart-board {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* 只有 01 / 02 / 03 / 04 這組卡片做 2x2 */
+  .mrk-funnel-strip {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .mrk-funnel-strip article {
+    min-width: 0 !important;
+    min-height: 118px !important;
+    padding: 14px 12px 13px !important;
+    border-radius: 18px !important;
+  }
+
+  .mrk-funnel-strip article span {
+    width: 30px !important;
+    height: 30px !important;
+    margin-bottom: 10px !important;
+    border-radius: 10px !important;
+    font-size: 0.72rem !important;
+  }
+
+  .mrk-funnel-strip article strong {
+    display: block !important;
+    margin-bottom: 5px !important;
+    font-size: 0.82rem !important;
+    line-height: 1.35 !important;
+    word-break: keep-all !important;
+  }
+
+  .mrk-funnel-strip article p {
+    margin: 0 !important;
+    font-size: 0.68rem !important;
+    line-height: 1.5 !important;
+    word-break: keep-all !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  /* 如果你的 01–04 用的是 .mrk-bottom-card，也一併支援 */
+  .mrk-dashboard-bottom .mrk-bottom-card {
+    min-width: 0 !important;
+    min-height: 118px !important;
+  }
+}
+
+/* =========================================================
+   Mobile Ending / Core Statement Polish
+   目標：
+   1. 手機版 Ending 更像正式收尾
+   2. 核心語句穩定斷句
+   3. 減少多餘框線與按鈕干擾
+========================================================= */
+
+@media (max-width: 768px) {
+  .ending-section {
+    min-height: calc(100svh - var(--header-height)) !important;
+    display: grid !important;
+    place-items: center !important;
+    padding: 72px 0 64px !important;
+    overflow: hidden;
+  }
+
+  .ending-section .container,
+  .ending-container {
+    width: min(100% - 28px, 520px) !important;
+  }
+
+  .statement-card {
+    position: relative;
+    width: 100% !important;
+    padding: 42px 22px 38px !important;
+    border-radius: 28px !important;
+    text-align: center !important;
+    overflow: hidden;
+    background:
+      linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.16),
+        rgba(255, 255, 255, 0.075)
+      ) !important;
+  }
+
+  .statement-card::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 22px;
+    pointer-events: none;
+  }
+
+  .statement-card::after {
+    content: "";
+    position: absolute;
+    right: -52px;
+    bottom: -52px;
+    width: 160px;
+    height: 160px;
+    border-radius: 999px;
+    background:
+      radial-gradient(
+        circle,
+        rgba(2, 124, 196, 0.22),
+        transparent 70%
+      );
+    pointer-events: none;
+  }
+
+  .statement-card .section-kicker,
+  .statement-card .eyebrow {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 18px !important;
+    color: var(--yellow) !important;
+    font-size: 0.7rem !important;
+    letter-spacing: 0.16em !important;
+  }
+
+  .statement-official-title {
+    position: relative;
+    z-index: 1;
+    display: grid !important;
+    gap: 0.05em !important;
+    margin: 0 auto !important;
+    font-size: clamp(3.05rem, 15vw, 4.8rem) !important;
+    line-height: 1.06 !important;
+    letter-spacing: -0.055em !important;
+    color: #fff !important;
+  }
+
+  .statement-official-title span {
+    display: block !important;
+    white-space: nowrap !important;
+  }
+
+  .statement-official-title::after {
+    content: "";
+    display: block;
+    width: 74px;
+    height: 4px;
+    margin: 24px auto 0;
+    border-radius: 999px;
+    background:
+      linear-gradient(
+        90deg,
+        var(--blue),
+        var(--green),
+        var(--red),
+        var(--yellow)
+      );
+  }
+
+  .statement-official-subtitle,
+  .statement-card p {
+    position: relative;
+    z-index: 1;
+    max-width: 22em;
+    margin: 22px auto 0 !important;
+    color: rgba(255, 255, 255, 0.76) !important;
+    font-size: 0.86rem !important;
+    line-height: 1.72 !important;
+  }
+
+  /* Ending 裡的輔助 tag / source / button 手機版弱化 */
+  .statement-tags,
+  .statement-source-links,
+  .statement-card .source-pills {
+    position: relative;
+    z-index: 1;
+    justify-content: center !important;
+    gap: 7px !important;
+    margin-top: 20px !important;
+  }
+
+  .statement-tags span,
+  .statement-source-links a,
+  .statement-card .source-pills a {
+    padding: 6px 9px !important;
+    border-radius: 999px !important;
+    font-size: 0.64rem !important;
+    color: rgba(255, 255, 255, 0.72) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+  }
+
+  .back-to-top,
+  .statement-card .back-to-top {
+    margin-top: 22px !important;
+    padding: 8px 14px !important;
+    font-size: 0.68rem !important;
+    opacity: 0.78;
+  }
+
+  /* 白天模式的 ending 也維持深色收尾，讓結尾有重量 */
+  body:not(.night) .ending-section {
+    color: #fff;
+  }
+
+  body:not(.night) .statement-card {
+    background:
+      linear-gradient(
+        135deg,
+        rgba(23, 38, 55, 0.72),
+        rgba(35, 74, 96, 0.58)
+      ) !important;
+  }
+}
+
+/* =========================================================
+   Mobile Reflection Section Polish
+   目標：
+   1. Reflection 手機版更像報告總結
+   2. 修正標題、卡片、內文節奏
+   3. 讓 01 / 02 / 03 反思點清楚但不厚重
+========================================================= */
+
+@media (max-width: 768px) {
+  .reflection-section {
+    padding-top: 72px !important;
+    padding-bottom: 76px !important;
+  }
+
+  .reflection-layout {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  .reflection-section .section-copy {
+    max-width: none !important;
+  }
+
+  .reflection-section .section-kicker {
+    margin-bottom: 10px !important;
+    font-size: 0.72rem !important;
+    letter-spacing: 0.14em !important;
+  }
+
+  .reflection-section .display-title {
+    font-size: clamp(2.15rem, 10.5vw, 3rem) !important;
+    line-height: 1.14 !important;
+    letter-spacing: -0.04em !important;
+    margin-bottom: 18px !important;
+  }
+
+  .reflection-section .display-title .title-line {
+    display: block !important;
+  }
+
+  .reflection-section .section-copy > p,
+  .reflection-section .lead,
+  .reflection-section .reflection-lead {
+    max-width: none !important;
+    margin-top: 0 !important;
+    font-size: 0.9rem !important;
+    line-height: 1.82 !important;
+    color: var(--muted) !important;
+  }
+
+  /* 反思卡片列表 */
+  .reflection-cards,
+  .reflection-list {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .reflection-card {
+    display: grid !important;
+    grid-template-columns: 38px minmax(0, 1fr) !important;
+    gap: 13px !important;
+    align-items: start !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 17px 16px !important;
+    border-radius: 20px !important;
+    background:
+      linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.72),
+        rgba(255, 255, 255, 0.44)
+      ) !important;
+    border: 1px solid rgba(16, 24, 40, 0.08) !important;
+    box-shadow:
+      0 14px 34px rgba(15, 23, 42, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.68);
+  }
+
+  .reflection-card::before,
+  .reflection-card::after {
+    display: none !important;
+  }
+
+  .reflection-card-number,
+  .reflection-card > span:first-child,
+  .reflection-card .number {
+    display: grid !important;
+    place-items: center !important;
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 12px !important;
+    color: #fff !important;
+    background:
+      linear-gradient(
+        135deg,
+        var(--blue),
+        var(--green)
+      ) !important;
+    font-size: 0.78rem !important;
+    font-weight: 950 !important;
+    line-height: 1 !important;
+    box-shadow: 0 12px 26px rgba(2, 124, 196, 0.18);
+  }
+
+  .reflection-card h3,
+  .reflection-card strong {
+    display: block !important;
+    margin: 0 0 6px !important;
+    color: var(--text) !important;
+    font-size: 0.98rem !important;
+    line-height: 1.42 !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .reflection-card p {
+    margin: 0 !important;
+    color: var(--muted) !important;
+    font-size: 0.82rem !important;
+    line-height: 1.68 !important;
+    word-break: keep-all !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  /* 如果 Reflection 是 ol/li 結構，也一併支援 */
+  .reflection-section ol,
+  .reflection-section ul {
+    padding-left: 0 !important;
+    list-style: none !important;
+  }
+
+  .reflection-section li {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  /* 夜晚模式 */
+  body.night .reflection-card {
+    background:
+      linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.09),
+        rgba(255, 255, 255, 0.045)
+      ) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    box-shadow:
+      0 16px 40px rgba(0, 0, 0, 0.24),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  body.night .reflection-card h3,
+  body.night .reflection-card strong {
+    color: #fff !important;
+  }
+
+  body.night .reflection-card p {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+}
+
+/* =========================================================
+   Reporter Modal QR + Tech Stack Fix
+   目標：
+   1. QR Code 可點擊開啟 IG
+   2. Tech Stack 的 HTML / CSS / JS 改回 icon card 樣式
+========================================================= */
+
+/* QR Code clickable */
+.reporter-qr-link {
+  display: block;
+  width: fit-content;
+  margin: 18px auto 0;
+  border-radius: 22px;
+  text-decoration: none;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    filter 0.22s ease;
+}
+
+.reporter-qr-link:hover {
+  transform: translateY(-3px) scale(1.015);
+  filter: brightness(1.03);
+  box-shadow:
+    0 22px 54px rgba(0, 0, 0, 0.24),
+    0 0 38px rgba(236, 0, 140, 0.16);
+}
+
+.reporter-qr-link .reporter-qr {
+  display: block;
+  margin: 0;
+}
+
+/* Tech Stack text icon cards */
+.reporter-stack-card .code-icon-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+  margin-top: 18px !important;
+}
+
+.reporter-stack-card .code-icon-grid a {
+  display: grid !important;
+  place-items: center !important;
+  aspect-ratio: 1 / 1 !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 24px !important;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.95),
+      rgba(255, 255, 255, 0.78)
+    ) !important;
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+  text-decoration: none !important;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease,
+    background 0.22s ease;
+}
+
+.reporter-stack-card .code-icon-grid a:hover {
+  transform: translateY(-3px);
+  border-color: rgba(2, 124, 196, 0.34) !important;
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.22),
+    0 0 42px rgba(2, 124, 196, 0.14) !important;
+}
+
+.reporter-stack-card .code-icon-grid span {
+  display: block !important;
+  color: #172033 !important;
+  font-size: 0.92rem !important;
+  font-weight: 950 !important;
+  line-height: 1 !important;
+  letter-spacing: -0.01em !important;
+  text-decoration: none !important;
+}
+
+.reporter-stack-card .code-icon-grid a:nth-child(1) span {
+  color: #e34f26 !important;
+}
+
+.reporter-stack-card .code-icon-grid a:nth-child(2) span {
+  color: #1572b6 !important;
+}
+
+.reporter-stack-card .code-icon-grid a:nth-child(3) span {
+  color: #b28b00 !important;
+}
+
+/* Night mode */
+body.night .reporter-stack-card .code-icon-grid a {
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.13),
+      rgba(255, 255, 255, 0.07)
+    ) !important;
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+body.night .reporter-stack-card .code-icon-grid a:hover {
+  border-color: rgba(255, 255, 255, 0.28) !important;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.18),
+      rgba(255, 255, 255, 0.09)
+    ) !important;
+}
+
+/* Mobile modal */
+@media (max-width: 768px) {
+  .reporter-qr-link {
+    margin-top: 16px;
+  }
+
+  .reporter-stack-card .code-icon-grid {
+    gap: 10px !important;
+  }
+
+  .reporter-stack-card .code-icon-grid a {
+    border-radius: 18px !important;
+  }
+
+  .reporter-stack-card .code-icon-grid span {
+    font-size: 0.86rem !important;
+  }
+}

@@ -45,6 +45,14 @@ const setActiveNav = (id) => {
   navLinks.forEach((link) => {
     const isActive = link.getAttribute("href") === `#${id}`;
     link.classList.toggle("is-active", isActive);
+
+    if (isActive && window.matchMedia("(max-width: 768px)").matches) {
+      link.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+    }
   });
 };
 
@@ -115,35 +123,49 @@ let insightTicking = false;
 const updateInsightTransition = () => {
   if (!insightSection || !insightQuestion || !insightAnswer) return;
 
-  if (window.matchMedia("(max-width: 900px)").matches) {
-    insightQuestion.removeAttribute("style");
-    insightAnswer.removeAttribute("style");
-    insightAnswer.setAttribute("aria-hidden", "false");
-    insightSection.classList.add("is-answer-visible");
-    insightTicking = false;
-    return;
-  }
-
   const rect = insightSection.getBoundingClientRect();
-  const headerHeight = document.querySelector(".site-header").offsetHeight;
+  const headerHeight = document.querySelector(".site-header")?.offsetHeight || 0;
   const viewportHeight = window.innerHeight;
+
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
   const scrollRange = rect.height - viewportHeight + headerHeight;
   const progress = clampNumber((-rect.top + headerHeight) / scrollRange, 0, 1);
 
-  const questionOut = smoothStep(0.16, 0.34, progress);
-  const answerIn = smoothStep(0.30, 0.52, progress);
+const questionOut = isMobile
+  ? smoothStep(0.18, 0.36, progress)
+  : smoothStep(0.16, 0.34, progress);
 
-  insightQuestion.style.opacity = 1 - questionOut;
-  insightQuestion.style.transform = `translateY(${-24 * questionOut}px) scale(${1 - 0.015 * questionOut})`;
-  insightQuestion.style.filter = `blur(${3 * questionOut}px)`;
+const answerIn = isMobile
+  ? smoothStep(0.52, 0.72, progress)
+  : smoothStep(0.30, 0.52, progress);
 
-  insightAnswer.style.opacity = answerIn;
-  insightAnswer.style.transform = `translateY(${28 * (1 - answerIn)}px) scale(${0.985 + 0.015 * answerIn})`;
-  insightAnswer.style.filter = `blur(${3 * (1 - answerIn)}px)`;
-  insightAnswer.setAttribute("aria-hidden", answerIn > 0.5 ? "false" : "true");
+insightQuestion.style.setProperty("opacity", 1 - questionOut, "important");
+insightQuestion.style.setProperty(
+  "transform",
+  `translateY(${-24 * questionOut}px) scale(${1 - 0.015 * questionOut})`,
+  "important"
+);
+insightQuestion.style.setProperty("filter", `blur(${3 * questionOut}px)`, "important");
+insightQuestion.style.setProperty(
+  "pointer-events",
+  questionOut > 0.7 ? "none" : "auto",
+  "important"
+);
 
-  insightSection.classList.toggle("is-answer-visible", progress > 0.48);
+insightAnswer.style.setProperty("opacity", answerIn, "important");
+insightAnswer.style.setProperty(
+  "transform",
+  `translateY(${28 * (1 - answerIn)}px) scale(${0.985 + 0.015 * answerIn})`,
+  "important"
+);
+insightAnswer.style.setProperty("filter", `blur(${3 * (1 - answerIn)}px)`, "important");
+insightAnswer.style.setProperty(
+  "pointer-events",
+  answerIn > 0.5 ? "auto" : "none",
+  "important"
+);
+  insightSection.classList.toggle("is-answer-visible", progress > 0.52);
 
   insightTicking = false;
 };
@@ -439,3 +461,56 @@ window.addEventListener("keydown", (event) => {
     }
   }
 });
+
+
+/* ---------- Mobile reading header behavior ---------- */
+
+const siteHeader = document.querySelector(".site-header");
+let lastHeaderScrollY = window.scrollY;
+let mobileHeaderTicking = false;
+
+const updateMobileReadingHeader = () => {
+  if (!siteHeader) return;
+
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+  if (!isMobile) {
+    siteHeader.classList.remove("is-compact");
+    document.body.classList.remove("mobile-header-compact");
+    lastHeaderScrollY = window.scrollY;
+    mobileHeaderTicking = false;
+    return;
+  }
+
+  const currentY = Math.max(window.scrollY, 0);
+  const scrollingDown = currentY > lastHeaderScrollY;
+  const scrollingUp = currentY < lastHeaderScrollY;
+
+  const shouldCompact = currentY > 140 && scrollingDown;
+  const shouldReveal = currentY < 80 || scrollingUp;
+
+  if (shouldCompact) {
+    siteHeader.classList.add("is-compact");
+    document.body.classList.add("mobile-header-compact");
+  }
+
+  if (shouldReveal) {
+    siteHeader.classList.remove("is-compact");
+    document.body.classList.remove("mobile-header-compact");
+  }
+
+  lastHeaderScrollY = currentY;
+  mobileHeaderTicking = false;
+};
+
+const requestMobileReadingHeaderUpdate = () => {
+  if (mobileHeaderTicking) return;
+
+  mobileHeaderTicking = true;
+  window.requestAnimationFrame(updateMobileReadingHeader);
+};
+
+window.addEventListener("scroll", requestMobileReadingHeaderUpdate, { passive: true });
+window.addEventListener("resize", requestMobileReadingHeaderUpdate);
+
+updateMobileReadingHeader();
