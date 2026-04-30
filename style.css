@@ -7685,3 +7685,497 @@ body.night .reporter-stack-card .code-icon-grid a:hover {
     font-size: 0.86rem !important;
   }
 }
+
+/* =========================================================
+   Desktop VI Night Mode / Layout Recovery
+   目標：
+   1. 修正桌機 VI 標題不自然斷行
+   2. 讓官方 Logo 在夜晚模式保持可讀
+   3. 恢復 VI 桌機版左右比例
+========================================================= */
+
+@media (min-width: 769px) {
+  /* ---------- VI desktop layout ---------- */
+
+  .vi-section .vi-layout {
+    grid-template-columns: minmax(360px, 0.9fr) minmax(520px, 1fr) !important;
+    align-items: center !important;
+    gap: clamp(56px, 7vw, 96px) !important;
+  }
+
+  .vi-section .section-title-row {
+    grid-template-columns: 64px minmax(0, 1fr) !important;
+    gap: 28px !important;
+    align-items: start !important;
+  }
+
+  .vi-section .display-title {
+    font-size: clamp(4rem, 5vw, 5.8rem) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.055em !important;
+  }
+
+  .vi-section .display-title .title-line {
+    display: block !important;
+    white-space: nowrap !important;
+  }
+
+  .vi-section .section-copy > p {
+    max-width: 34em !important;
+    font-size: 1rem !important;
+    line-height: 1.86 !important;
+  }
+
+  .vi-section .vi-keywords {
+    margin-top: 24px !important;
+  }
+
+  /* ---------- VI showcase card ---------- */
+
+  .vi-showcase-card {
+    max-width: 660px !important;
+    padding: 42px !important;
+    border-radius: 36px !important;
+  }
+
+  .vi-showcase-card h3 {
+    max-width: 15em !important;
+    font-size: clamp(1.75rem, 2.1vw, 2.45rem) !important;
+    line-height: 1.28 !important;
+    letter-spacing: -0.035em !important;
+  }
+
+  .vi-showcase-card > p,
+  .vi-showcase-card .source-note {
+    font-size: 0.86rem !important;
+    line-height: 1.7 !important;
+  }
+
+  /* ---------- Official logo display ---------- */
+
+  .vi-logo-hero.vi-logo-official {
+    min-height: 300px !important;
+    padding: 34px !important;
+    border-radius: 28px !important;
+    background:
+      linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.96),
+        rgba(255, 255, 255, 0.82)
+      ) !important;
+  }
+
+  .vi-logo-official img,
+  .vi-logo-hero.vi-logo-official img {
+    width: min(380px, 74%) !important;
+    max-height: 210px !important;
+    object-fit: contain !important;
+    filter: none !important;
+  }
+
+  body.night .vi-logo-hero.vi-logo-official {
+    background:
+      linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.96),
+        rgba(255, 255, 255, 0.82)
+      ) !important;
+    box-shadow:
+      0 24px 70px rgba(0, 0, 0, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.78) !important;
+  }
+
+  body.night .vi-logo-official img,
+  body.night .vi-logo-hero.vi-logo-official img {
+    filter: none !important;
+  }
+
+  /* ---------- VI palette desktop ---------- */
+
+  .vi-palette-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+    margin-top: 24px !important;
+  }
+
+  .vi-palette-item {
+    min-height: 132px !important;
+    padding: 18px 16px !important;
+    border-radius: 20px !important;
+  }
+
+  .vi-palette-item strong {
+    font-size: 0.92rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .vi-palette-item p {
+    font-size: 0.78rem !important;
+    line-height: 1.55 !important;
+  }
+}
+
+/* 矮螢幕桌機再壓縮一點，避免 VI 卡片太高 */
+@media (min-width: 769px) and (max-height: 820px) {
+  .vi-showcase-card {
+    padding: 34px !important;
+  }
+
+  .vi-logo-hero.vi-logo-official {
+    min-height: 250px !important;
+    padding: 28px !important;
+  }
+
+  .vi-logo-official img,
+  .vi-logo-hero.vi-logo-official img {
+    width: min(330px, 70%) !important;
+    max-height: 180px !important;
+  }
+
+  .vi-palette-item {
+    min-height: 116px !important;
+    padding: 15px 14px !important;
+  }
+}
+
+/* =========================================================
+   Desktop VI Overflow Fix
+   目標：
+   1. 修正 VI 桌機版標題過寬
+   2. 避免左側標題壓到右側展示卡
+   3. 保留「四色箭頭的 / 品牌基因」兩行斷句
+========================================================= */
+
+@media (min-width: 769px) {
+  .vi-section .vi-layout {
+    grid-template-columns: minmax(360px, 0.82fr) minmax(460px, 0.95fr) !important;
+    gap: clamp(48px, 5.6vw, 76px) !important;
+    align-items: center !important;
+  }
+
+  .vi-section .section-copy {
+    max-width: 540px !important;
+  }
+
+  .vi-section .display-title {
+    max-width: 7.2em !important;
+    font-size: clamp(3.65rem, 4.35vw, 5.05rem) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.06em !important;
+  }
+
+  .vi-section .display-title .title-line {
+    display: block !important;
+    white-space: nowrap !important;
+  }
+
+  .vi-section .section-copy > p {
+    max-width: 31em !important;
+  }
+
+  .vi-showcase-card {
+    max-width: 600px !important;
+    padding: 36px !important;
+  }
+
+  .vi-logo-hero.vi-logo-official {
+    min-height: 250px !important;
+    padding: 28px !important;
+  }
+
+  .vi-logo-official img,
+  .vi-logo-hero.vi-logo-official img {
+    width: min(320px, 70%) !important;
+    max-height: 170px !important;
+  }
+
+  .vi-palette-grid {
+    gap: 12px !important;
+  }
+
+  .vi-palette-item {
+    min-height: 116px !important;
+    padding: 15px 14px !important;
+  }
+}
+
+/* 中型桌機或瀏覽器縮窄時再收一點 */
+@media (min-width: 769px) and (max-width: 1280px) {
+  .vi-section .vi-layout {
+    grid-template-columns: minmax(320px, 0.8fr) minmax(420px, 0.92fr) !important;
+    gap: 44px !important;
+  }
+
+  .vi-section .display-title {
+    font-size: clamp(3.35rem, 4vw, 4.45rem) !important;
+  }
+
+  .vi-showcase-card {
+    max-width: 560px !important;
+    padding: 32px !important;
+  }
+}
+
+/* =========================================================
+   VI Palette Text Polish
+========================================================= */
+
+.vi-palette-item strong {
+  white-space: nowrap !important;
+  letter-spacing: -0.01em !important;
+}
+
+.vi-palette-item p {
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+  line-break: strict !important;
+}
+
+/* Sustainability 英文較長，桌機版微收字級 */
+@media (min-width: 769px) {
+  .vi-palette-item.green strong,
+  .vi-palette-item:nth-child(2) strong {
+    font-size: 0.86rem !important;
+    letter-spacing: -0.025em !important;
+  }
+}
+
+/* 手機 2x2 一起穩住 */
+@media (max-width: 768px) {
+  .vi-palette-item strong {
+    font-size: 0.82rem !important;
+  }
+
+  .vi-palette-item.green strong,
+  .vi-palette-item:nth-child(2) strong {
+    font-size: 0.78rem !important;
+    letter-spacing: -0.025em !important;
+  }
+
+  .vi-palette-item p {
+    font-size: 0.66rem !important;
+    line-height: 1.5 !important;
+  }
+}
+/* =========================================================
+   Desktop Section Side Tab Text Fix
+   目標：
+   1. 修正 VI / MI / BI / PR / MRK 頁簽中文被拆行
+   2. 桌機版保留「代碼 + 中文說明」
+   3. 手機版仍維持只顯示代碼
+========================================================= */
+
+@media (min-width: 769px) {
+  .side-tab {
+    width: 68px !important;
+    height: 68px !important;
+    min-width: 68px !important;
+    padding: 0 !important;
+    display: grid !important;
+    place-items: center !important;
+    align-content: center !important;
+    gap: 5px !important;
+  }
+
+  .side-tab span {
+    display: block !important;
+    margin: 0 !important;
+    font-size: 1rem !important;
+    line-height: 1 !important;
+    font-weight: 950 !important;
+    letter-spacing: 0.02em !important;
+    white-space: nowrap !important;
+  }
+
+  .side-tab small {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    font-size: 0.62rem !important;
+    line-height: 1.1 !important;
+    font-weight: 850 !important;
+    letter-spacing: 0.02em !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+    writing-mode: horizontal-tb !important;
+    transform: none !important;
+  }
+
+  .vi-section .side-tab small,
+  .mi-section .side-tab small,
+  .bi-section .side-tab small,
+  .pr-section .side-tab small,
+  .mrk-section .side-tab small {
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
+  }
+}
+
+/* =========================================================
+   Hero Background De-emphasis Patch
+   方案 A：
+   1. 不重找背景
+   2. 降低抽象色塊干擾
+   3. 強化主標、副標、說明文字閱讀性
+   4. 白天 / 夜晚模式都維持穩定
+========================================================= */
+
+.hero-section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* HERO 整體遮罩：讓背景退後 */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(12, 20, 32, 0.50) 0%,
+      rgba(12, 20, 32, 0.30) 38%,
+      rgba(12, 20, 32, 0.14) 72%,
+      rgba(12, 20, 32, 0.22) 100%
+    ),
+    radial-gradient(
+      circle at 22% 48%,
+      rgba(255, 255, 255, 0.08),
+      transparent 34%
+    );
+}
+
+/* 白天模式：背景仍有色彩，但降低搶戲感 */
+body:not(.night) .hero-section::before {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(12, 20, 32, 0.48) 0%,
+      rgba(12, 20, 32, 0.28) 38%,
+      rgba(12, 20, 32, 0.10) 72%,
+      rgba(12, 20, 32, 0.18) 100%
+    ),
+    radial-gradient(
+      circle at 22% 48%,
+      rgba(255, 255, 255, 0.10),
+      transparent 34%
+    );
+}
+
+/* 夜晚模式：背景再壓低一點，避免色塊太亮 */
+body.night .hero-section::before {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(4, 12, 24, 0.72) 0%,
+      rgba(4, 12, 24, 0.54) 38%,
+      rgba(4, 12, 24, 0.24) 72%,
+      rgba(4, 12, 24, 0.34) 100%
+    ),
+    radial-gradient(
+      circle at 22% 48%,
+      rgba(255, 255, 255, 0.06),
+      transparent 34%
+    );
+}
+
+/* 確保 HERO 內容在遮罩上方 */
+.hero-section .container,
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* 抽象色塊退後：保留品牌感，但不要搶標題 */
+.hero-section .shape-yellow,
+.hero-section .shape-red,
+.hero-section .shape-blue,
+.hero-section .shape-green {
+  opacity: 0.72;
+  filter: saturate(0.82) blur(0.2px);
+}
+
+body.night .hero-section .shape-yellow,
+body.night .hero-section .shape-red,
+body.night .hero-section .shape-blue,
+body.night .hero-section .shape-green {
+  opacity: 0.56;
+  filter: saturate(0.74) blur(0.4px);
+}
+
+/* HERO 文字閱讀性強化 */
+.hero-content h1 {
+  text-shadow:
+    0 18px 46px rgba(0, 0, 0, 0.22),
+    0 2px 0 rgba(0, 0, 0, 0.04);
+}
+
+.hero-subtitle {
+  color: rgba(255, 255, 255, 0.84) !important;
+  text-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+}
+
+.hero-description {
+  color: rgba(255, 255, 255, 0.72) !important;
+  text-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
+}
+
+/* HERO 小標籤更像輕提示，不要太亮 */
+.hero-tags span {
+  color: rgba(255, 255, 255, 0.82) !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.hero-tags span:hover {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.18) !important;
+}
+
+/* 手機版：背景色塊更退後，避免壓迫標題 */
+@media (max-width: 768px) {
+  .hero-section::before {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(8, 15, 28, 0.54) 0%,
+        rgba(8, 15, 28, 0.36) 42%,
+        rgba(8, 15, 28, 0.18) 100%
+      ) !important;
+  }
+
+  body.night .hero-section::before {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(4, 12, 24, 0.76) 0%,
+        rgba(4, 12, 24, 0.58) 42%,
+        rgba(4, 12, 24, 0.32) 100%
+      ) !important;
+  }
+
+  .hero-section .shape-yellow,
+  .hero-section .shape-red,
+  .hero-section .shape-blue,
+  .hero-section .shape-green {
+    opacity: 0.52;
+    filter: saturate(0.72) blur(0.5px);
+  }
+
+  .hero-content h1 {
+    text-shadow:
+      0 16px 38px rgba(0, 0, 0, 0.28),
+      0 2px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  .hero-subtitle {
+    color: rgba(255, 255, 255, 0.86) !important;
+  }
+
+  .hero-description {
+    color: rgba(255, 255, 255, 0.74) !important;
+  }
+}
